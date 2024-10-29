@@ -23,5 +23,6 @@ from core import views
 urlpatterns = [
     path('',views.index),
     path('admin/', admin.site.urls),
+    path('acercade/', views.acercade_view)    
 ]
 
