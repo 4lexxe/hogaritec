@@ -6,16 +6,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- bootrap -->
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- Swiper -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <!-- Locals styles -->
+    <!-- Local styles -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
 
-    <title>Hogaritec - Tienda de Electrodomésticos</title>
+    <title>Tu Tienda - Electrodomésticos</title>
 </head>
 
 <body>
@@ -34,138 +34,99 @@
             </a>
         </div>
 
-
-
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+                    data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-
+                <div class="collapse navbar-collapse" id="navbarToggler">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">INICIO</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">ACERCA DE</a>
+                            <a class="nav-link" href="#">NOVEDADES</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">CONTACTOS</a>
+                            <a class="nav-link" href="#">CONTACTO</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">COCINA</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">REFRIGERACIÓN</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">CELULARES</a>
+                            <a class="nav-link" href="#">CATEGORÍAS</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">OFERTAS</a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </nav>
 
         <form class="search-form">
-
-            <input type="search" placeholder="¿Qué estás buscando?" class="header-search">
+            <input type="search" placeholder="¿Qué buscas?" class="header-search">
             <button type="submit" class="search-button">
-                <img src="{% static './imgs/icons/search.png' %}" alt="search" width="20px" height="20px">
+                <img src="{% static './imgs/icons/search.png' %}" alt="buscar" width="20px" height="20px">
             </button>
-
         </form>
     </header>
 
     <main>
-
         <section class="hero-banner">
-            <!-- Carousel de bootstrap de imagenes -->
             <div id="carouselExample" class="carousel slide">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{% static './imgs/general/Carrusel1.png' %}" class="d-block w-100" alt="...">
+                        <img src="{% static './imgs/general/carrusel1.png' %}" class="d-block w-100" alt="Banner 1">
                     </div>
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="prev">
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
+                    <span class="visually-hidden">Anterior</span>
                 </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-                    data-bs-slide="next">
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
+                    <span class="visually-hidden">Siguiente</span>
                 </button>
             </div>
         </section>
 
         <section class="main-section">
             <div class="special-offers">
-                <div class="offers-header">
-                    <h2>OFERTAS ESPECIALES</h2>
-                </div>
+                <h2>OFERTAS ESPECIALES</h2>
 
-                <!-- Carousel de cards del swiper js -->
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <!--------------------------------------- Cards del slide 1 --------------------------------->
                             <div class="card carousel-card">
-                                <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
+                                <img src="{% static './imgs/general/producto1.png' %}" class="card-img-top" alt="Producto 1">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk of the
-                                        card's content.
-                                    </p>
+                                    <h5 class="card-title">Producto 1</h5>
+                                    <p class="card-text">Descripción breve del producto.</p>
                                     <div class="card-buy">
-                                        <p class="card-text card-price card-carousel__price">
-                                            price 2000.00
-                                        </p>
-                                        <p class="card-carousel__discount">
-                                            $00.00 OFF
-                                        </p>
+                                        <p class="card-text card-price">$2000.00</p>
+                                        <p class="card-carousel__discount">$00.00 OFF</p>
                                     </div>
-
                                     <a href="#" class="btn btn-primary card-carousel__btn">
-                                        <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
-                                        ¡Aprovecha ahora!
+                                        <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
+                                        ¡Compra ahora!
                                     </a>
-
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
-                            <!------------------------------------------------------ Cards del slide 2 --------------------->
                             <div class="card carousel-card">
-                                <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
+                                <img src="{% static './imgs/general/producto2.png' %}" class="card-img-top" alt="Producto 2">
                                 <div class="card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">
-                                        Some quick example text to build on the card title and make up the bulk of the
-                                        card's content.
-                                    </p>
+                                    <h5 class="card-title">Producto 2</h5>
+                                    <p class="card-text">Descripción breve del producto.</p>
                                     <div class="card-buy">
-                                        <p class="card-text card-price card-carousel__price">
-                                            price 2000.00
-                                        </p>
-                                        <p class="card-carousel__discount">
-                                            $00.00 OFF
-                                        </p>
+                                        <p class="card-text card-price">$1500.00</p>
+                                        <p class="card-carousel__discount">$50.00 OFF</p>
                                     </div>
-
                                     <a href="#" class="btn btn-primary card-carousel__btn">
-                                        <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
-                                        ¡Aprovecha ahora!
+                                        <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
+                                        ¡Compra ahora!
                                     </a>
-
                                 </div>
                             </div>
                         </div>
@@ -174,128 +135,65 @@
                     <div class="swiper-button-prev"></div>
                     <div class="swiper-pagination"></div>
                 </div>
-
             </div>
-
-
-
         </section>
 
         <section class="featured-products main-section">
-            <h2 class="featured__title-products">PRODUCTOS DESTACADOS</h2>
-            
-            <!------------------------------------------------ Seccion de cards -------------------------------------------->
+            <h2>PRODUCTOS DESTACADOS</h2>
             <div class="card">
-                <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
+                <img src="{% static './imgs/general/producto_destacado.png' %}" class="card-img-top" alt="Producto destacado">
                 <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">
-                        Some quick example text to build on the card title and make up the bulk of the card's content.
-                    </p>
-
+                    <h5 class="card-title">Producto Destacado</h5>
+                    <p class="card-text">Descripción breve del producto destacado.</p>
                     <div class="card-buy">
-                        <p class="card-text card-price">
-                            $00.00
-                        </p>
+                        <p class="card-text card-price">$3000.00</p>
                         <a href="#" class="btn btn-primary btn-cart">
                             <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
                         </a>
                     </div>
                 </div>
             </div>
-
         </section>
 
         <section class="newsletter-signup">
-            <h2>¡MANTENTE AL DÍA!</h2>
-            <p>Únete a nuestro boletín y sé el primero en enterarte de ofertas exclusivas, descuentos y las últimas
-                tendencias en electrodomésticos.</p>
+            <h2>¡SUSCRÍBETE A NUESTRO BOLETÍN!</h2>
+            <p>Recibe ofertas exclusivas y las últimas novedades en electrodomésticos.</p>
             <form class="forms-suscribe">
                 <input type="email" placeholder="Ingresa tu correo" class="text-input suscribe-input">
-                <button type="submit" class="suscribe-button suscribe-button2">Suscribirse</button>
+                <button type="submit" class="suscribe-button">Suscribirse</button>
             </form>
         </section>
-
     </main>
 
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <img src="{% static './imgs/icons/logo.png' %}" alt="Hogaritec Logo">
+                <img src="{% static './imgs/icons/logo.png' %}" alt="Logo">
                 <p>Tienda online de electrodomésticos</p>
             </div>
 
             <div class="footer-categories">
-                <h3 class="footer-headline">Categorías</h3>
-                <div class="categories-container">
-                    <ul class="categories-list line">
-                        <li><a href="#">Cocina</a></li>
-                        <li><a href="#">Refrigeración</a></li>
-                        <li><a href="#">Celulares</a></li>
-                    </ul>
-                    <ul class="categories-list">
-                        <li><a href="#">Portátiles</a></li>
-                        <li><a href="#">Consolas</a></li>
-                        <li><a href="#">Limpieza</a></li>
-                        <li><a href="#">Ofertas</a></li>
-
-                    </ul>
-
-                </div>
-            </div>
-
-            <div class="footer-legal">
-                <h3 class="footer-headline">Información legal</h3>
+                <h3>Categorías</h3>
                 <ul>
-                    <li><a href="#">Términos y condiciones</a></li>
-                    <li><a href="#">Política de privacidad</a></li>
-                    <li><a href="#">Política de cookies</a></li>
+                    <li><a href="#">Cocina</a></li>
+                    <li><a href="#">Refrigeración</a></li>
+                    <li><a href="#">Celulares</a></li>
+                    <li><a href="#">Limpieza</a></li>
                 </ul>
             </div>
-            <div class="footer-contact">
-                <h3 class="footer-headline">Contacto</h3>
-                <p>+54 9 388 0000-0000</p>
-                <p>info@hogaritec.com.ar</p>
-                <p>Av. LOL Jujuy, Argentina</p>
 
-                <h3 class="footer-headline">Redes sociales</h3>
-                <div class="social-icons">
-                    <a href="https://www.whatsapp.com/?lang=es_LA">
-                        <img src="{% static './imgs/icons/whatsapp.png' %}" alt="whatsapp">
-                    </a>
-                    <a href="https://www.instagram.com/?hl=es">
-                        <img src="{% static './imgs/icons/instagram.png' %}" alt="instagram">
-                    </a>
-                    <a href="https://www.facebook.com/?locale=es_LA">
-                        <img src="{% static './imgs/icons/facebook.png' %}" alt="facebook">
-                    </a>
-                    <a href="https://www.tiktok.com/es/">
-                        <img src="{% static './imgs/icons/tik-tok.png' %}" alt="tik-tok">
-                    </a>
-                </div>
-            </div>
-            <div class="footer-newsletter">
-                <h3 class="footer-headline">Newsletter</h3>
-                <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
-                <form>
-                    <input type="email" placeholder="Ingresa tu correo" class="text-input">
-                    <button type="submit" class="suscribe-button">Suscribirse</button>
-                </form>
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p>Tel: +54 9 388 0000-0000</p>
+                <p>Email: info@tutienda.com</p>
+                <p>Dirección: Av. Ejemplo, Ciudad</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>Hogaritec © 2024. Todos los derechos reservados.</p>
+            <p>Tu Tienda © 2024. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Script de bootrap -->
+    <!-- Scripts de Bootstrap y Swiper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-
-    <!-- Js para el carousel usando swiper js -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="{% static './js/cards-carousel.js' %}"></script>
-</body>
-
-</html>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9G
