@@ -1,0 +1,176 @@
+.main-section {
+    margin: 0 5vw 100px;
+
+}
+
+
+/* SECTION 1 --------------------------------------------------------------- */
+.hero-banner {
+    margin-bottom: 100px;
+}
+
+
+/* SECTION 2 -------------------------------------------------------------- */
+
+.special-offers {
+
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.special-offers h2 {
+    margin: 0;
+}
+
+.offers-header {
+    text-align: start;
+    padding: 5px 20px;
+
+    border-radius: 10px 10px 0px 0px;
+    background: linear-gradient(90deg, var(--quaternary-color), var(--primary-color), var(--secondary-color)),
+        url('../imgs/general/patron1.svg');
+    background-blend-mode: overlay;
+    background-size: cover;
+}
+
+
+/* Estilos del carousel de cards */
+.swiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-card{
+    border-width: 0px;
+}
+
+.card-carousel__price{
+    color: silver;
+    text-decoration: line-through;
+}
+
+.card-carousel__discount{
+    color: var(--secondary-color);
+}
+
+.card-carousel__btn{
+    height: 50px;
+    border-radius: 20px;
+    border-width: 0px;
+    background-color: var(--primary-color);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#cart-icon{
+    width: 30px;
+}
+/* SECTION 3 -------------------------------------------------------------- */
+.featured-products {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.featured__title-products {
+    text-align: start;
+    width: 100%;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 40px;
+}
+
+
+/* card2 */
+.card {
+    width: 250px;
+}
+
+
+.card-buy {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+}
+
+.btn-cart {
+    border: 0px;
+    padding: 8px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+/* SECTION 4 ------------------------------------------------------------------- */
+.newsletter-signup {
+    color: white;
+    padding: 40px 20px;
+    background-image: url("../imgs/general/patron2.png");
+    background-color: var(--secondary-color);
+}
+
+.suscribe-button2 {
+    background-color: black;
+}
+
+@media (min-width: 576px) {
+    .featured-products {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-around;
+        gap: 18px;
+    }
+
+    .featured__title-products {
+        text-align: start;
+        width: 100%;
+        border-bottom: 2px solid var(--primary-color);
+        margin-bottom: 40px;
+    }
+
+
+    /* SECTION 4 */
+    .newsletter-signup {
+        text-align: start;
+        color: white;
+        padding: 40px 20px;
+    }
+
+    .forms-suscribe {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .suscribe-input {
+        width: 50%;
+
+    }
+
+    .suscribe-button2 {
+        width: 30%;
+        padding: 11px 15px;
+        margin: 0px;
+    }
+
+}
+
+/* Para escritorio (pantallas grandes) */
+@media (min-width: 1024px) {}
