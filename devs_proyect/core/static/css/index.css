@@ -122,7 +122,7 @@
 .newsletter-signup {
     color: white;
     padding: 40px 20px;
-    background-image: url("./imgs/general/patron2.png");
+    background-image: url("../imgs/general/patron2.png");
     background-color: var(--secondary-color);
 }
 
