@@ -1,0 +1,204 @@
+:root{
+    --primary-color: #54ACB6;
+    --secondary-color: #00798C;
+    --tertiary-color: #E2A3C7;
+    --quaternary-color: #86DEB7;   
+    --swiper-theme-color: #00798C;
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+body{
+    font-size: 14px;
+    text-align: center;
+}
+
+body a{
+    text-decoration: none;
+    color:white
+}
+
+/* HEADER --------------------------------------------------------------------------------------------------- */
+header{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo{
+    order:2
+}
+
+.login-action{
+    display: none;
+}
+
+.cart-img{
+    background-color: var(--primary-color);
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.user-actions{
+    order: 3;
+}
+
+.search-form{
+    order: 4;
+    width: 100%;
+    position: relative;
+}
+
+
+.header-search{
+    width: 80%;
+    border: solid 2px var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 20px;
+    padding: 10px 5px;
+}
+
+.search-button{
+    background-color: white;
+    border-width: 0px;
+
+    position: absolute;
+    top: 25%;
+    right: 15%;
+}
+
+
+/* FOOTER --------------------------------------------------------------------------------------------------------- */
+
+footer{
+    background-color: black;
+    color: white;
+}
+
+footer ul{
+    list-style-type: none; 
+    padding: 0;
+}
+
+.footer-headline{
+    color: var(--tertiary-color);
+}
+
+.categories-container{
+    display: flex;
+    justify-content: center;
+}
+
+.categories-list{
+    padding: 0px 20px;
+}
+
+.line{
+    border-right: solid 1px var(--tertiary-color);
+}
+
+.footer-newsletter{
+    margin: 0px 20px;
+}
+
+.text-input{
+    width: 100%;
+    border-radius: 20px;
+    padding: 8px 15px;
+}
+
+.social-icons{
+    margin: 20px 0px;
+
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.suscribe-button{
+    width: 100%;
+    padding: 6px 10px;
+    border-radius: 20px;
+    margin: 10px 0px 30px;
+    border: 0px;
+    color: white;
+    background-color: var(--secondary-color);
+    font-size: 16px;
+
+}
+
+.footer-bottom{
+    background-color: var(--secondary-color);
+}
+
+/* DISEÑO DESKTOP */
+@media (min-width: 992px) {
+
+    /* HEADER -------------------------------------------------------------------------------------------------------- */
+    header{
+        margin-bottom: 0px;
+    }
+    
+    .logo{
+        order:2
+    }
+    
+    .login-action{
+        display: inline;
+        color: var(--primary-color);
+    }
+
+    .login-action a{
+        color: var(--primary-color);
+    }
+    
+    .user-actions{
+        order: 5;
+    }
+    
+    .search-form{
+        order: 4;
+        width: 60%;
+    }
+
+    .navbar{
+        order: 6;
+        
+        width: 100%;
+        background-color: var(--primary-color);
+        
+    }
+
+    .nav-link{
+        color: white;
+    }
+
+    /* FOOTER -------------------------------------------------------------------------------------------------------- */
+    .footer-content{
+        padding-top: 40px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .categories-container{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .categories-list{
+        padding: 0px;
+        margin: 0px;
+    }
+    
+    .line{
+        border-right-width: 0px;
+    }
+
+    .footer-newsletter{
+        width: 25%;
+    }
+}
