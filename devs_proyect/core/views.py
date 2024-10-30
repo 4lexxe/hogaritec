@@ -1,9 +1,11 @@
-from django.shortcuts import HttpResponse,render
+# core/views.py
+from django.shortcuts import render
 
-
-# Create your views here.
-def index(request):
-    return render(request,"core/index.html")
+def index_view(request):
+    return render(request, 'core/index.html')
 
 def acercade_view(request):
-    return render(request, "core/acercade.html")
+    return render(request, 'core/acercade.html')
+
+def contacto_view(request):
+    return render(request, 'core/contacto.html')

@@ -1,188 +1,91 @@
-<!DOCTYPE html>
-<html lang="es">
-
+{% extends 'core/base.html' %}
 {% load static %}
+{% load tags %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% block title %}Acerca de - Hogaritec{% endblock %}
 
-  <!-- Bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <!-- Swiper -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <!-- Local styles -->
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
-  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+{% block content %}
+{% include 'tags/header.html' %}
 
-  <title>Hogaritec</title>
-</head>
-
-<body>
-  <header>
-    <a href="#" class="logo">
-      <img src="{% static './imgs/icons/logo.png' %}" alt="logo">
-    </a>
-
-    <div class="user-actions">
-      <div class="login-action">
-        <a href="#">Iniciar sesión</a> | <a href="#">Registrarse</a>
+<main>
+  <section class="about-section container my-5">
+    <h1 class="text-center mb-4">Acerca de Hogaritec</h1>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <p>Bienvenido, tu destino en línea para los mejores electrodomésticos. Nos especializamos en ofrecer productos
+          de alta calidad a precios competitivos, asegurando que cada cliente encuentre lo que necesita para hacer su
+          hogar más funcional y cómodo.</p>
+        <p>Nuestra misión es proporcionar una experiencia de compra excepcional, con atención al cliente de primer
+          nivel y una selección variada de productos. Creemos que todos merecen acceso a tecnología de vanguardia y
+          electrodomésticos que faciliten la vida diaria.</p>
       </div>
-
-      <a href="#" class="cart-icon">
-        <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="carrito" class="cart-img">
-      </a>
     </div>
 
-    <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler"
-          aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarToggler">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">INICIO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">NOVEDADES</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">CONTACTO</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">CATEGORÍAS</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">OFERTAS</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <form class="search-form">
-      <input type="search" placeholder="¿Qué buscas?" class="header-search">
-      <button type="submit" class="search-button">
-        <img src="{% static './imgs/icons/search.png' %}" alt="buscar" width="20px" height="20px">
-      </button>
-    </form>
-  </header>
-
-  <main>
-    <section class="about-section container my-5">
-      <h1 class="text-center mb-4">Acerca de Hogaritec</h1>
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <p>Bienvenido, tu destino en línea para los mejores electrodomésticos. Nos especializamos en ofrecer productos
-            de alta calidad a precios competitivos, asegurando que cada cliente encuentre lo que necesita para hacer su
-            hogar más funcional y cómodo.</p>
-          <p>Nuestra misión es proporcionar una experiencia de compra excepcional, con atención al cliente de primer
-            nivel y una selección variada de productos. Creemos que todos merecen acceso a tecnología de vanguardia y
-            electrodomésticos que faciliten la vida diaria.</p>
-        </div>
-      </div>
-
-      <h2 class="text-center my-4">¿Por qué elegirnos?</h2>
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-
+    <h2 class="text-center my-4">¿Por qué elegirnos?</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <ul> <!-- Asegúrate de que esto esté dentro de una lista -->
           <li>Variedad de productos de las mejores marcas.</li>
           <li>Precios competitivos y ofertas especiales.</li>
           <li>Envío rápido y seguro a tu domicilio.</li>
           <li>Soporte al cliente amigable y disponible.</li>
-
-        </div>
-      </div>
-
-      <h2 class="text-center my-4">Acerca del equipo de fundadores</h2>
-      <div class="row text-center">
-        <p>
-          Somos estudiantes de la Facultad de Ingeniería de San Salvador de Jujuy, y estamos lanzando
-          nuestra página de ventas de electrodomésticos para toda la comunidad. Cuenta con la página de inicio
-          donde encontrarás los productos más destacados y las distintas opciones para comprar y agregar cosas
-          a tu carrito, esta pestaña con información sobre la empresa y nosotros los fundadores, y una pestaña
-          de contactos para que nos encuentres y nos puedas comunicar tus inquietudes, tus dudas, o simplemente
-          dejarnos tu mensaje de apoyo hacia nuestro trabajo.
-        </p>
-        <div class="col-lg-4 col-md-6 mb-4">
-          <figure class="figure">
-            <img src="{% static 'imgs/general/fotoAlex.png' %}" class="figure-img img-fluid rounded-circle" alt="Alex"
-              height="200" width="200">
-            <figcaption class="figure-caption mt-3">
-              <h3>Alex Gabriel Calatayud</h3>
-              <p>xx años, estudiante de Ingeniria informatica en la Facultad de Ingeniería de Jujuy</p>
-            </figcaption>
-          </figure>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <figure class="figure">
-            <img src="{% static 'imgs/general/fotoLuis.png' %}" class="figure-img img-fluid rounded-circle" alt="Luis"
-              height="200" width="200">
-            <figcaption class="figure-caption mt-3">
-              <h3>Luis Carlos Manuel Mamaní</h3>
-              <p>xx años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</p>
-            </figcaption>
-          </figure>
-        </div>
-
-        <div class="col-lg-4 col-md-6 mb-4">
-          <figure class="figure">
-            <img src="{% static 'imgs/general/fotoLucas.png' %}" class="figure-img img-fluid rounded-circle" alt="Lucas"
-              height="200" width="200">
-            <figcaption class="figure-caption mt-3">
-              <h3>Lucas Ezequiel Romero</h3>
-              <p>19 años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</p>
-            </figcaption>
-          </figure>
-        </div>
-      </div>
-
-      <h2 class="text-center my-4">Contáctanos</h2>
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <p class="text-center">Si tienes alguna pregunta o necesitas más información, no dudes en <a
-              href="#">contactarnos</a>. Estamos aquí para ayudarte.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <div class="footer-content">
-      <div class="footer-logo">
-        <img src="{% static './imgs/icons/logo.png' %}" alt="Logo">
-        <p>Tienda online de electrodomésticos</p>
-      </div>
-
-      <div class="footer-categories">
-        <h3>Categorías</h3>
-        <ul>
-          <li><a href="#">Cocina</a></li>
-          <li><a href="#">Refrigeración</a></li>
-          <li><a href="#">Celulares</a></li>
-          <li><a href="#">Limpieza</a></li>
         </ul>
       </div>
+    </div>
 
-      <div class="footer-contact">
-        <h3>Contacto</h3>
-        <p>Tel: +54 9 388 0000-0000</p>
-        <p>Email: info@tutienda.com</p>
-        <p>Dirección: Av. Ejemplo, Ciudad</p>
+    <h2 class="text-center my-4">Acerca del equipo de fundadores</h2>
+    <div class="row text-center">
+      <p>
+        Somos estudiantes de la Facultad de Ingeniería de San Salvador de Jujuy, y estamos lanzando
+        nuestra página de ventas de electrodomésticos para toda la comunidad. Cuenta con la página de inicio
+        donde encontrarás los productos más destacados y las distintas opciones para comprar y agregar cosas
+        a tu carrito, esta pestaña con información sobre la empresa y nosotros los fundadores, y una pestaña
+        de contactos para que nos encuentres y nos puedas comunicar tus inquietudes, tus dudas, o simplemente
+        dejarnos tu mensaje de apoyo hacia nuestro trabajo.
+      </p>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <figure class="figure">
+          <img src="{% static 'imgs/general/fotoAlex.png' %}" class="figure-img img-fluid rounded-circle" alt="Alex"
+            height="200" width="200">
+          <figcaption class="figure-caption mt-3">
+            <h3>Alex Gabriel Calatayud</h3>
+            <p>xx años, estudiante de Ingeniria informatica en la Facultad de Ingeniería de Jujuy</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <figure class="figure">
+          <img src="{% static 'imgs/general/fotoLuis.png' %}" class="figure-img img-fluid rounded-circle" alt="Luis"
+            height="200" width="200">
+          <figcaption class="figure-caption mt-3">
+            <h3>Luis Carlos Manuel Mamaní</h3>
+            <p>xx años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</p>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <figure class="figure">
+          <img src="{% static 'imgs/general/fotoLucas.png' %}" class="figure-img img-fluid rounded-circle" alt="Lucas"
+            height="200" width="200">
+          <figcaption class="figure-caption mt-3">
+            <h3>Lucas Ezequiel Romero</h3>
+            <p>19 años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</p>
+          </figcaption>
+        </figure>
       </div>
     </div>
-    <div class="footer-bottom">
-      <p>Tu Tienda © 2024. Todos los derechos reservados.</p>
+
+    <h2 class="text-center my-4">Contáctanos</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <p class="text-center">Si tienes alguna pregunta o necesitas más información, no dudes en <a
+            href="#">contactarnos</a>. Estamos aquí para ayudarte.</p>
+      </div>
     </div>
-  </footer>
+  </section>
+</main>
 
-  <!-- Scripts de Bootstrap y Swiper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9G" crossorigin="anonymous"></script>
-</body>
-
-</html>
+{% include 'tags/footer.html' %}
+{% endblock %}
