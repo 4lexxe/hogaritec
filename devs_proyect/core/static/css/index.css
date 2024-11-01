@@ -3,12 +3,17 @@
 
 }
 
+header .navbar-nav .nav-item .nav-link {
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff; /* Blanco por defecto */
+  transition: color 0.3s; /* Efecto de transición suave */
+}
 
 /* SECTION 1 --------------------------------------------------------------- */
 .hero-banner {
     margin-bottom: 100px;
 }
-
 
 /* SECTION 2 -------------------------------------------------------------- */
 
@@ -18,8 +23,11 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.special-offers h2 {
-    margin: 0;
+.special-offers .offers-header h2 {
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  font-weight: bold;
+  color: #423E28;
 }
 
 .offers-header {
@@ -32,7 +40,6 @@
     background-blend-mode: overlay;
     background-size: cover;
 }
-
 
 /* Estilos del carousel de cards */
 .swiper {
@@ -83,6 +90,106 @@
 #cart-icon{
     width: 30px;
 }
+
+/* OFERTAS ESPECIALES */
+
+/* Contenedor principal de ofertas especiales */
+.special-offers {
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Contenedor de productos */
+.products-container {
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+/* Estilos de tarjeta de producto */
+.product-card {
+  flex: 1;
+  max-width: 400px;
+  padding: 30px;
+  background: white;
+  border-radius: 8px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.product-card:hover {
+  transform: scale(1.05);
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  max-height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Botones de navegación del carrusel en móviles */
+.swiper-button-prev, .swiper-button-next {
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.swiper-button-prev {
+  left: 10px;
+}
+
+.swiper-button-next {
+  right: 10px;
+}
+
+.desktop-products {
+  display: flex; /* Activar flexbox */
+  justify-content: center; /* Centra horizontalmente los productos */
+  align-items: center; /* Centra verticalmente los productos */
+  flex-wrap: wrap; /* Permite que los productos se envuelvan si es necesario */
+  gap: 50px; /* Espacio entre las tarjetas de producto */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+/* Estilo para las tarjetas de productos */
+.product-card {
+  display: flex; /* Usar flexbox para centrar el contenido de la tarjeta */
+  flex-direction: column; /* Colocar elementos de la tarjeta en columna */
+  align-items: center; /* Centra elementos en la tarjeta */
+  text-align: center; /* Centra el texto */
+  border: 1px solid #ccc; /* Bordes para las tarjetas */
+  padding: 20px; /* Espaciado interno */
+  width: 200px; /* Ancho fijo para las tarjetas */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
+}
+
+/* Estilo de fila para escritorio */
+@media (min-width: 768px) {
+  .products-container {
+    justify-content: space-around;
+    flex-wrap: nowrap;
+  }
+
+  /* Ocultar botones de navegación en escritorio */
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: none;
+  }
+}
+
+
 /* SECTION 3 -------------------------------------------------------------- */
 .featured-products {
     display: flex;
@@ -151,6 +258,14 @@
         text-align: start;
         color: white;
         padding: 40px 20px;
+    }
+
+    .newsletter-signup h2{
+      margin-left: 100px;
+    }
+
+    .newsletter-signup p{
+      margin-left: 100px;
     }
 
     .forms-suscribe {
