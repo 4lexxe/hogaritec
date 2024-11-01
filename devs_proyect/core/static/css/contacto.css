@@ -1,0 +1,105 @@
+.contact-section{
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+}
+
+.form-container {
+    margin: 10px 20px;
+    width: 90%;
+    background-color: #f0f0f0; 
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+}
+
+.form-contact{
+    text-align: start;
+}
+
+.form-group{
+    margin: 30px 0px;
+}
+
+.form-control:focus{
+    border-color: var(--tertiary-color);
+    box-shadow: 0 0 5px rgba(226, 163, 199, 0.5);
+}
+
+.btn-enviar{
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    transition: all 0.5s;
+}
+
+.btn-enviar:hover{
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.information{
+    margin-top: 30px;
+    width: 90%;
+}
+
+
+.networks{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.network{
+    color: black;
+}
+
+.textarea{
+    resize: none;
+}
+
+#icono-logo{
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+#icono-logo:hover{
+    animation: move 1s ease 0.5s infinite;
+}
+
+@keyframes move {
+    0% {
+        bottom: 0px;
+        
+    }
+    20%{
+        bottom: 20px;
+        transform: rotate(0deg);
+    }
+    30%{
+        transform: rotate(-40deg);
+    }
+    50%{
+        transform: rotate(40deg);
+    }
+    70%{
+        transform: rotate(-40deg)
+    }
+    80%{
+        transform: rotate(0deg) ;
+        bottom: 20px;
+    }
+    100% {
+        bottom: 0px;
+        
+    }
+}
+
+@media (min-width: 576px){
+    .form-container{
+        width: 90%;
+    }
+}
