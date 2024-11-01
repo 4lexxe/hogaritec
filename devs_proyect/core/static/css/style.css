@@ -11,9 +11,21 @@
     padding: 0px;
 }
 
+html, body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-container {
+  flex: 1; /* Empuja el footer hacia la parte inferior cuando el contenido sea corto */
+}
+
 body{
     font-size: 14px;
     text-align: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body a{
@@ -71,6 +83,7 @@ header{
     top: 25%;
     right: 15%;
 }
+
 
 
 /* FOOTER --------------------------------------------------------------------------------------------------------- */
@@ -139,13 +152,55 @@ footer ul{
 @media (min-width: 992px) {
 
     /* HEADER -------------------------------------------------------------------------------------------------------- */
-    header{
-        margin-bottom: 0px;
-    }
-    
-    .logo{
-        order:2
-    }
+    header {
+      margin-bottom: 0px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: bold;
+  }
+  
+  header a {
+      font-size: 18px;
+      font-weight: bold;
+  }
+  
+  header nav .navbar-nav {
+    padding-left: 50px; /* Ajusta el valor según el espacio deseado */
+  }
+  
+  header .navbar-nav .nav-item .nav-link:hover,
+  header .navbar-nav .nav-item .nav-link:active {
+    color: #000; /* Cambia a negro al pasar el cursor o al hacer clic */
+  }
+  
+  header .navbar-nav .nav-item .nav-link::after {
+    content: '|';
+    padding: 0 10px;
+    color: #fff; /* Color blanco para el separador */
+  }
+  
+  header .navbar-nav .nav-item:last-child .nav-link::after {
+    content: '';
+  }
+
+   /* Espaciado para el logo */
+header .logo {
+    margin-left: 100px;
+}
+
+/* Estilos de los enlaces */
+header .navbar-nav .nav-item .nav-link {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    transition: color 0.3s;
+    margin-left: 10px;
+}
+
+header .navbar-nav .nav-item:first-child .nav-link {
+    margin-left: 0;
+}
+
     
     .login-action{
         display: inline;
