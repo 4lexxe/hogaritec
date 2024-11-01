@@ -1,39 +1,52 @@
-.contact-section{
-    display: flex;
-    flex-flow: column wrap;
-    align-items: center;
+.row{
+    --bs-gutter-x: 0px
 }
 
-.form-container {
-    margin: 10px 20px;
+.text-center{
+    margin: 20px 20%;
+    
+}
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.form-contact{
     width: 90%;
+    text-align: start;
     background-color: #f0f0f0; 
     border: 2px solid var(--secondary-color);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     color: var(--secondary-color);
+
+    .form-contact__title{
+        margin: 3% 5%;
+    }
+    
+    .form-group{
+        margin: 3% 5%;
+    }
+
+    .btn-enviar{
+        width: 90%;
+        margin-top: 0px;
+        background-color: var(--primary-color);
+        color: white;
+        transition: all 0.5s;
+    }
 }
 
-.form-contact{
-    text-align: start;
-}
-
-.form-group{
-    margin: 30px 0px;
-}
 
 .form-control:focus{
     border-color: var(--tertiary-color);
     box-shadow: 0 0 5px rgba(226, 163, 199, 0.5);
 }
 
-.btn-enviar{
-    width: 100%;
-    margin-bottom: 20px;
-    background-color: var(--primary-color);
-    color: white;
-    transition: all 0.5s;
-}
 
 .btn-enviar:hover{
     background-color: var(--secondary-color);
@@ -54,6 +67,7 @@
 }
 
 .network{
+    margin-top: 10px;
     color: black;
 }
 
@@ -99,7 +113,20 @@
 }
 
 @media (min-width: 576px){
-    .form-container{
-        width: 90%;
+}
+
+@media (min-width: 992px){
+    .container2{
+        flex-flow: wrap row;
+        justify-content: space-around;
     }
+
+    .form-contact{
+        width: 50%;
+    }
+
+    .information{
+        width: 35%;
+    }
+
 }
