@@ -1,4 +1,3 @@
-<!-- special_offers.html -->
 {% load static %}
 
 <section class="main-section">
@@ -6,7 +5,9 @@
       <div class="offers-header">
           <h2>OFERTAS ESPECIALES</h2>
       </div>
-      <div class="swiper mySwiper">
+      
+      <!-- Carrusel para dispositivos móviles -->
+      <div class="swiper mySwiper d-md-none">
           <div class="swiper-wrapper">
               <div class="swiper-slide">
                   <div class="card carousel-card">
@@ -30,8 +31,28 @@
                   </div>
               </div>
           </div>
-          <div class="swiper-button-next"></div>
+          <!-- Botones de navegación solo visibles en móvil -->
           <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+      </div>
+
+      <!-- Vista de productos en fila para escritorio -->
+      <div class="desktop-products d-none d-md-flex">
+          <div class="product-card">
+              <img src="{% static './imgs/general/product2.png' %}" alt="Product Image">
+              <h5 class="card-title">Producto 2</h5>
+              <p class="card-text">Descripción del producto 2</p>
+          </div>
+          <div class="product-card">
+              <img src="{% static './imgs/general/product1.svg' %}" alt="Product Image">
+              <h5 class="card-title">Producto 1</h5>
+              <p class="card-text">Descripción del producto 1</p>
+          </div>
+          <div class="product-card">
+              <img src="{% static './imgs/general/product2.png' %}" alt="Product Image">
+              <h5 class="card-title">Producto 2</h5>
+              <p class="card-text">Descripción del producto 2</p>
+          </div>
       </div>
   </div>
 </section>
