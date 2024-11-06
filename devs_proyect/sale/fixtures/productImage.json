@@ -1,0 +1,10 @@
+[
+{
+    "model": "sale.productimage",
+    "pk": 18,
+    "fields": {
+        "product": 8,
+        "image": "products/product2.png"
+    }
+}
+]

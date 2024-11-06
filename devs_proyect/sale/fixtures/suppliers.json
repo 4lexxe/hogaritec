@@ -1,0 +1,10 @@
+[
+{
+    "model": "sale.supplier",
+    "pk": 1,
+    "fields": {
+        "name": "juanito",
+        "email": "juanito@gmail.com"
+    }
+}
+]

@@ -40,6 +40,7 @@ class Product(models.Model):
     code = models.CharField(max_length=50, unique=True, verbose_name="Código del producto")
     name = models.CharField(max_length=200, verbose_name="Nombre del producto")
     description = models.TextField(verbose_name="Descripción", blank=True)
+    brand = models.CharField(max_length=200, verbose_name="Marca del producto", blank=True)
     category = models.CharField(max_length=100, verbose_name="Categoría del producto")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio")
     discount = models.PositiveIntegerField(verbose_name="Descuento", default=0)

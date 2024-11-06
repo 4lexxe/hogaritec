@@ -1,0 +1,19 @@
+[
+{
+    "model": "sale.product",
+    "pk": 8,
+    "fields": {
+        "code": "213544",
+        "name": "Microondas",
+        "description": "Descripcion del microondas expansivo deldll",
+        "brand": "ddfasd",
+        "category": "Mantenimiento",
+        "price": "120000.00",
+        "discount": 25,
+        "number": 20,
+        "supplier": 1,
+        "created": "2024-11-06T01:44:08.745Z",
+        "updated": "2024-11-06T03:04:00.022Z"
+    }
+}
+]

@@ -1,0 +1,15 @@
+[
+{
+    "model": "sale.customer",
+    "pk": 4,
+    "fields": {
+        "name": "Pepe",
+        "surname": "Valdiviezo",
+        "email": "pepevaldiviezo@gmail.com",
+        "phone": 3884300084,
+        "avatar": "customers/user.png",
+        "created": "2024-11-05",
+        "updated": "2024-11-05"
+    }
+}
+]
