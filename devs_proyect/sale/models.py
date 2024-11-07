@@ -1,6 +1,7 @@
 from django.db import models
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
+from decimal import Decimal
 import os
 
 # Create your models here.
@@ -53,9 +54,17 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.name} ({self.code})"
 
+    # Fucion para calcular el descuento
+    def get_final_price(self):
+        discount_decimal = Decimal(self.discount) / Decimal('100')
+        final_price = self.price * (1 - discount_decimal)
+        
+        # Redondear a dos decimales
+        return final_price.quantize(Decimal('0.01'))
+
 
 class ProductImage(models.Model):
-    product = models.ForeignKey(Product, related_name="Imágenes", on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, related_name="images", on_delete=models.CASCADE)
     image = models.ImageField(upload_to='products/')
 
     def __str__(self):

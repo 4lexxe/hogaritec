@@ -1,0 +1,56 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block title %}Acerca de - Hogaritec{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+
+<main style="min-height: 100vh;">
+
+    <section class="featured-products main-section" style="margin-top: 40px;">
+        <h2 class="featured__title-products">Lista de productos</h2>
+
+        {% for product in products %}
+        <div class="card ">
+
+            {% if product.images.all %}
+                        <!-- Mostrar la primera imagen del producto -->
+                <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top">
+            {% else %}
+                        <!-- Imagen de reserva si no hay imágenes para el producto -->
+                <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top">
+            {% endif %}
+
+
+            <div class="card-body">
+                <h5 class="card-title">{{product.name}}</h5>
+                <p class="card-text">
+                    {{product.description}}
+                </p>
+                <div class="card-buy">
+                    <p class="card-text card-price card-carousel__price">
+                        $ {{product.price}}
+                    </p>
+                    <p class="card-carousel__discount">
+                        {{product.discount}}% OFF
+                    </p>
+                </div>
+
+                <p>$ {{ product.get_final_price }}</p>
+
+                <a href="#" class="btn btn-primary card-carousel__btn">
+                    <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
+                    ¡Aprovecha ahora!
+                </a>
+
+            </div>
+
+            {% endfor %}
+    </section>
+</main>
+
+
+{% include 'tags/footer.html' %}
+{% endblock %}

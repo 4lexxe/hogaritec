@@ -1,6 +1,7 @@
 # core/views.py
 from django.shortcuts import render
 
+
 def index(request):
     return render(request, "core/index.html", {'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
 
@@ -12,4 +13,5 @@ def contacto_view(request):
 
 # Manejo de errores 404
 def custom_404_view(request, exception):
-    return render(request, 'core/404.html', {'path': request.path}, status=404)
+    return render(request, 'core/404.html', {'path': request.path}, status=404) 
+

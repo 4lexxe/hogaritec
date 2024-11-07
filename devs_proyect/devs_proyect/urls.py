@@ -1,6 +1,6 @@
 # devs_proyect/urls.py
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from core import views
 from django.conf.urls import handler404
 from django.conf import settings
@@ -10,6 +10,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
     path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
+
+    path('sale/', include('sale.urls')) 
 ]
 
 # Asigna la función personalizada a handler404
