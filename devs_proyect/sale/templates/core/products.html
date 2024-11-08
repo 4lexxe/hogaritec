@@ -27,7 +27,7 @@
             {% if product.images.all %}
             <!-- Mostrar la primera imagen del producto -->
             <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top"
-                data-bs-toggle="modal" data-bs-target="#{{ product.name }}" width="200px" height="200px">
+                data-bs-toggle="modal" data-bs-target="#modal{{ product.code }}" width="200px" height="200px">
             {% else %}
             <!-- Imagen de reserva si no hay imágenes para el producto -->
             <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top"
@@ -56,19 +56,19 @@
             </div>
 
             <!-- Modal -->
-            <div class="modal fade" id="{{product.name}}" tabindex="-1" aria-labelledby="{{product.name}}bc"
+            <div class="modal fade" id="modal{{product.code}}" tabindex="-1" aria-labelledby="label{{product.code}}"
                 aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered ">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="{{product.name}}bc">Imágenes de {{product.name}}</h1>
+                            <h1 class="modal-title fs-5" id="label{{product.code}}">Imágenes de {{product.name}}</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
 
                             <!-- carousel de imagenes de la vista modal -->
 
-                            <div id="{{product.code}}" class="carousel slide">
+                            <div id="carousel{{product.code}}" class="carousel slide">
                                 <div class="carousel-inner">
                                     <div class="carousel-item active">
                                         {% if product.images.all %}
@@ -92,12 +92,12 @@
                                     {% endfor %}
 
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#{{product.code}}"
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{product.code}}"
                                     data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#{{product.code}}"
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{product.code}}"
                                     data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
