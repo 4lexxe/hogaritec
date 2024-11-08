@@ -1,21 +1,12 @@
 .producto{
     height: 400px;
-    margin: 50px;
+    margin: 100px;
     float: left;
 }
 
-.carrito{
-    padding: 5px;
-    background-color: rgb(50, 118, 173);
-    border-radius: 25px;
-    position: relative;
-    margin-top: 10px;
-}
-
 .datos-importantes{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin-right: 200px;
-    padding: 5px
+    padding: 0px;
+    margin-block: 500px;
 }
 
 .nombre-producto{
@@ -25,19 +16,20 @@
 }
 
 .precio{
-    color: rgb(38, 62, 128);
+    color: rgb(19, 45, 116);
     font-size: 50px;
 }
 
 .descripcion-producto{
     font-weight: 500;
     text-align: justify;
-    padding: 20px 20px 20px 20px;
+    color: black;
 }
 
 .envios-gratis{
     font-size: 20px;
     font-weight: 400;
+    text-align: justify;
 }
 
 .agregar-carrito{
@@ -76,7 +68,8 @@
 .otros-productos{
     margin-left: 20px;
     margin-right: 20px;
-    margin-top: 50px;
+    margin-top: 100px;
+    text-align: center;
 }
 
 .mas-productos{

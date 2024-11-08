@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
     path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
+    path('artículo/', views.articulo_view, name='artículo'),  # Ruta para la página "Artículo"
 ]
 
 # Asigna la función personalizada a handler404

@@ -7,7 +7,7 @@
   <div class="card">
       <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
       <div class="card-body">
-          <a class="card-title" href="../core/articulo.html">Card title</a>
+        <h5 class="card-title">Card title</h5>
           <p class="card-text">
               Some quick example text to build on the card title and make up the bulk of the card's content.
           </p>
@@ -16,7 +16,7 @@
               <p class="card-text card-price">
                   $00.00
               </p>
-              <a href="#" class="btn btn-primary btn-cart">
+              <a href="{% url 'artículo' %}" class="btn btn-primary btn-cart">
                   <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
               </a>
           </div>

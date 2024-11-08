@@ -10,6 +10,9 @@ def acercade_view(request):
 def contacto_view(request):
     return render(request, "core/contacto.html")
 
+def articulo_view(request):
+    return render(request, "core/articulo.html")
+
 # Manejo de errores 404
 def custom_404_view(request, exception):
     return render(request, 'core/404.html', {'path': request.path}, status=404)
