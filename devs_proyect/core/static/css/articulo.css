@@ -1,0 +1,88 @@
+.producto{
+    height: 400px;
+    margin: 50px;
+    float: left;
+}
+
+.carrito{
+    padding: 5px;
+    background-color: rgb(50, 118, 173);
+    border-radius: 25px;
+    position: relative;
+    margin-top: 10px;
+}
+
+.datos-importantes{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-right: 200px;
+    padding: 5px
+}
+
+.nombre-producto{
+    color: rgb(50, 118, 173);
+    font-weight: 700;
+    font-size: 40px;
+}
+
+.precio{
+    color: rgb(38, 62, 128);
+    font-size: 50px;
+}
+
+.descripcion-producto{
+    font-weight: 500;
+    text-align: justify;
+    padding: 20px 20px 20px 20px;
+}
+
+.envios-gratis{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.agregar-carrito{
+    padding: 15px 30px;
+    background-color: rgb(50, 118, 173);
+    color: rgb(255, 255, 255);
+    border: none;
+    font-size: 15px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.agregar-carrito:hover{
+    background-color: rgb(37, 80, 116);;
+}
+.agregar-carrito:active{
+    background-color: rgb(41, 95, 139);
+}
+
+.agregar-productos{
+    padding: 15px 30px;
+    border: none;
+    border-radius: 20px;
+    color: rgb(255, 255, 255);
+    background-color: rgb(50, 118, 173);
+    text-align: center;
+}
+.agregar-productos:hover{
+    background-color: rgb(37, 80, 116);
+    border: none;
+}
+.agregar-productos:active{
+    background-color: rgb(41, 95, 139);
+    border: none;
+}
+
+.otros-productos{
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 50px;
+}
+
+.mas-productos{
+    text-decoration: underline;
+    text-align: center;
+    font-size: 40px;
+    color: rgb(50, 118, 173);
+    font-weight: 900;
+}
