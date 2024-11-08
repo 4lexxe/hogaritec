@@ -24,8 +24,6 @@ def delete_image_product(sender, instance, **kwargs):
         if os.path.isfile(instance.avatar.path):
             os.remove(instance.avatar.path)
 
-
-    
 """Modelo para representar un proveedor."""
 class Supplier(models.Model):
     name = models.CharField(max_length=200, verbose_name="Nombre del proveedor")
@@ -67,7 +65,6 @@ def delete_image_product(sender, instance, **kwargs):
     if instance.image:
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
-
 
 """Modelo para representar una venta."""
 class Sale(models.Model):
