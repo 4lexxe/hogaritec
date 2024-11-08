@@ -1,29 +1,82 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.signals import post_delete
+from django.contrib.auth.hashers import make_password
 from django.dispatch import receiver
+from django.db import models
 from decimal import Decimal
+from django.contrib.auth.models import Permission
 import os
 
-# Create your models here.
-""" Modelo para representar un cliente """
-class Customer (models.Model):
-    name = models.CharField(max_length=200, verbose_name="Nombre del cliente")
-    surname = models.CharField(max_length=100, verbose_name="Apellido")
-    email = models.EmailField(verbose_name="Correo electrónico")
-    phone = models.IntegerField(verbose_name="Número de celular")
-    avatar = models.ImageField(upload_to="customers/", verbose_name="Avatar", blank=True)
-    created = models.DateField(auto_now_add=True, verbose_name="Fecha de registro")
-    updated = models.DateField(auto_now=True, verbose_name="Fecha de ultimos cambios de datos")
+class CustomerManager(BaseUserManager):
+    def create_user(self, email, password=None, **extra_fields):
+        """
+        Crea y guarda un usuario con un correo electrónico y una contraseña.
+        """
+        if not email:
+            raise ValueError("El correo electrónico debe ser proporcionado")
+        email = self.normalize_email(email)
+        user = self.model(email=email, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password=None, **extra_fields):
+        """
+        Crea y guarda un superusuario.
+        """
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+
+        return self.create_user(email, password, **extra_fields)
+
+
+class Customer(AbstractBaseUser):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    phone_number = models.CharField(max_length=15, blank=True, null=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    
+    # Los campos de autenticación estándar de Django
+    is_active = models.BooleanField(default=True)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
+    # Establecemos el gestor de usuarios
+    objects = CustomerManager()
+
+    # Usamos el email como nombre de usuario
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["first_name", "last_name", "phone_number"]
 
     def __str__(self):
-        return self.name
+        return self.email
 
-# Uso de la señal post_delete para eliminar el avatar
+    # Implementing required permissions methods
+    def has_module_perms(self, app_label):
+        # You can customize this to check specific app permissions
+        return self.is_staff  # For example, only staff members have module permissions.
+
+    def has_perm(self, perm, obj=None):
+        # Customize this to check for specific permissions, or return True for all permissions.
+        return self.is_staff  # Or any custom logic.
+
+    # Override `get_full_name` and `get_short_name` if needed
+    def get_full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+    def get_short_name(self):
+        return self.first_name
+
+# Usage of post_delete signal for deleting avatar
 @receiver(post_delete, sender=Customer)
 def delete_image_product(sender, instance, **kwargs):
     if instance.avatar:
         if os.path.isfile(instance.avatar.path):
             os.remove(instance.avatar.path)
+
 
 """Modelo para representar un proveedor."""
 class Supplier(models.Model):

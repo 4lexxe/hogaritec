@@ -2,22 +2,34 @@
 from django.contrib import admin
 from django.urls import path, include
 from core import views
-from django.conf.urls import handler404
 from django.conf import settings
+from django.conf.urls import handler404
+
+# app_name = 'core'  # Esta línea no es necesaria aquí, ya que el archivo 'urls.py' de 'core' maneja las rutas específicas de la app core
 
 urlpatterns = [
-    path('', views.index, name='index'),  # Ruta para la página de inicio
+    # Ruta para la página de inicio (esta ruta ya es parte de 'core.urls', no necesitas incluir devs_proyect.urls aquí)
+    path('', views.index, name='index'),
+    
+    # Rutas de administración
     path('admin/', admin.site.urls),
-    path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
-    path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
+    
+    # Otras rutas relacionadas con la aplicación 'core'
+    path('acercade/', views.acercade_view, name='about'),
+    path('contacto/', views.contacto_view, name='contacto'),
+    
+    # Incluyendo las rutas de la app 'sale'
+    path('sale/', include('sale.urls')),
 
-    path('sale/', include('sale.urls')) 
+    # Rutas de autenticación
+    path('register/', views.RegisterView, name='register'),
+    path('login/', views.LoginView, name='login'),
 ]
 
 # Asigna la función personalizada a handler404
 handler404 = 'core.views.custom_404_view'
 
-
+# Si estás en modo DEBUG, servir los archivos estáticos y de medios
 if settings.DEBUG:
     from django.conf.urls.static import static
-    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
