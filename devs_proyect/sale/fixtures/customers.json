@@ -1,15 +1,18 @@
 [
-{
-    "model": "sale.customer",
-    "pk": 4,
-    "fields": {
-        "name": "Pepe",
-        "surname": "Valdiviezo",
-        "email": "pepevaldiviezo@gmail.com",
-        "phone": 3884300084,
-        "avatar": "customers/user.png",
-        "created": "2024-11-05",
-        "updated": "2024-11-05"
-    }
-}
-]
+  {
+      "model": "sale.customer",
+      "pk": 1,
+      "fields": {
+          "password": "pbkdf2_sha256$870000$dN8K4vxJ0Vo652AjvHASSp$RQ8vfteY94i8qThasJYmN/FjRA/cSZH4aa5M9KXi9tA=",
+          "last_login": "2024-11-08T23:47:24.481Z",
+          "first_name": "admin",
+          "last_name": "admin",
+          "email": "admin@admin.com",
+          "phone_number": "123456",
+          "avatar": "",
+          "is_active": true,
+          "is_staff": true,
+          "is_superuser": true
+      }
+  }
+  ]
