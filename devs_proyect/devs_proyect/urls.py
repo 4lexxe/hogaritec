@@ -4,6 +4,9 @@ from django.urls import path, include
 from core import views
 from django.conf import settings
 from django.conf.urls import handler404
+from django.contrib.auth.views import LogoutView
+from django.contrib.auth import views as auth_views
+
 
 # app_name = 'core'  # Esta línea no es necesaria aquí, ya que el archivo 'urls.py' de 'core' maneja las rutas específicas de la app core
 
@@ -24,6 +27,8 @@ urlpatterns = [
     # Rutas de autenticación
     path('register/', views.RegisterView, name='register'),
     path('login/', views.LoginView, name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 # Asigna la función personalizada a handler404

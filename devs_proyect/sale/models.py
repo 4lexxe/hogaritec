@@ -54,16 +54,17 @@ class Customer(AbstractBaseUser):
     def __str__(self):
         return self.email
 
+    def save(self, *args, **kwargs):
+        self.email = self.email.lower()
+        super().save(*args, **kwargs)
+
     # Implementing required permissions methods
     def has_module_perms(self, app_label):
-        # You can customize this to check specific app permissions
-        return self.is_staff  # For example, only staff members have module permissions.
+        return self.is_staff
 
     def has_perm(self, perm, obj=None):
-        # Customize this to check for specific permissions, or return True for all permissions.
-        return self.is_staff  # Or any custom logic.
+        return self.is_staff
 
-    # Override `get_full_name` and `get_short_name` if needed
     def get_full_name(self):
         return f"{self.first_name} {self.last_name}"
 

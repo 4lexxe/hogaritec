@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from sale.models import Customer
 from django.contrib.auth.hashers import make_password
+from .decorators import redirect_authenticated_user  # Importa el decorador
+from django.core.exceptions import ValidationError
+from django.db import IntegrityError
 
 def index(request):
     return render(request, "core/index.html", {'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
@@ -20,63 +23,74 @@ def contacto_view(request):
 def custom_404_view(request, exception):
     return render(request, 'core/404.html', {'path': request.path}, status=404) 
 
-# auth
-# Vista de registro
+# autenticaciones
+@redirect_authenticated_user
 def RegisterView(request):
     if request.method == "POST":
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
+        email = request.POST.get('email').lower()  # Convertir a minúsculas
         phone = request.POST.get('phone')
         password = request.POST.get('password')
 
-        # Validación de errores en los datos del cliente
         error_en_datos_cliente = False
 
+        # Verificar si el correo electrónico ya existe (con insensibilidad a mayúsculas/minúsculas)
         if Customer.objects.filter(email=email).exists():
             error_en_datos_cliente = True
             messages.error(request, "El correo electrónico ya existe")
 
+        # Verificar la longitud de la contraseña
         if len(password) < 5:
             error_en_datos_cliente = True
             messages.error(request, "La contraseña debe tener al menos 5 caracteres")
 
         if error_en_datos_cliente:
             return redirect('register')
-        else:
-            # Crear un nuevo cliente con los campos correctos
+
+        try:
+            # Crear el nuevo cliente
             nuevo_cliente = Customer.objects.create(
-                first_name=first_name,  # Usando 'first_name' en lugar de 'name'
-                last_name=last_name,    # Usando 'last_name' en lugar de 'surname'
+                first_name=first_name,
+                last_name=last_name,
                 email=email,
-                phone_number=phone,     # Usando 'phone_number' en lugar de 'phone'
+                phone_number=phone,
             )
-            # Establecer la contraseña encriptada
             nuevo_cliente.set_password(password)
             nuevo_cliente.save()
 
             messages.success(request, "Cuenta creada. Inicia sesión ahora")
             return redirect('login')
+        except IntegrityError:
+            # Capturar el error de integridad si el correo ya existe en la base de datos
+            messages.error(request, "El correo electrónico ya está registrado. Intenta con otro.")
+            return redirect('register')
 
     return render(request, 'auth/register.html')
 
+@redirect_authenticated_user
 def LoginView(request):
     if request.method == "POST":
-        email = request.POST.get("email")  # Cambié 'email' en lugar de 'username'
+        email = request.POST.get("email")
         password = request.POST.get("password")
 
-        # Buscar al cliente por email
         try:
             customer = Customer.objects.get(email=email)
         except Customer.DoesNotExist:
             customer = None
 
-        # Intentar autenticar al cliente
-        if customer and customer.check_password(password):  # Comprobamos la contraseña
+        if customer and customer.check_password(password):
             login(request, customer)
-            return redirect('index')  # Redirigir a la vista 'index'
+            return redirect('index')
         else:
             messages.error(request, "Credenciales de inicio de sesión incorrectas")
             return redirect('login')
 
     return render(request, 'auth/login.html')
+
+def LogoutView(request):
+
+    logout(request)
+
+    # redirect to login page after logout
+    return redirect('login')
