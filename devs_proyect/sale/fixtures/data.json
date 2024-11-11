@@ -1,0 +1,926 @@
+[
+{
+    "model": "sale.customer",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$dN8K4vxJ0Vo652AjvHASSp$RQ8vfteY94i8qThasJYmN/FjRA/cSZH4aa5M9KXi9tA=",
+        "last_login": "2024-11-08T23:47:24.481Z",
+        "first_name": "admin",
+        "last_name": "admin",
+        "email": "admin@admin.com",
+        "phone_number": "123456",
+        "avatar": "",
+        "is_active": true,
+        "is_staff": true,
+        "is_superuser": true
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$32K1M3mxrePgbnQHfMzWN4$dPrDmIOXjwYMmN5Ehcq08xf2Efe+v/bU5V0mQsMNNeE=",
+        "last_login": null,
+        "first_name": "ewqf",
+        "last_name": "6",
+        "email": "asdfasd@gmail.com",
+        "phone_number": "asdfasd",
+        "avatar": "",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$DNu6CfhLuutHq2nBa2qR6N$Mq21y6TRf7YwfCaNlGDExwR123/f3G+vx6VO1MmdSyg=",
+        "last_login": null,
+        "first_name": "sds",
+        "last_name": "dsds",
+        "email": "asdfasdf@sdasdfsfad.com",
+        "phone_number": "2331",
+        "avatar": "",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 1,
+    "fields": {
+        "name": "Samsung",
+        "email": "samsung@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 2,
+    "fields": {
+        "name": "Philips",
+        "email": "philips@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 3,
+    "fields": {
+        "name": "Xiaomi",
+        "email": "xiaomi_support@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 4,
+    "fields": {
+        "name": "Drean",
+        "email": "drean@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 5,
+    "fields": {
+        "name": "Apple",
+        "email": "applesupport@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 6,
+    "fields": {
+        "name": "Nintendo",
+        "email": "nintendo_support@gmail.com"
+    }
+},
+{
+    "model": "sale.supplier",
+    "pk": 7,
+    "fields": {
+        "name": "Sony",
+        "email": "sony@gmail.com"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 1,
+    "fields": {
+        "code": "0001",
+        "name": "Samsung Galaxy A35 5G 256GB Awesome navy 8GB RAM",
+        "description": "Lo que ten�s que saber de este producto\r\nMemoria RAM: 8 GB\r\nDispositivo liberado para que elijas la compa��a telef�nica que prefieras.\r\nCompatible con redes 5G.\r\nMemoria interna de 256GB.",
+        "brand": "Samsung",
+        "category": "Celulares",
+        "price": "599999.00",
+        "discount": 25,
+        "number": 50,
+        "supplier": 1,
+        "created": "2024-11-09T00:13:39.041Z",
+        "updated": "2024-11-09T00:32:59.389Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 2,
+    "fields": {
+        "code": "0002",
+        "name": "Xiaomi Redmi Note 13 4G Dual SIM 256 GB verde 8 GB RAM",
+        "description": "Lo que ten�s que saber de este producto\r\nDispositivo liberado para que elijas la compa��a telef�nica que prefieras.\r\nPantalla AMOLED de 6.67\".\r\nTiene 3 c�maras traseras de 108Mpx/8Mpx/2Mpx.\r\nC�mara delantera de 16Mpx.\r\nBater�a de 5000mAh.\r\nMemoria interna de 256GB.\r\nResistente al agua.\r\nCon sensor de huella dactilar.\r\nResistente al polvo.",
+        "brand": "Xiaomi",
+        "category": "Celulares",
+        "price": "349998.00",
+        "discount": 0,
+        "number": 100,
+        "supplier": 3,
+        "created": "2024-11-09T00:17:00.777Z",
+        "updated": "2024-11-09T00:56:55.177Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 3,
+    "fields": {
+        "code": "0003",
+        "name": "Xiaomi Smart Band 9 Midnight Black",
+        "description": "Lo que ten�s que saber de este producto\r\nColor de la malla: Negro\r\nMaterial de la malla: Silicona\r\nVersi�n del smartwatch: Smart Band\r\nColor de la caja: Negro\r\nConectividad por bluetooth.\r\nBater�a de 21 d�as de duraci�n.\r\nResiste hasta 50m bajo el agua.\r\nCon pantalla AMOLED de 1200.",
+        "brand": "Xiaomi",
+        "category": "Relojes",
+        "price": "63499.00",
+        "discount": 21,
+        "number": 200,
+        "supplier": 3,
+        "created": "2024-11-09T00:20:07.738Z",
+        "updated": "2024-11-09T00:20:07.739Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 4,
+    "fields": {
+        "code": "0004",
+        "name": "Multiprocesadora Philips - Color blanco",
+        "description": "Lo que ten�s que saber de este producto\r\nPotencia: 1000 W\r\nVoltaje: 220V\r\nSu capacidad es de 1.5L.\r\nPosee traba de seguridad para evitar posibles accidentes.\r\nHasta 2 velocidades.\r\nPulsador que permite m�ximo control.\r\nRealiza m�ltiples funciones.",
+        "brand": "Philips",
+        "category": "Cocina",
+        "price": "204240.50",
+        "discount": 5,
+        "number": 150,
+        "supplier": 2,
+        "created": "2024-11-09T00:23:05.609Z",
+        "updated": "2024-11-09T00:58:12.999Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 5,
+    "fields": {
+        "code": "0005",
+        "name": "Heladera con Freezer HDR280F00B 220V Color Blanco Drean",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nTipo de deshielo: cycle defrost.\r\nCapacidad de 264 litros.\r\nCon freezer superior.\r\nEficiencia energ�tica A.\r\nCon iluminaci�n interior.\r\nCuenta con organizador de botellas y huevera.\r\nDimensiones: 54.94 cm de ancho, 160.4 cm de alto y 68.45 cm de profundidad.",
+        "brand": "Drean",
+        "category": "Refrigeracion",
+        "price": "659999.00",
+        "discount": 31,
+        "number": 200,
+        "supplier": 4,
+        "created": "2024-11-09T00:29:52.490Z",
+        "updated": "2024-11-09T00:29:52.490Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 6,
+    "fields": {
+        "code": "0006",
+        "name": "Microondas Samsung Grill Cer�mico Triple Distribuci�n 23l Silver",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nPotencia de 800w.\r\nPotencia de grill de 1050w.\r\nDisplay digital.\r\nDimensiones: 489mm de ancho, 275mm de alto, 392mm de profundidad.\r\nCuenta con bloqueo de seguridad.\r\nIncluye accesorio.\r\nCon descongelado autom�tico por peso.\r\nModo r�pido de descongelado por tiempo.\r\nContiene luz interior.\r\nEncontr� en sus 25 programas la funci�n indicada para tus comidas.",
+        "brand": "Samsung",
+        "category": "Cocina",
+        "price": "364999.00",
+        "discount": 0,
+        "number": 150,
+        "supplier": 1,
+        "created": "2024-11-09T00:31:32.800Z",
+        "updated": "2024-11-09T00:31:32.800Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 7,
+    "fields": {
+        "code": "0007",
+        "name": "Lavarropas Inverter 8 Kg Blanco Drean Next 8.14 P Eco",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nCarga frontal de 8 kg.\r\nIncluye 34 programas.\r\nCentrifuga a una velocidad de 1400 rpm.\r\nApto para lavar con agua a diversas temperaturas.\r\nTambor de acero inoxidable y filtro atrapa pelusas.\r\nEficiencia energ�tica A+++.\r\nComodidad y practicidad para tu hogar.\r\nEl Drean Next 8.14 P ECO cuenta con tecnolog�a inverter, optimizando el consumo energ�tico y brindando mayor eficiencia en cada lavado.",
+        "brand": "Drean",
+        "category": "Limpeza",
+        "price": "782999.00",
+        "discount": 20,
+        "number": 300,
+        "supplier": 4,
+        "created": "2024-11-09T00:35:11.505Z",
+        "updated": "2024-11-09T00:35:11.505Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 8,
+    "fields": {
+        "code": "0008",
+        "name": "Lavarropas 6,5 Kg Gris Drean Concept Neo Fuzzy 658 G Color Acero inox",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nCarga superior de 6.5 kg.\r\nCentrifuga a una velocidad de 800 rpm.\r\nEficiencia energ�tica A+.",
+        "brand": "Drean",
+        "category": "Limpeza",
+        "price": "876222.00",
+        "discount": 5,
+        "number": 200,
+        "supplier": 4,
+        "created": "2024-11-09T00:36:34.312Z",
+        "updated": "2024-11-09T00:36:34.312Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 9,
+    "fields": {
+        "code": "0009",
+        "name": "Laptop Samsung Galaxy Book4 Edge-copilot+pc-16 Amoled 516 Gb",
+        "description": "ULTIMO MODELO . TRAIDA DE E.E.U.U.\r\n\r\nSamsung - Galaxy Book4 Edge- Copilot+ PC-16\" AMOLED Touch-Screen Laptop- Snapdragon X Elite 3.4Ghz- 16GB Memory- 512GB Storage - Sapphire Blue",
+        "brand": "Samsung",
+        "category": "Port�tiles",
+        "price": "2449999.00",
+        "discount": 0,
+        "number": 100,
+        "supplier": 1,
+        "created": "2024-11-09T00:38:59.884Z",
+        "updated": "2024-11-09T00:38:59.884Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 10,
+    "fields": {
+        "code": "0010",
+        "name": "Apple iPhone 15 (128 GB) - Rosa",
+        "description": "Lo que ten�s que saber de este producto\r\nMemoria RAM: 6 GB\r\nLa Dynamic Island te muestra alertas y actividades en vivo\r\nDise�o innovador con pantalla Super Retina XDR\r\nC�mara gran angular de 48 MP con teleobjetivo de 2x\r\nRetratos de �ltima generaci�n\r\nSuperpotente chip A16 Bionic\r\nConexi�n USB-C\r\nFuncionalidad esencial de seguridad con detecci�n de choques para pedir ayuda\r\nCon tecnolog�as de privacidad que te ayudan a mantener el control de tus datos",
+        "brand": "Apple",
+        "category": "Celulares",
+        "price": "1689750.00",
+        "discount": 0,
+        "number": 200,
+        "supplier": 5,
+        "created": "2024-11-09T00:42:06.310Z",
+        "updated": "2024-11-09T00:42:06.310Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 11,
+    "fields": {
+        "code": "0011",
+        "name": "Playstation 5 Sony Ps5 Hw 1215 Standar Edition",
+        "description": "Lo que ten�s que saber de este producto\r\nCapacidad: 825 GB\r\nIncluye control.\r\nResoluci�n de 3840px x 2160px.\r\nMemoria RAM de 16GB.\r\nCuenta con: 1 cable hdmi.\r\nLa duraci�n de la bater�a de los controles depende del uso que se le d� al producto.",
+        "brand": "Sony",
+        "category": "Consolas",
+        "price": "1099999.00",
+        "discount": 35,
+        "number": 50,
+        "supplier": 7,
+        "created": "2024-11-09T00:43:41.387Z",
+        "updated": "2024-11-09T00:43:41.387Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 12,
+    "fields": {
+        "code": "0012",
+        "name": "Consola Playstation Ps4 1tb God Of War Ragnarok Bundle",
+        "description": "Lo que ten�s que saber de este producto\r\nCapacidad: 1 TB\r\nIncluye control.\r\nResoluci�n de 1920px x 1080px.\r\nMemoria RAM de 8GB.\r\nCuenta con: 1 cable hdmi.\r\nLa duraci�n de la bater�a de los controles depende del uso que se le d� al producto.",
+        "brand": "Sony",
+        "category": "Consolas",
+        "price": "754999.00",
+        "discount": 0,
+        "number": 100,
+        "supplier": 7,
+        "created": "2024-11-09T00:45:24.059Z",
+        "updated": "2024-11-09T00:45:24.059Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 13,
+    "fields": {
+        "code": "0013",
+        "name": "Nintendo Switch OLED 64GB Standard color ne�n",
+        "description": "Lo que ten�s que saber de este producto\r\nCapacidad: 64 GB\r\n Incluye 2 controles.\r\nResoluci�n de 1920px x 1080px.\r\nMemoria RAM de 4GB.\r\nTiene pantalla t�ctil.\r\nCuenta con: 1 joy-con grip.\r\nLa duraci�n de la bater�a depende del uso que se le d� al producto.",
+        "brand": "Nintendo",
+        "category": "Consolas",
+        "price": "867000.00",
+        "discount": 0,
+        "number": 150,
+        "supplier": 6,
+        "created": "2024-11-09T00:46:53.157Z",
+        "updated": "2024-11-09T00:46:53.157Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 14,
+    "fields": {
+        "code": "0014",
+        "name": "Cocina Multigas Drean Cd5507ai Acero Inoxidable De 55 Cm",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nTipo de gas: Multigas\r\nTipo de puerta del horno: Con visor\r\nCocina de pie.\r\nTipo de alimentaci�n: gas/el�ctrica.\r\nPosee 4 hornallas.",
+        "brand": "Drean",
+        "category": "Cocina",
+        "price": "929999.00",
+        "discount": 21,
+        "number": 300,
+        "supplier": 4,
+        "created": "2024-11-09T00:49:03.332Z",
+        "updated": "2024-11-09T00:49:03.332Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 15,
+    "fields": {
+        "code": "0015",
+        "name": "Apple MacBook Air (13 pulgadas, 2020, Chip M1, 256 GB de SSD, 8 GB de RAM) - Gris espacial",
+        "description": "Lo que ten�s que saber de este producto\r\nResoluci�n de la pantalla: 2560 px x 1600 px\r\nProcesador: Apple M1\r\nSistema operativo: macOS\r\nCapacidad de disco SSD: 256 GB\r\nMemoria RAM: 8 GB\r\nChip M1 de Apple que permite un gran avance en el rendimiento del CPU, GPU y aprendizaje autom�tico.\r\nHasta 18 horas de bater�a para hacer mucho m�s (1).\r\nCPU de 8 n�cleos con un rendimiento hasta 3.5 veces m�s r�pido para que puedas hacer de todo a una velocidad insuperable (2).\r\nGPU de hasta 8 n�cleos con gr�ficos hasta 5 veces m�s veloces para apps y juegos con gr�ficos avanzados (2).\r\nNeural Engine de 16 n�cleos para un aprendizaje autom�tico avanzado.\r\n8 GB de memoria unificada para que todo sea m�s r�pido y fluido.\r\nAlmacenamiento SSD superr�pido para abrir apps y archivos al instante.\r\nDise�o silencioso, sin ventilador.\r\nPantalla Retina de 13.3 pulgadas con una amplia gama de colores P3 para que disfrutes im�genes vibrantes y un nivel de detalle incre�ble (3).\r\nC�mara FaceTime HD con procesador de se�al de imagen avanzado para hacer llamadas de video claras y n�tidas.\r\nSistema de tres micr�fonos que se enfocan en tu voz y no en el ruido ambiental.\r\nWi-Fi 6 de �ltima generaci�n para una conectividad m�s r�pida.\r\nDos puertos Thunderbolt/USB 4 para cargar y conectar accesorios.\r\nMagic Keyboard retroiluminado y Touch ID para desbloquear tu MacBook Air de forma segura.\r\nmacOS con un dise�o impactante e intuitivo, que funciona a la perfecci�n con tu iPhone.\r\nDisponible en color oro, color plata y gris espacial.",
+        "brand": "Apple",
+        "category": "Port�tiles",
+        "price": "1999999.00",
+        "discount": 0,
+        "number": 150,
+        "supplier": 5,
+        "created": "2024-11-09T00:50:48.565Z",
+        "updated": "2024-11-09T00:50:48.565Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 16,
+    "fields": {
+        "code": "0016",
+        "name": "Apple Watch Series 8 GPS - Caja de aluminio medianoche 45 mm - Correa deportiva medianoche - Patr�n - Distribuidor Autorizado",
+        "description": "Lo que ten�s que saber de este producto\r\nColor de la malla: Azul medianoche/Patr�n\r\nMaterial de la malla: Fluoroelast�mero\r\nVersi�n del smartwatch: Series 8\r\nColor de la caja: Azul medianoche\r\nSensor de Temperatura, que ofrece estimativas de las �ltimas ovulaciones y recursos avanzados de acompa�amiento de ciclos.\r\nSensor y app poderosos para ver el nivel de ox�geno en la sangre.\r\nGenera un ECG cuando y en donde quieras.\r\nNotificaciones de frecuencia card�aca alta y baja y de ritmo card�aco irregular.\r\nRecursos avanzados de seguridad, incluyendo Detecci�n de Ca�da, SOS de Emergencia y Detecci�n de Accidente.\r\nApp Ejercicio mejorado con m�tricas y formas m�s avanzadas de entrenar.",
+        "brand": "Apple",
+        "category": "Relojes",
+        "price": "639879.00",
+        "discount": 29,
+        "number": 200,
+        "supplier": 5,
+        "created": "2024-11-09T00:52:11.628Z",
+        "updated": "2024-11-09T00:52:11.628Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 17,
+    "fields": {
+        "code": "0017",
+        "name": "Secarropas Centr�fugo Drean Qv 6.5 - 6.5kg Blanco 220v",
+        "description": "Lo que ten�s que saber de este producto\r\nVoltaje: 220V\r\nCapacidad de 6.5 kg, ideal para familias y gran cantidad de ropa\r\nPotente motor de 320 W para un secado r�pido y eficiente\r\nTambor de acero inoxidable para mayor durabilidad y resistencia\r\nSecado centr�fugo que cuida tus prendas\r\nCarga superior para facilitar la colocaci�n y retiro de la ropa\r\nTraba de seguridad para proteger a los m�s peque�os del hogar.",
+        "brand": "Drean",
+        "category": "Limpeza",
+        "price": "549699.00",
+        "discount": 48,
+        "number": 200,
+        "supplier": 4,
+        "created": "2024-11-09T01:03:11.553Z",
+        "updated": "2024-11-09T01:03:11.553Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 18,
+    "fields": {
+        "code": "0018",
+        "name": "Nintendo Wii 512MB Sports Pack color blanco",
+        "description": "Lo que ten�s que saber de este producto\r\nCapacidad: 512 MB\r\nIncluye control.\r\nResoluci�n de 640px x 480px.\r\nMemoria RAM de 24MB.\r\nCuenta con: 1 barra de sensores.",
+        "brand": "Nintendo",
+        "category": "Consolas",
+        "price": "242547.00",
+        "discount": 20,
+        "number": 50,
+        "supplier": 6,
+        "created": "2024-11-09T01:05:28.252Z",
+        "updated": "2024-11-09T01:05:28.252Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 19,
+    "fields": {
+        "code": "0019",
+        "name": "Licuadora Philips Daily Collection",
+        "description": "Lo que ten�s que saber de este producto\r\nMaterial de la jarra: Pl�stico\r\nVoltaje: 220V\r\nCapacidad de 2 L.\r\nSu potencia es de 550 W.\r\nSus piezas son aptas para lavavajillas.\r\nCon base antideslizante.\r\nFunciona con 2 velocidades.\r\nLibre de BPA.\r\nPica hielo.\r\nCantidad de cuchillas: 4.",
+        "brand": "Philips",
+        "category": "Cocina",
+        "price": "95999.00",
+        "discount": 20,
+        "number": 250,
+        "supplier": 2,
+        "created": "2024-11-09T01:08:13.704Z",
+        "updated": "2024-11-09T01:08:13.704Z"
+    }
+},
+{
+    "model": "sale.product",
+    "pk": 20,
+    "fields": {
+        "code": "0020",
+        "name": "Licuadora Manual Philips Pro Mix",
+        "description": "Lo que ten�s que saber de este producto\r\nMaterial de la jarra: Pl�stico,Abs\r\nVoltaje: 220V\r\nCapacidad de 500 mL.\r\nSu potencia es de 600 W.\r\nCuchilla resistente de acero inoxidable.\r\nIncluye vaso y batidor.\r\nCon cuchilla removible.",
+        "brand": "Philips",
+        "category": "Cocina",
+        "price": "116465.00",
+        "discount": 0,
+        "number": 200,
+        "supplier": 2,
+        "created": "2024-11-09T01:09:47.697Z",
+        "updated": "2024-11-09T01:09:47.697Z"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 1,
+    "fields": {
+        "product": 2,
+        "image": "products/D_NQ_NP_792546-MLA74179807568_012024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 2,
+    "fields": {
+        "product": 2,
+        "image": "products/D_NQ_NP_750211-MLA79823589877_102024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 3,
+    "fields": {
+        "product": 2,
+        "image": "products/D_NQ_NP_618226-MLA79823589855_102024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 4,
+    "fields": {
+        "product": 3,
+        "image": "products/D_NQ_NP_913865-MLU78327399902_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 5,
+    "fields": {
+        "product": 3,
+        "image": "products/D_NQ_NP_739216-MLU78327399912_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 6,
+    "fields": {
+        "product": 3,
+        "image": "products/D_NQ_NP_654830-MLU78851763727_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 7,
+    "fields": {
+        "product": 4,
+        "image": "products/D_NQ_NP_968363-MLA52070476325_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 8,
+    "fields": {
+        "product": 4,
+        "image": "products/D_NQ_NP_737881-MLA52070476327_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 9,
+    "fields": {
+        "product": 4,
+        "image": "products/D_NQ_NP_695104-MLU73339083292_122023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 10,
+    "fields": {
+        "product": 5,
+        "image": "products/D_NQ_NP_637136-MLU74118237498_012024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 11,
+    "fields": {
+        "product": 5,
+        "image": "products/D_NQ_NP_852885-MLU78869515893_092024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 12,
+    "fields": {
+        "product": 5,
+        "image": "products/D_NQ_NP_2X_899520-MLU78869515925_092024-F.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 13,
+    "fields": {
+        "product": 6,
+        "image": "products/D_NQ_NP_657265-MLA52027687930_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 14,
+    "fields": {
+        "product": 6,
+        "image": "products/D_NQ_NP_745623-MLA52027686937_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 15,
+    "fields": {
+        "product": 6,
+        "image": "products/D_NQ_NP_839723-MLU72605989386_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 16,
+    "fields": {
+        "product": 1,
+        "image": "products/D_NQ_NP_891383-MLU77717518407_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 17,
+    "fields": {
+        "product": 1,
+        "image": "products/D_NQ_NP_962011-MLU77717479465_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 18,
+    "fields": {
+        "product": 1,
+        "image": "products/D_NQ_NP_809041-MLU77500278088_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 19,
+    "fields": {
+        "product": 7,
+        "image": "products/D_NQ_NP_944011-MLA74651986202_022024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 20,
+    "fields": {
+        "product": 7,
+        "image": "products/D_NQ_NP_626961-MLU72631899132_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 21,
+    "fields": {
+        "product": 7,
+        "image": "products/D_NQ_NP_633525-MLU78868797853_092024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 22,
+    "fields": {
+        "product": 8,
+        "image": "products/D_NQ_NP_630186-MLU76746432441_052024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 23,
+    "fields": {
+        "product": 8,
+        "image": "products/D_NQ_NP_741709-MLU76547986310_052024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 24,
+    "fields": {
+        "product": 8,
+        "image": "products/D_NQ_NP_766426-MLU76547660454_052024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 25,
+    "fields": {
+        "product": 9,
+        "image": "products/D_NQ_NP_610967-MLA78385140682_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 26,
+    "fields": {
+        "product": 9,
+        "image": "products/D_NQ_NP_829268-MLA78616416823_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 27,
+    "fields": {
+        "product": 9,
+        "image": "products/D_NQ_NP_993689-MLA78493066156_082024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 28,
+    "fields": {
+        "product": 10,
+        "image": "products/D_NQ_NP_958009-MLA71782868134_092023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 29,
+    "fields": {
+        "product": 10,
+        "image": "products/D_NQ_NP_611821-MLU75183263670_032024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 30,
+    "fields": {
+        "product": 10,
+        "image": "products/D_NQ_NP_643155-MLU75183479090_032024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 31,
+    "fields": {
+        "product": 11,
+        "image": "products/D_NQ_NP_673378-MLU74442016885_022024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 32,
+    "fields": {
+        "product": 11,
+        "image": "products/D_NQ_NP_894427-MLU74441938461_022024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 33,
+    "fields": {
+        "product": 11,
+        "image": "products/D_NQ_NP_930190-MLU77728515972_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 34,
+    "fields": {
+        "product": 12,
+        "image": "products/D_NQ_NP_774602-MLU78861436951_092024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 35,
+    "fields": {
+        "product": 12,
+        "image": "products/D_NQ_NP_767388-MLU78861595099_092024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 36,
+    "fields": {
+        "product": 12,
+        "image": "products/D_NQ_NP_940245-MLU78861436937_092024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 37,
+    "fields": {
+        "product": 13,
+        "image": "products/D_NQ_NP_803086-MLA47920649105_102021-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 38,
+    "fields": {
+        "product": 13,
+        "image": "products/D_NQ_NP_702157-MLU72637591367_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 39,
+    "fields": {
+        "product": 13,
+        "image": "products/D_NQ_NP_875857-MLA70258248060_072023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 40,
+    "fields": {
+        "product": 14,
+        "image": "products/D_NQ_NP_927528-MLU77626190169_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 41,
+    "fields": {
+        "product": 14,
+        "image": "products/D_NQ_NP_663978-MLU77626654915_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 42,
+    "fields": {
+        "product": 14,
+        "image": "products/D_NQ_NP_866792-MLU77409650844_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 43,
+    "fields": {
+        "product": 15,
+        "image": "products/D_NQ_NP_801112-MLA46516512347_062021-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 44,
+    "fields": {
+        "product": 15,
+        "image": "products/D_NQ_NP_645799-MLA46516517280_062021-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 45,
+    "fields": {
+        "product": 15,
+        "image": "products/D_NQ_NP_837281-MLU75324874645_032024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 46,
+    "fields": {
+        "product": 16,
+        "image": "products/D_NQ_NP_710273-MLA52127704169_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 47,
+    "fields": {
+        "product": 16,
+        "image": "products/D_NQ_NP_678083-MLA52127704170_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 48,
+    "fields": {
+        "product": 16,
+        "image": "products/D_NQ_NP_735221-MLA52127675442_102022-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 49,
+    "fields": {
+        "product": 17,
+        "image": "products/D_NQ_NP_866213-MLU73827148776_012024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 50,
+    "fields": {
+        "product": 17,
+        "image": "products/D_NQ_NP_715335-MLU77823509812_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 51,
+    "fields": {
+        "product": 17,
+        "image": "products/D_NQ_NP_962873-MLA80412564205_112024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 52,
+    "fields": {
+        "product": 18,
+        "image": "products/D_NQ_NP_663884-MLA40694328935_022020-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 53,
+    "fields": {
+        "product": 18,
+        "image": "products/D_NQ_NP_924231-MLA75590301685_042024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 54,
+    "fields": {
+        "product": 18,
+        "image": "products/D_NQ_NP_726677-MLA75434916282_042024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 55,
+    "fields": {
+        "product": 19,
+        "image": "products/D_NQ_NP_636305-MLU72542366452_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 56,
+    "fields": {
+        "product": 19,
+        "image": "products/D_NQ_NP_899159-MLU72823083885_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 57,
+    "fields": {
+        "product": 19,
+        "image": "products/D_NQ_NP_915695-MLU72748517202_112023-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 58,
+    "fields": {
+        "product": 20,
+        "image": "products/D_NQ_NP_876314-MLU77550759745_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 59,
+    "fields": {
+        "product": 20,
+        "image": "products/D_NQ_NP_763275-MLU77551035769_072024-O.webp"
+    }
+},
+{
+    "model": "sale.productimage",
+    "pk": 60,
+    "fields": {
+        "product": 20,
+        "image": "products/D_NQ_NP_818054-MLU77550749797_072024-O.webp"
+    }
+}
+]
