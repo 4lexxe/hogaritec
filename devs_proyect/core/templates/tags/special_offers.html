@@ -6,15 +6,13 @@
     </div>
 
     <!-- Carrusel para dispositivos móviles -->
-    <div class="swiper mySwiper ">
+    <div class="swiper swiperCarouselCards custom-swiper">
       <div class="swiper-wrapper">
         <!-- SLIDES -->
 
-
-
         {% for product in products %}
         {% if product.discount %}
-        <div class="swiper-slide">
+        <div class="swiper-slide custom-swiper-slide">
 
           <div class="card carousel-card">
 
@@ -34,8 +32,6 @@
             <div class="card-body">
               <h5 class="card-title card-title-limited">{{product.name}}</h5>
 
-
-              
               <div class="card-buy">
                 <p class="card-text card-price card-carousel__price">
                   $ {{product.price}}
@@ -45,7 +41,6 @@
                 </p>
               </div>
               
-
               <p>$ {{ product.get_final_price }}</p>
 
               <a href="#" class="btn btn-primary card-carousel__btn">

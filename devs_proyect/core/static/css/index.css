@@ -8,6 +8,15 @@
   margin-bottom: 100px;
 }
 
+.custom-swiper-carousel{
+  height: 50vh;
+}
+
+.banner-img{
+  width: 100%;
+  height: 100%;
+}
+
 /* SECTION 2 -------------------------------------------------------------- */
 
 .special-offers {
@@ -51,15 +60,14 @@
 
 
 /* Estilos del carousel de cards */
-.swiper {
+
+.custom-swiper{
+  border-radius: 0px 0px 20px 20px;
   width: 100%;
   height: 100%;
-
-  border-radius: 0px 0px 20px 20px;
 }
 
 .swiper-slide {
-  padding: 20px 0px;
   text-align: center;
   font-size: 18px;
   background: #fff;
@@ -69,8 +77,9 @@
   align-items: center;
 }
 
-
-
+.custom-swiper-slide{
+  padding: 20px 0px;
+}
 
 .carousel-card {
   border-width: 0px;
@@ -112,7 +121,6 @@
 }
 
 /* SECTION 3 -------------------------------------------------------------- */
-
 
 
 .featured-products {
@@ -161,11 +169,13 @@
 
 .card-title-limited {
   font-size: 15px;
+  line-height: 1.4; /* Mejora la legibilidad */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
+  max-height: calc(1.4em * 2); /* Limita la altura a dos líneas */
 }
 
 .card-buy {
@@ -175,6 +185,7 @@
 }
 
 .btn-cart {
+  padding: 0px;
   border: 0px;
   border-radius: 50%;
   background-color: var(--primary-color);
@@ -190,6 +201,11 @@
 
 .more-products:hover{
   color: white;
+  background-color: var(--secondary-color);
+}
+
+.btn-cart:hover{
+  border: 0px;
   background-color: var(--secondary-color);
 }
 
