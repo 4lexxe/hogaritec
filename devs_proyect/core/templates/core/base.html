@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <link rel="stylesheet" href="{% static 'css/acercade.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my-profile.css' %}">
     {% block linkStyle %} {% endblock %}
 
     <!-- Font -->
@@ -43,10 +44,11 @@
         </div>
     {% endif %}
 
+
+
     {% block content %}
     <!-- El contenido específico de cada página se incluirá aquí -->
     {% endblock %}
-
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

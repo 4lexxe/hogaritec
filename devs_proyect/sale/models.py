@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.db import models
 from decimal import Decimal
 from django.contrib.auth.models import Permission
+from django.utils import timezone
 import os
 
 class CustomerManager(BaseUserManager):
@@ -38,6 +39,7 @@ class Customer(AbstractBaseUser):
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=15, blank=True, null=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    date_joined = models.DateTimeField(default=timezone.now)
     
     # Los campos de autenticación estándar de Django
     is_active = models.BooleanField(default=True)

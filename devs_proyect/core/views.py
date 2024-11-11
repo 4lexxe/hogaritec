@@ -16,6 +16,7 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 import uuid
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 Customer = get_user_model()
 
@@ -195,3 +196,18 @@ def ResetPassword(request, token):
             return redirect('login')
 
     return render(request, 'auth/reset_password.html', {'token': token})
+
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
+
+@login_required
+def profile_view(request):
+    # Accede a los datos del usuario autenticado, que ahora es una instancia de Customer
+    profile_data = {
+        'name': request.user.get_full_name(),
+        'email': request.user.email,
+        'phone': request.user.phone_number,
+        'avatar_url': request.user.avatar.url if request.user.avatar else None,
+        'member_since': request.user.date_joined.strftime('%d/%m/%Y'),
+    }
+    return render(request, 'profile/my-profile.html', profile_data)
