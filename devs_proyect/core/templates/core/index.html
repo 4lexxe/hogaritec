@@ -1,5 +1,7 @@
 <!-- core/templates/core/index.html -->
 {% extends 'core/base.html' %}
+{% load static %}
+{% load tags %} 
 
 {% block title %}Inicio - Hogaritec{% endblock %}
 
@@ -10,4 +12,9 @@
     {% include 'tags/featured_products.html' %}
     {% include 'tags/newsletter.html' %}
     {% include 'tags/footer.html' %}
+
+    <!-- Scripts del swiper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="{% static 'js/cards-carousel.js' %}"></script>
 {% endblock %}
+

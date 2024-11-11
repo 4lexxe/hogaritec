@@ -1,17 +1,20 @@
 # core/views.py
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-from sale.models import Customer
 from django.contrib.auth.hashers import make_password
 from .decorators import redirect_authenticated_user  # Importa el decorador
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 
+from sale.models import Customer
+from sale.models import Product
+
 def index(request):
-    return render(request, "core/index.html", {'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
+    productos = Product.objects.all()
+    
+    return render(request, "core/index.html", {"products": productos, 'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
 
 def acercade_view(request):
     return render(request, "core/acercade.html")
@@ -19,7 +22,7 @@ def acercade_view(request):
 def contacto_view(request):
     return render(request, "core/contacto.html")
 
-# Manejo de errores 404
+# Manejo de errores 404 
 def custom_404_view(request, exception):
     return render(request, 'core/404.html', {'path': request.path}, status=404) 
 

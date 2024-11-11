@@ -1,111 +1,70 @@
 {% load static %}
 <section class="main-section">
   <div class="special-offers">
-      <div class="offers-header">
-          <h2>OFERTAS ESPECIALES</h2>
-      </div>
-      
-      <!-- Carrusel para dispositivos móviles -->
-      <div class="swiper mySwiper d-md-none">
-          <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                  <div class="card carousel-card">
-                      <img src="{% static './imgs/general/product2.png' %}" alt="Product Image">
-                      <h5 class="card-title">Producto 2</h5>
-                      <p class="card-text">Descripción del producto 2</p>
-                      <div class="price-info mb-2">
-                        <span class="text-muted text-decoration-line-through me-2">$12.345,67</span>
-                        <span class="text-danger fw-bold">25% OFF</span>
-                      </div>
-                      <div class="final-price mb-3">$6.172,84</div>
-                      <button class="btn btn-primary me-2">
-                        Comprar
-                      </button>
-                      <button class="btn btn-outline-secondary">
-                        <i class="fas fa-shopping-cart"></i> Agregar
-                      </button>
-                  </div>
-              </div>
-              <div class="swiper-slide">
-                  <div class="card carousel-card">
-                      <img src="{% static './imgs/general/product1.svg' %}" alt="Product Image">
-                      <h5 class="card-title">Producto 1</h5>
-                      <p class="card-text">Descripción del producto 1</p>
-                      <div class="price-info mb-2">
-                        <span class="text-muted text-decoration-line-through me-2">$12.345,67</span>
-                        <span class="text-danger fw-bold">25% OFF</span>
-                      </div>
-                      <div class="final-price mb-3">$6.172,84</div>
-                      <button class="btn btn-primary me-2">
-                        Comprar
-                      </button>
-                      <button class="btn btn-outline-secondary">
-                        <i class="fas fa-shopping-cart"></i> Agregar
-                      </button>
-                  </div>
-              </div>
-              <div class="swiper-slide">
-                  <div class="card carousel-card">
-                      <img src="{% static './imgs/general/product2.png' %}" alt="Product Image">
-                      <h5 class="card-title">Producto 2</h5>
-                      <p class="card-text">Descripción del producto 2</p>
-                  </div>
-              </div>
-          </div>
-          <!-- Botones de navegación solo visibles en móvil -->
-          <div class="swiper-button-prev"></div>
-          <div class="swiper-button-next"></div>
-      </div>
+    <div class="offers-header">
+      <h2>OFERTAS ESPECIALES</h2>
+    </div>
 
-      <!-- Vista de productos en fila para escritorio -->
-      <div class="desktop-products d-none d-md-flex">
+    <!-- Carrusel para dispositivos móviles -->
+    <div class="swiper mySwiper ">
+      <div class="swiper-wrapper">
+        <!-- SLIDES -->
 
-          <div class="product-card">
-              <img src="{% static './imgs/general/product1.svg' %}" alt="Product Image">
-              <h5 class="card-title">Producto 1</h5>
-              <p class="card-text">Descripción del producto 1</p>
-              <div class="price-info mb-2">
-                <span class="text-muted text-decoration-line-through me-2">$12.345,67</span>
-                <span class="text-danger fw-bold">25% OFF</span>
-              </div>
-              <div class="final-price mb-3">$6.172,84</div>
-              <button class="btn btn-outline-secondary">
-                <i class="fas fa-shopping-cart"></i> ¡Aprovecha ahora!
-              </button>
-          </div>
 
-          <div class="product-card">
-            <img src="{% static './imgs/general/product1.svg' %}" alt="Product Image">
-            <h5 class="card-title">Producto 1</h5>
-            <p class="card-text">Descripción del producto 1</p>
-            <div class="price-info mb-2">
-              <span class="text-muted text-decoration-line-through me-2">$12.345,67</span>
-              <span class="text-danger fw-bold">25% OFF</span>
+
+        {% for product in products %}
+        {% if product.discount %}
+        <div class="swiper-slide">
+
+          <div class="card carousel-card">
+
+            <div class="card-img-wrapper">
+              {% if product.images.all %}
+              <!-- Mostrar la primera imagen del producto -->
+              <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}"
+                class="card-img-top-custom card-img-contain">
+
+              {% else %}
+              <!-- Imagen de reserva si no hay imágenes para el producto -->
+              <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
+                class="card-img-top-custom card-img-contain">
+              {% endif %}
             </div>
-            <div class="final-price mb-3">$6.172,84</div>
-            <button class="btn btn-outline-secondary">
-              <i class="fas fa-shopping-cart"></i> ¡Aprovecha ahora!
-            </button>
-        </div>
 
-        <div class="product-card">
-          <img src="{% static './imgs/general/product1.svg' %}" alt="Product Image">
-          <h5 class="card-title">Producto 1</h5>
-          <p class="card-text">Descripción del producto 1</p>
-          <div class="price-info mb-2">
-            <span class="text-muted text-decoration-line-through me-2">$12.345,67</span>
-            <span class="text-danger fw-bold">25% OFF</span>
+            <div class="card-body">
+              <h5 class="card-title card-title-limited">{{product.name}}</h5>
+
+
+              
+              <div class="card-buy">
+                <p class="card-text card-price card-carousel__price">
+                  $ {{product.price}}
+                </p>
+                <p class="card-carousel__discount">
+                  {{product.discount}}% OFF
+                </p>
+              </div>
+              
+
+              <p>$ {{ product.get_final_price }}</p>
+
+              <a href="#" class="btn btn-primary card-carousel__btn">
+                <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
+                ¡Aprovecha ahora!
+              </a>
+
+            </div>
+
           </div>
-          <div class="final-price mb-3">$6.172,84</div>
-          <button class="btn btn-outline-secondary">
-            <i class="fas fa-shopping-cart"></i> ¡Aprovecha ahora!
-          </button>
-      </div>
 
-          
+        </div>
+        {% endif %}
+        {% endfor %}
 
       </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
 
-      
+    </div>
   </div>
 </section>

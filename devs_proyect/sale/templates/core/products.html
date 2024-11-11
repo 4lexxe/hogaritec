@@ -24,19 +24,25 @@
         {% for product in products %}
         <div class="card ">
 
-            {% if product.images.all %}
-            <!-- Mostrar la primera imagen del producto -->
-            <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top"
-                data-bs-toggle="modal" data-bs-target="#modal{{ product.code }}" width="200px" height="200px">
-            {% else %}
-            <!-- Imagen de reserva si no hay imágenes para el producto -->
-            <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top"
-                width="200px" height="200px">
-            {% endif %}
+            <div class="card-img-wrapper">
+                {% if product.images.all %}
+                <!-- Mostrar la primera imagen del producto -->
+                <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain"
+                    data-bs-toggle="modal" data-bs-target="#modal{{ product.code }}">
+
+                {% else %}
+                <!-- Imagen de reserva si no hay imágenes para el producto -->
+                <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+                {% endif %}
+            </div>
+
+
 
             <div class="card-body">
-                <h5 class="card-title">{{product.name}}</h5>
+                <h5 class="card-title card-title-limited">{{product.name}}</h5>
+                
 
+                {% if product.discount %}
                 <div class="card-buy">
                     <p class="card-text card-price card-carousel__price">
                         $ {{product.price}}
@@ -45,6 +51,10 @@
                         {{product.discount}}% OFF
                     </p>
                 </div>
+                {% else %}
+                    <br>
+                    <br>
+                {% endif %}
 
                 <p>$ {{ product.get_final_price }}</p>
 
@@ -92,13 +102,13 @@
                                     {% endfor %}
 
                                 </div>
-                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{product.code}}"
-                                    data-bs-slide="prev">
+                                <button class="carousel-control-prev" type="button"
+                                    data-bs-target="#carousel{{product.code}}" data-bs-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Previous</span>
                                 </button>
-                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{product.code}}"
-                                    data-bs-slide="next">
+                                <button class="carousel-control-next" type="button"
+                                    data-bs-target="#carousel{{product.code}}" data-bs-slide="next">
                                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                     <span class="visually-hidden">Next</span>
                                 </button>
