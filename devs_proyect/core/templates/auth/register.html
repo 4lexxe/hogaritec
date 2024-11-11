@@ -1,6 +1,7 @@
 {% extends 'core/base.html' %}
 {% load static %}
 {% load tags %}
+
 {% block title %}Registrarse{% endblock %}
 
 {% block content %}
@@ -18,7 +19,7 @@
           {% endfor %}
         {% endif %}
 
-        <form method="POST" class="mt-3">
+        <form method="POST" class="mt-3" id="registration-form">
           {% csrf_token %}
 
           <div class="form-group mb-3">
@@ -46,7 +47,11 @@
             <input type="password" class="form-control" id="password" name="password" required>
           </div>
 
-          <button type="submit" class="btn btn-primary w-100">Registrarse</button>
+          <button type="submit" class="btn btn-primary w-100" id="submit-btn">
+            Registrarse
+            <span id="loading-spinner" class="spinner-border spinner-border-sm text-light" style="display: none;"></span>
+          </button>
+
           <div class="text-center mt-3">
             <p class="small">¿Ya tienes una cuenta? <a class="text-primary" href="{% url 'login' %}">Iniciar Sesión</a></p>
           </div>
@@ -54,7 +59,24 @@
       </div>
     </div>
   </div>
+
 </body>
 <!-- Footer reutilizable -->
 {% include 'tags/footer.html' %}
+
+<script>
+  document.getElementById('registration-form').addEventListener('submit', function(e) {
+    // Deshabilitar el botón y mostrar el spinner de carga
+    var submitBtn = document.getElementById('submit-btn');
+    var loadingSpinner = document.getElementById('loading-spinner');
+    submitBtn.disabled = true;  // Deshabilita el botón
+    loadingSpinner.style.display = 'inline-block';  // Muestra el spinner
+
+    // Deshabilitar el botón de nuevo clic
+    submitBtn.innerHTML = 'Enviando...';  // Cambiar el texto del botón
+
+    // Se podría hacer una espera en el servidor, pero por ahora se deja que el form se envíe
+  });
+</script>
+
 {% endblock %}

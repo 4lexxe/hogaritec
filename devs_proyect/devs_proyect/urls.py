@@ -29,6 +29,12 @@ urlpatterns = [
     path('login/', views.LoginView, name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+
+    #Rutas para resetear contraseña
+    path('forgot-password/', views.ForgotPassword, name='forgot-password'),
+    path('password-reset-sent/<uuid:token>/', views.PasswordResetSent, name='password-reset-sent'),
+    path('reset-password/<uuid:token>/', views.ResetPassword, name='reset-password'),
+    path('password-reset-sent-generic/', views.PasswordResetSentGeneric, name='password-reset-sent-generic'),
 ]
 
 # Asigna la función personalizada a handler404

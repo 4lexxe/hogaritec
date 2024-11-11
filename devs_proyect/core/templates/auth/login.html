@@ -4,6 +4,7 @@
 {% block title %}Iniciar Sesión{% endblock %}
 
 {% block content %}
+
 <body>
   <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5">
@@ -11,11 +12,11 @@
         <h2 class="text-center mb-4">Iniciar Sesión</h2>
 
         {% if messages %}
-          {% for message in messages %}
-            <div class="text-center">
-              <h5 class="{% if message.tags == 'error' %}text-danger{% else %}text-primary{% endif %}">{{ message }}</h5>
-            </div>
-          {% endfor %}
+        {% for message in messages %}
+        <div class="text-center">
+          <h5 class="{% if message.tags == 'error' %}text-danger{% else %}text-primary{% endif %}">{{ message }}</h5>
+        </div>
+        {% endfor %}
         {% endif %}
 
         <form method="POST">
@@ -33,7 +34,11 @@
 
           <button type="submit" class="btn btn-primary w-100">Iniciar Sesión</button>
           <div class="text-center mt-3">
-            <p class="small">¿No eres un miembro? <a class="text-primary" href="{% url 'register' %}">Registrarse</a></p>
+            <p class="small"><a class="text-primary" href="{% url 'forgot-password' %}">Olvidé mi Contraseña</a></p>
+          </div>
+          <div class="text-center mt-3">
+            <p class="small">¿No eres un miembro? <a class="text-primary" href="{% url 'register' %}">Registrarse</a>
+            </p>
           </div>
         </form>
       </div>
