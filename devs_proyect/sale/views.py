@@ -9,6 +9,4 @@ from .models import ProductImage
 def products_view(request):
     productos = Product.objects.all()
 
-    print(productos, "laskdjfalskfjl")
-
     return render(request, "core/products.html", {"products": productos})
