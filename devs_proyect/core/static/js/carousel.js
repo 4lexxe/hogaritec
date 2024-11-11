@@ -1,7 +1,7 @@
 var swiper1 = new Swiper(".swiperCarousel", {
     centeredSlides: true,
     autoplay: {
-        delay: 2000,
+        delay: 3000,
         disableOnInteraction: false,
     },
     pagination: {
@@ -30,15 +30,12 @@ var swiper2 = new Swiper(".swiperCarouselCards", {
 	breakpoints: {
 		640: {
 			slidesPerView: 2,
-			spaceBetween: 20,
 		},
 		950: {
 			slidesPerView: 3,
-			spaceBetween: 50,
 		},
-		1120: {
+		1200: {
 			slidesPerView: 4,
-			spaceBetween: 50,
 		},
 	},
 });
