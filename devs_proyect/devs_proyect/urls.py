@@ -35,6 +35,9 @@ urlpatterns = [
     path('password-reset-sent/<uuid:token>/', views.PasswordResetSent, name='password-reset-sent'),
     path('reset-password/<uuid:token>/', views.ResetPassword, name='reset-password'),
     path('password-reset-sent-generic/', views.PasswordResetSentGeneric, name='password-reset-sent-generic'),
+
+    #perfiles
+    path('my-profile/', views.profile_view, name='my-profile'),
 ]
 
 # Asigna la función personalizada a handler404

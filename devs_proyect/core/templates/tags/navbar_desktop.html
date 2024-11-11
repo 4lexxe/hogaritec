@@ -29,7 +29,7 @@
     
         <!-- Segundo bloque: Mostrar botón de cerrar sesión -->
         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown" style="margin-top: -30px; margin-right: 100px;">
-          <li><a class="dropdown-item" href="#">Ver mi perfil</a></li>
+          <li><a class="dropdown-item" href="{% url 'my-profile'%}">Ver mi perfil</a></li>
           <!-- Formulario para cerrar sesión -->
           <li>
             <form action="{% url 'logout' %}" method="post" style="display: inline;">
