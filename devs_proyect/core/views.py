@@ -18,6 +18,8 @@ from django.contrib.auth.decorators import login_required
 
 from sale.models import Customer
 from sale.models import Product
+from core.forms import EditCustomerProfileForm
+from django.contrib.auth.decorators import login_required
 
 Customer = get_user_model()
 
@@ -214,3 +216,15 @@ def profile_view(request):
         'member_since': request.user.date_joined.strftime('%d/%m/%Y'),
     }
     return render(request, 'profile/my-profile.html', profile_data)
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditCustomerProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('my-profile')
+    else:
+        form = EditCustomerProfileForm(instance=request.user)
+    
+    return render(request, 'profile/edit_profile.html', {'form': form})

@@ -38,6 +38,7 @@ urlpatterns = [
 
     #perfiles
     path('my-profile/', views.profile_view, name='my-profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
 ]
 
 # Asigna la función personalizada a handler404
