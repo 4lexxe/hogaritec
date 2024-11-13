@@ -11,8 +11,7 @@
         <div class="card-img-wrapper">
             {% if product.images.all %}
             <!-- Mostrar la primera imagen del producto -->
-            <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain"
-                data-bs-toggle="modal" data-bs-target="#modal{{ product.code }}">
+            <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain">
 
             {% else %}
             <!-- Imagen de reserva si no hay imágenes para el producto -->
@@ -29,11 +28,11 @@
                 <p class="card-text card-price">
                     $  {{product.price}}
                 </p>
-                <a href="#"
-                    class="btn btn-primary btn-cart d-flex align-items-center justify-content-center"
+                <button
+                    class="btn btn-primary btn-cart d-flex align-items-center justify-content-center addToCart-btn" value="{{ product.id }}"
                     style="width: 50px; height:50px;">
                     <i class="bi bi-cart-plus text-white"></i>
-                </a>
+                </button>
             </div>
         </div>
     </div>

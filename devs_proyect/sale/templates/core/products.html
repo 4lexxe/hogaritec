@@ -2,7 +2,7 @@
 {% load static %}
 {% load tags %}
 
-{% block title %}Acerca de - Hogaritec{% endblock %}
+{% block title %}Productos{% endblock %}
 
 {% block content %}
 {% include 'tags/header.html' %}
@@ -58,10 +58,13 @@
 
                 <p>$ {{ product.get_final_price }}</p>
 
-                <a href="#" class="btn btn-primary card-carousel__btn">
+
+                <!-- AGREGAR AL CARRITO -->
+                <button class="btn btn-primary card-carousel__btn addToCart-btn" value="{{product.id}}">
                     <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
                     ¡Aprovecha ahora!
-                </a>
+                </button>
+                
 
             </div>
 
@@ -131,4 +134,7 @@
 
 
 {% include 'tags/footer.html' %}
+
+<script src="{% static 'js/cart.js' %}"></script>
+
 {% endblock %}

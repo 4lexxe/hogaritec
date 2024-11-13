@@ -142,3 +142,57 @@ class Sale(models.Model):
 
     def __str__(self):
         return f"Venta de {self.product.name} a {self.customer.name if self.customer else 'Cliente desconocido'}"
+    
+
+
+
+
+# Modelos del carrito de compras -----------------------------------------------------------------
+
+class Cart(models.Model):
+    """Modelo para representar un carrito de compras."""
+    customer = models.OneToOneField(Customer, on_delete=models.CASCADE, verbose_name="Usuario" , related_name="user")
+    status = models.BooleanField(default=False, verbose_name="Activo")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
+    updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
+
+    def __str__(self):
+        return f"Carrito de {self.customer.first_name}"
+
+    
+    """ Precio final de lo agregado en el carrito """
+    @property
+    def total_price(self):
+        cartitems = self.cartitems.all()
+        total = sum([item.final_price for item in cartitems])
+
+        return total
+    
+    
+    """ Cantidad de productos(todos) en el carrito """
+    @property
+    def num_of_items(self):
+        cartitems = self.cartitems.all()
+        quantity = sum([item.quantity for item in cartitems])
+        return quantity
+
+
+class CartItem(models.Model):
+    """Modelo para representar un elemento en el carrito."""
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cartitems', verbose_name="Carrito")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="product", verbose_name="Producto")
+    quantity = models.PositiveIntegerField(default=0, verbose_name="Cantidad")
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} en el carrito"
+    
+    """ Precio de la cantidad de cada producto aplicado el descuente de cada uno si es que tiene """
+    @property
+    def final_price(self):
+        pricePerProduct = self.product.get_final_price()
+
+        total = pricePerProduct * self.quantity
+        return total
+        
+    
+

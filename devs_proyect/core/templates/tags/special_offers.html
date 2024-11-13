@@ -43,10 +43,10 @@
               
               <p>$ {{ product.get_final_price }}</p>
 
-              <a href="#" class="btn btn-primary card-carousel__btn">
+              <button class="btn btn-primary card-carousel__btn addToCart-btn" value="{{ product.id }}">
                 <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
                 ¡Aprovecha ahora!
-              </a>
+              </button>
 
             </div>
 

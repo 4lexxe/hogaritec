@@ -1,0 +1,115 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block linkStyle %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block title %}Carrito{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+
+<main>
+    <div class="cart-custom">
+
+        <h1 class="cart-titulo featured__title-products">Carrito de compras</h1>
+
+        <div class="cart-pedidos">
+            <div class="cart-pedidos__titulo">
+                <h2>Productos</h2>
+            </div>
+
+            {% for item in cartitems %}
+
+            <p> {{ item.product.name }} gdf</p>
+
+            <section class="cart-item">
+                <div class="item-container">
+
+                    <div class="cart-item__img">
+                        <img src="{{ item.product.images.all.0.image.url }}" alt="imagen del producto"
+                            class="card-img-top-custom card-img-contain">
+                    </div>
+                </div>
+
+
+                <h3 class="cart-item__titulo"> {{ item.product.name }} </h3>
+
+                <p>$ {{ item.product.get_final_price }}</p>
+
+                <div class="cart-item__cantidad">
+                    <!-- Sumar o resta de a uno -->
+
+                    <button class="btn-deleteOne deleteOfTheCart-btn" value="{{ item.product.id }}">
+                        -
+                    </button>
+
+                    <span>{{ item.quantity }}</span>
+
+                    <button class="btn-addOne addToCart-btn" value="{{ item.product.id }}">
+                        +
+                    </button>
+
+                </div>
+
+
+                <div class="cart-item__end">
+                    <p>$ {{ item.final_price }}</p>
+                    <i class="bi bi-trash"></i>
+                </div>
+            </section>
+            {% endfor %}
+
+
+
+        </div>
+
+        <div class="cart-detalles">
+            <div class="resumen-pedido">
+                <div class="resumen-pedido__item">
+                    <h3>Resumen del pedido</h3>
+                </div>
+
+
+                <div class="resumen-pedido__item">
+                    <div>
+                        <p>Productos({{ cart.num_of_items }})</p>
+                    </div>
+                    <div>
+                        <p>$ {{ cart.total_price }}</p>
+                    </div>
+                </div>
+                <div class="resumen-pedido__item">
+                    <label for="coupon">¿Tienes un cupón de descuento?</label>
+                    <div class="resumen-pedido__item-search">
+                        <input type="search" name="" id="coupon" placeholder="Código de cupon" class="item-search">
+                        <button class="pedido-btn">Aplicar</button>
+                        <p>- $ 00.00</p>
+                    </div>
+                </div>
+                <div class="resumen-pedido__item resumen-total">
+                    <p>Total: </p>
+                    <p>$ {{ cart.total_price }} </p>
+                </div>
+
+                <button class="btn more-products buy-btn">
+                    Finalizar compra
+                </button>
+
+            </div>
+
+            <div class="mas-productos">
+                <a href="{% url 'productos' %}" class="btn more-products">Ver más productos</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% include 'tags/footer.html' %}
+
+<script src="{% static 'js/cart.js' %}">
+</script>
+
+{% endblock %}
