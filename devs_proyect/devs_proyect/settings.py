@@ -145,6 +145,7 @@ INSTALLED_APPS = [
     #App propias
     'core',
     'sale',
+    'dashboard',
 ]
 
 

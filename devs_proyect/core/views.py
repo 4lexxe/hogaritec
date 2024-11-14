@@ -38,6 +38,7 @@ def index(request):
     
     return render(request, "core/index.html", {"products": productos, 'name': 'index'})
 
+
 def acercade_view(request):
     return render(request, "core/acercade.html")
 

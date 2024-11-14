@@ -42,6 +42,9 @@ urlpatterns = [
 
     #Buscador
     path("buscar/", views.search_products, name="search_products"),
+    
+    #dashboard
+    path('dashboard/', include('dashboard.urls')),
 
 ]
 
