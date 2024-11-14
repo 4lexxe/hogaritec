@@ -1,6 +1,7 @@
 from django import forms
 from sale.models import Customer
 from django.core.exceptions import ValidationError
+from sale.models import Subscriber
 
 class EditCustomerProfileForm(forms.ModelForm):
     class Meta:

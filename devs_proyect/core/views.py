@@ -22,14 +22,21 @@ from core.forms import EditCustomerProfileForm
 from django.contrib.auth.decorators import login_required
 from sale.models import Product
 from .forms import ContactForm
-
+from sale.models import Subscriber
 
 Customer = get_user_model()
 
 def index(request):
     productos = Product.objects.all()
+    if request.method == 'POST' and 'email' in request.POST:
+        email = request.POST.get('email')
+        if not Subscriber.objects.filter(email=email).exists():
+            Subscriber.objects.create(email=email)  # Crear nuevo suscriptor
+            messages.success(request, '¡Te has suscrito exitosamente al boletín!')
+        else:
+            messages.info(request, 'Ya estás suscrito al boletín.')
     
-    return render(request, "core/index.html", {"products": productos, 'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
+    return render(request, "core/index.html", {"products": productos, 'name': 'index'})
 
 def acercade_view(request):
     return render(request, "core/acercade.html")

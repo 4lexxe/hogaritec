@@ -4,9 +4,9 @@ from .models import Supplier
 from .models import Product
 from .models import Sale
 from .models import ProductImage
-
 from django.contrib import admin
 from .models import Customer, Supplier, Product, Sale, ProductImage
+from .models import Subscriber
 
 # Registrar el modelo Customer con una administración personalizada
 class CustomerAdmin(admin.ModelAdmin):
@@ -42,3 +42,10 @@ admin.site.register(Product, ProductAdmin)
 admin.site.register(Supplier)
 admin.site.register(Sale)
 admin.site.register(Customer, CustomerAdmin)
+
+#admin para las suscripciones al newsletter
+@admin.register(Subscriber)
+class SubscriberAdmin(admin.ModelAdmin):
+    list_display = ('email', 'date_subscribed')
+    search_fields = ('email',)
+    list_filter = ('date_subscribed',)

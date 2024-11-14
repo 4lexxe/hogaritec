@@ -4,7 +4,6 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.signals import post_delete
 from django.contrib.auth.hashers import make_password
 from django.dispatch import receiver
-from django.db import models
 from decimal import Decimal
 from django.contrib.auth.models import Permission
 from django.utils import timezone
@@ -142,3 +141,10 @@ class Sale(models.Model):
 
     def __str__(self):
         return f"Venta de {self.product.name} a {self.customer.name if self.customer else 'Cliente desconocido'}"
+    
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    date_subscribed = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email
