@@ -21,6 +21,7 @@ from sale.models import Product
 from core.forms import EditCustomerProfileForm
 from django.contrib.auth.decorators import login_required
 from sale.models import Product
+from .forms import ContactForm
 
 
 Customer = get_user_model()
@@ -34,7 +35,32 @@ def acercade_view(request):
     return render(request, "core/acercade.html")
 
 def contacto_view(request):
-    return render(request, "core/contacto.html")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            full_message = f"De: {name} <{email}>\n\nAsunto: {subject}\n\nMensaje:\n{message}"
+            
+            # Enviar el correo
+            send_mail(
+                subject,
+                full_message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+            
+            # Añadir mensaje de éxito
+            messages.success(request, "Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto.")
+            form = ContactForm()  # Reinicia el formulario vacío después del envío exitoso
+    else:
+        form = ContactForm()
+
+    return render(request, "core/contacto.html", {'form': form})
 
 # Manejo de errores 404 
 def custom_404_view(request, exception):
