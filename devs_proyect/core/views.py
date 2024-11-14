@@ -20,6 +20,8 @@ from sale.models import Customer
 from sale.models import Product
 from core.forms import EditCustomerProfileForm
 from django.contrib.auth.decorators import login_required
+from sale.models import Product
+
 
 Customer = get_user_model()
 
@@ -202,9 +204,6 @@ def ResetPassword(request, token):
 
     return render(request, 'auth/reset_password.html', {'token': token})
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
 @login_required
 def profile_view(request):
     # Accede a los datos del usuario autenticado, que ahora es una instancia de Customer
@@ -228,3 +227,18 @@ def edit_profile(request):
         form = EditCustomerProfileForm(instance=request.user)
     
     return render(request, 'profile/edit_profile.html', {'form': form})
+
+def search_products(request):
+    query = request.GET.get('q')  # Campo de búsqueda 'q'
+    products = Product.objects.all()  # Consulta base de productos
+
+    if query:
+        products = products.filter(
+            name__icontains=query) | products.filter(
+            category__icontains=query) | products.filter(
+            supplier__name__icontains=query)
+    
+    return render(request, 'core/search_results.html', {
+        'products': products,
+        'query': query
+    })

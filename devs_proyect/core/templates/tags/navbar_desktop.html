@@ -6,12 +6,12 @@
       <img src="{% static 'imgs/icons/logo.png' %}" alt="logo">
     </a>
     <div class="flex-grow-1 mx-4">
-      <form class="search-form">
-        <input type="search" placeholder="¿Qué estás buscando?" class="header-search">
+      <form class="search-form" action="{% url 'search_products' %}" method="get">
+        <input type="search" name="q" placeholder="¿Qué estás buscando?" value="{{ query|default:'' }}" class="header-search">
         <button type="submit" class="search-button">
-          <img src="{% static 'imgs/icons/search.png' %}" alt="search" width="20px" height="20px">
+            <img src="{% static 'imgs/icons/search.png' %}" alt="search" width="20px" height="20px">
         </button>
-      </form>
+    </form>    
     </div>
     <div class="d-flex align-items-center gap-4">
       <!-- Primer bloque: Mostrar nombre y avatar -->

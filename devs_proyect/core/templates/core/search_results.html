@@ -1,0 +1,112 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+{% block title %}Resultados de búsqueda{% endblock %}
+
+{% block content %}
+<!-- Header reutilizable -->
+{% include 'tags/header.html' %}
+<main>
+  <section class="featured-products main-section" style="margin-top: 40px;">      
+      {% if query %}
+          <h2 class="featured__title-products">Resultados de búsqueda para "{{ query }}"</h3>
+      {% endif %}
+
+      {% if products %}
+          {% for product in products %}
+          <div class="card">
+              <div class="card-img-wrapper">
+                  {% if product.images.all %}
+                      <!-- Mostrar la primera imagen del producto -->
+                      <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain"
+                           data-bs-toggle="modal" data-bs-target="#modal{{ product.code }}">
+                  {% else %}
+                      <!-- Imagen de reserva si no hay imágenes para el producto -->
+                      <img src="{% static 'imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+                  {% endif %}
+              </div>
+
+              <div class="card-body">
+                  <h5 class="card-title card-title-limited">{{ product.name }}</h5>
+                  
+                  {% if product.discount %}
+                  <div class="card-buy">
+                      <p class="card-text card-price card-carousel__price">
+                          $ {{ product.price }}
+                      </p>
+                      <p class="card-carousel__discount">
+                          {{ product.discount }}% OFF
+                      </p>
+                  </div>
+                  {% else %}
+                      <br>
+                      <br>
+                  {% endif %}
+
+                  <p>$ {{ product.get_final_price }}</p>
+
+                  <a href="#" class="btn btn-primary card-carousel__btn">
+                      <img src="{% static 'imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
+                      ¡Aprovecha ahora!
+                  </a>
+              </div>
+
+              <!-- Modal -->
+              <div class="modal fade" id="modal{{ product.code }}" tabindex="-1" aria-labelledby="label{{ product.code }}" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered">
+                      <div class="modal-content">
+                          <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="label{{ product.code }}">Imágenes de {{ product.name }}</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                              <!-- Carrusel de imágenes en el modal -->
+                              <div id="carousel{{ product.code }}" class="carousel slide">
+                                  <div class="carousel-inner">
+                                      {% if product.images.all %}
+                                          <!-- Primera imagen como activa en el carrusel -->
+                                          <div class="carousel-item active">
+                                              <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top" width="200px" height="400px">
+                                          </div>
+                                          
+                                          <!-- Otras imágenes del producto en el carrusel -->
+                                          {% for image in product.images.all %}
+                                              {% if not forloop.first %}
+                                                  <div class="carousel-item">
+                                                      <img src="{{ image.image.url }}" alt="Imagen de {{ product.name }}" width="400px" height="400px">
+                                                  </div>
+                                              {% endif %}
+                                          {% endfor %}
+                                      {% else %}
+                                          <!-- Imagen de reserva si no hay imágenes para el producto -->
+                                          <div class="carousel-item active">
+                                              <img src="{% static 'imgs/general/product2.png' %}" alt="No image available" class="card-img-top" width="200px" height="300px">
+                                          </div>
+                                      {% endif %}
+                                  </div>
+                                  <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ product.code }}" data-bs-slide="prev">
+                                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                      <span class="visually-hidden">Previous</span>
+                                  </button>
+                                  <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ product.code }}" data-bs-slide="next">
+                                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                      <span class="visually-hidden">Next</span>
+                                  </button>
+                              </div>
+
+                              <p class="card-text">{{ product.description }}</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endfor %}
+      {% else %}
+          <p>No se encontraron productos que coincidan con tu búsqueda.</p>
+      {% endif %}
+  </section>
+</main>
+
+<!-- Footer reutilizable -->
+{% include 'tags/footer.html' %}
+{% endblock %}
