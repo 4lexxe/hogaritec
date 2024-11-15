@@ -2,8 +2,9 @@
     <h2>¡MANTENTE AL DÍA!</h2>
     <p>Únete a nuestro boletín y sé el primero en enterarte de ofertas exclusivas, descuentos y las últimas
         tendencias en electrodomésticos.</p>
-    <form class="forms-suscribe">
-        <input type="email" placeholder="Ingresa tu correo" class="text-input suscribe-input">
-        <button type="submit" class="suscribe-button suscribe-button2">Suscribirse</button>
-    </form>
+        <form method="post" action="" class="forms-suscribe">
+          {% csrf_token %}
+          <input type="email" name="email" placeholder="Ingresa tu correo" class="text-input suscribe-input" required>
+          <button type="submit" class="suscribe-button suscribe-button2">Suscribirse</button>
+      </form>
 </section>

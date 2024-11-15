@@ -1,289 +1,274 @@
 .main-section {
-    margin: 0 5vw 100px;
+  margin: 0 5vw 100px;
 
-}
-
-header .navbar-nav .nav-item .nav-link {
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff; /* Blanco por defecto */
-  transition: color 0.3s; /* Efecto de transición suave */
 }
 
 /* SECTION 1 --------------------------------------------------------------- */
 .hero-banner {
-    margin-bottom: 100px;
+  margin-bottom: 100px;
+}
+
+.custom-swiper-carousel{
+  height: 50vh;
+}
+
+.banner-img{
+  width: 100%;
+  height: 100%;
 }
 
 /* SECTION 2 -------------------------------------------------------------- */
 
 .special-offers {
-
-    border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .special-offers .offers-header h2 {
   font-size: 30px !important;
   font-weight: 800 !important;
-  font-weight: bold;
+  text-shadow: 0.5px 0.5px #423E28, -0.5px -0.5px #423E28;
   color: #423E28;
 }
 
 .offers-header {
-    text-align: start;
-    padding: 5px 20px;
+  text-align: start;
+  padding: 5px 30px;
+  border-radius: 10px 10px 0 0;
 
-    border-radius: 10px 10px 0px 0px;
-    background: linear-gradient(90deg, var(--quaternary-color), var(--primary-color), var(--secondary-color)),
-        url('../imgs/general/patron1.svg');
-    background-blend-mode: overlay;
-    background-size: cover;
+  background-image: url('../imgs/general/patron1.svg'),
+    linear-gradient(90deg, var(--quaternary-color), var(--primary-color), var(--secondary-color));
+  background-blend-mode: overlay;
+  background-size: cover, 200% 200%;
+  background-position: center, 0% 0%;
+  animation: colorShift 10s infinite linear;
 }
 
+@keyframes colorShift {
+  0% {
+    background-position: center, 0% 0%;
+  }
+
+  50% {
+    background-position: center, 100% 0%;
+  }
+
+  100% {
+    background-position: center, 0% 0%;
+  }
+}
+
+
 /* Estilos del carousel de cards */
-.swiper {
-    width: 100%;
-    height: 100%;
+
+.custom-swiper{
+  border-radius: 0px 0px 20px 20px;
+  width: 100%;
+  height: 100%;
 }
 
 .swiper-slide {
-    text-align: center;
-    font-size: 18px;
-    background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.swiper-slide img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.custom-swiper-slide{
+  padding: 20px 0px;
 }
 
-.carousel-card{
-    border-width: 0px;
+.carousel-card {
+  border-width: 0px;
 }
 
-.card-carousel__price{
-    color: silver;
-    text-decoration: line-through;
+.card-carousel__price {
+  color: silver;
+  text-decoration: line-through;
 }
 
-.card-carousel__discount{
-    color: var(--secondary-color);
+.card-carousel__discount {
+  color: var(--secondary-color);
 }
 
-.card-carousel__btn{
-    height: 50px;
-    border-radius: 20px;
-    border-width: 0px;
-    background-color: var(--primary-color);
+.card-carousel__btn {
+  height: 50px;
+  border-radius: 20px;
+  border-width: 0px;
+  background-color: var(--primary-color);
 
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#cart-icon{
-    width: 30px;
+.card-carousel__btn:hover{
+  background-color: var(--secondary-color);
 }
 
+#cart-icon {
+  width: 30px;
+}
 /* OFERTAS ESPECIALES */
 
 /* Contenedor principal de ofertas especiales */
 .special-offers {
-  padding: 20px;
   box-sizing: border-box;
   position: relative;
 }
 
-/* Contenedor de productos */
-.products-container {
-  display: flex;
-  gap: 20px;
-  overflow: hidden;
-}
-
-/* Estilos de tarjeta de producto */
-.product-card {
-  flex: 1;
-  max-width: 400px;
-  padding: 30px;
-  background: white;
-  border-radius: 8px;
-  text-align: center;
-  transition: transform 0.3s;
-}
-
-.product-card:hover {
-  transform: scale(1.05);
-}
-
-.product-card img {
-  width: 100%;
-  height: auto;
-  max-height: 180px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-/* Botones de navegación del carrusel en móviles */
-.swiper-button-prev, .swiper-button-next {
-  display: block;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.swiper-button-prev {
-  left: 10px;
-}
-
-.swiper-button-next {
-  right: 10px;
-}
-
-.desktop-products {
-  display: flex; /* Activar flexbox */
-  justify-content: center; /* Centra horizontalmente los productos */
-  align-items: center; /* Centra verticalmente los productos */
-  flex-wrap: wrap; /* Permite que los productos se envuelvan si es necesario */
-  gap: 50px; /* Espacio entre las tarjetas de producto */
-  width: 100%; /* Asegura que ocupe todo el ancho disponible */
-}
-
-/* Estilo para las tarjetas de productos */
-.product-card {
-  display: flex; /* Usar flexbox para centrar el contenido de la tarjeta */
-  flex-direction: column; /* Colocar elementos de la tarjeta en columna */
-  align-items: center; /* Centra elementos en la tarjeta */
-  text-align: center; /* Centra el texto */
-  border: 1px solid #ccc; /* Bordes para las tarjetas */
-  padding: 20px; /* Espaciado interno */
-  width: 200px; /* Ancho fijo para las tarjetas */
-  border-radius: 8px; /* Bordes redondeados */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para efecto de elevación */
-}
-
-/* Estilo de fila para escritorio */
-@media (min-width: 768px) {
-  .products-container {
-    justify-content: space-around;
-    flex-wrap: nowrap;
-  }
-
-  /* Ocultar botones de navegación en escritorio */
-  .swiper-button-prev,
-  .swiper-button-next {
-    display: none;
-  }
-}
-
-
 /* SECTION 3 -------------------------------------------------------------- */
+
+
 .featured-products {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
 }
 
 .featured__title-products {
+  text-align: start;
+  width: 100%;
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 40px;
+}
+
+
+/* card2------------------------------------------------------------------------- */
+.card {
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  /* Relación de aspecto 16:9 */
+  overflow: hidden;
+}
+
+.card-img-top-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-contain {
+  object-fit: contain;
+}
+
+.card-title-limited {
+  font-size: 15px;
+  line-height: 1.4; /* Mejora la legibilidad */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(1.4em * 2); /* Limita la altura a dos líneas */
+}
+
+.card-buy {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.btn-cart {
+  padding: 0px;
+  border: 0px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.more-products{
+  padding: 10px 80px;
+  background-color: var(--primary-color);
+  margin-bottom: 20px;
+  color: white;
+  
+}
+
+.more-products:hover{
+  color: white;
+  background-color: var(--secondary-color);
+}
+
+.btn-cart:hover{
+  border: 0px;
+  background-color: var(--secondary-color);
+}
+
+
+/* SECTION 4 ------------------------------------------------------------------- */
+.newsletter-signup {
+  color: white;
+  padding: 40px 20px;
+  background-image: url("../imgs/general/patron2.png");
+  background-color: var(--secondary-color);
+}
+
+.suscribe-button2 {
+  background-color: black;
+}
+
+@media (min-width: 576px) {
+  .featured-products {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 18px;
+  }
+
+  .featured__title-products {
     text-align: start;
     width: 100%;
     border-bottom: 2px solid var(--primary-color);
     margin-bottom: 40px;
-}
+  }
 
 
-/* card2 */
-.card {
-    width: 250px;
-}
-
-
-.card-buy {
-    display: flex;
-    justify-content: space-between;
-    align-items: end;
-}
-
-.btn-cart {
-    border: 0px;
-    padding: 8px;
-    border-radius: 50%;
-    background-color: var(--primary-color);
-}
-
-/* SECTION 4 ------------------------------------------------------------------- */
-.newsletter-signup {
+  /* SECTION 4 */
+  .newsletter-signup {
+    text-align: start;
     color: white;
     padding: 40px 20px;
-    background-image: url("../imgs/general/patron2.png");
-    background-color: var(--secondary-color);
-}
+  }
 
-.suscribe-button2 {
-    background-color: black;
-}
+  .newsletter-signup h2 {
+    margin-left: 100px;
+  }
 
-@media (min-width: 576px) {
-    .featured-products {
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-around;
-        gap: 18px;
-    }
+  .newsletter-signup p {
+    margin-left: 100px;
+  }
 
-    .featured__title-products {
-        text-align: start;
-        width: 100%;
-        border-bottom: 2px solid var(--primary-color);
-        margin-bottom: 40px;
-    }
+  .forms-suscribe {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
 
+  .suscribe-input {
+    width: 50%;
 
-    /* SECTION 4 */
-    .newsletter-signup {
-        text-align: start;
-        color: white;
-        padding: 40px 20px;
-    }
+  }
 
-    .newsletter-signup h2{
-      margin-left: 100px;
-    }
-
-    .newsletter-signup p{
-      margin-left: 100px;
-    }
-
-    .forms-suscribe {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-    }
-
-    .suscribe-input {
-        width: 50%;
-
-    }
-
-    .suscribe-button2 {
-        width: 30%;
-        padding: 11px 15px;
-        margin: 0px;
-    }
+  .suscribe-button2 {
+    width: 30%;
+    padding: 11px 15px;
+    margin: 0px;
+  }
 
 }
 

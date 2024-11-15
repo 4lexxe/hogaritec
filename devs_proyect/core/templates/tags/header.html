@@ -1,39 +1,8 @@
 {% load static %}
 <header>
-  <a href="#" class="logo">
-      <img src="{% static 'imgs/icons/logo.png' %}" alt="logo">
-  </a>
-  <div class="user-actions">
-      <div class="login-action">
-          <a href="#">Iniciar sesión</a> | <a href="#">Registrarse</a>
-      </div>
-      <a href="#" class="cart-icon">
-          <img src="{% static 'imgs/icons/carrito-de-compras.png' %}" alt="carrito" class="cart-img">
-      </a>
-  </div>
-  <nav class="navbar navbar-expand-lg">
-      <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
-                  aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item"><a class="nav-link active" aria-current="page" href="{% url 'index' %}">INICIO</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">ACERCA DE</a></li>
-                  <li class="nav-item"><a class="nav-link" href="{% url 'contacto' %}">CONTACTOS</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">COCINA</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">REFRIGERACIÓN</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">CELULARES</a></li>
-                  <li class="nav-item"><a class="nav-link" href="#">OFERTAS</a></li>
-              </ul>
-          </div>
-      </div>
-  </nav>
-  <form class="search-form">
-      <input type="search" placeholder="¿Qué estás buscando?" class="header-search">
-      <button type="submit" class="search-button">
-          <img src="{% static 'imgs/icons/search.png' %}" alt="search" width="20px" height="20px">
-      </button>
-  </form>
+<!-- Desktop Navigation -->
+ {%include 'tags/navbar_desktop.html'%}
+
+  <!-- Mobile Navigation -->
+{%include 'tags/navbar_mobile.html'%}
 </header>

@@ -1,6 +1,7 @@
 {% load static %}
 
 <section class="featured-products main-section">
+<<<<<<< HEAD
   <h2 class="featured__title-products">PRODUCTOS DESTACADOS</h2>
   
   <!------------------------------------------------ Seccion de cards -------------------------------------------->
@@ -22,176 +23,48 @@
           </div>
       </div>
   </div>
+=======
+    <h2 class="featured__title-products fs-1 fw-bolder">PRODUCTOS DESTACADOS</h2>
 
-  <div class="card">
-    <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-    <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-        </p>
+    <!------------------------------------------------ Seccion de cards -------------------------------------------->
+>>>>>>> develop
 
-        <div class="card-buy">
-            <p class="card-text card-price">
-                $00.00
-            </p>
-            <a href="#" class="btn btn-primary btn-cart">
-                <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-            </a>
+    {% for product in products|slice:":10" %}
+    <div class="card">
+        
+        <div class="card-img-wrapper">
+            {% if product.images.all %}
+            <!-- Mostrar la primera imagen del producto -->
+            <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain">
+
+            {% else %}
+            <!-- Imagen de reserva si no hay imágenes para el producto -->
+            <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+            {% endif %}
+        </div>
+
+
+
+        <div class="card-body">
+            <h5 class="card-title card-title-limited">{{product.name}}</h5>
+            
+            <div class="card-buy">
+                <p class="card-text card-price">
+                    $  {{product.price}}
+                </p>
+                <button
+                    class="btn btn-primary btn-cart d-flex align-items-center justify-content-center addToCart-btn" value="{{ product.id }}"
+                    style="width: 50px; height:50px;">
+                    <i class="bi bi-cart-plus text-white"></i>
+                </button>
+            </div>
         </div>
     </div>
-</div>
+    {% endfor %}
+    
+</section>
 
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
-
-<div class="card">
-  <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-  <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-          Some quick example text to build on the card title and make up the bulk of the card's content.
-      </p>
-
-      <div class="card-buy">
-          <p class="card-text card-price">
-              $00.00
-          </p>
-          <a href="#" class="btn btn-primary btn-cart">
-              <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-          </a>
-      </div>
-  </div>
-</div>
+<section>
+    <a href="{% url 'productos' %}" class="btn more-products">Mas productos</a>
 
 </section>

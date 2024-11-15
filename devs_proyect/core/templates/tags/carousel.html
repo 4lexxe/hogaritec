@@ -1,21 +1,32 @@
 {% load static %}
 <section class="hero-banner">
-  <!-- Carousel de bootstrap de imagenes -->
-  <div id="carouselExample" class="carousel slide">
-      <div class="carousel-inner">
-          <div class="carousel-item active">
-              <img src="{% static './imgs/general/Carrusel1.png' %}" class="d-block w-100" alt="...">
+    <!-- Carousel de bootstrap de imagenes -->
+    <div class="swiper swiperCarousel custom-swiper-carousel ">
+        <div class="swiper-wrapper custom-swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/Carrusel1.png' %}" alt="banner1.png" class="banner-img">
+
           </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel2.jpg' %}" alt="banner2.jpg" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel3.webp' %}" alt="banner3.webp" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel4.jpg' %}" alt="banner4.jpg" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel5.jpg' %}" alt="banner5.jpg" class="banner-img">
+            
+          </div>
+          
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample"
-          data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample"
-          data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-      </button>
-  </div>
 </section>

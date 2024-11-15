@@ -29,7 +29,7 @@
               <li><a href="#">Términos y condiciones</a></li>
               <li><a href="#">Política de privacidad</a></li>
               <li><a href="#">Política de cookies</a></li>
-          </ul>
+          </ul> 
       </div>
       <div class="footer-contact">
           <h3 class="footer-headline">Contacto</h3>
@@ -55,8 +55,9 @@
       <div class="footer-newsletter">
           <h3 class="footer-headline">Newsletter</h3>
           <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
-          <form>
-              <input type="email" placeholder="Ingresa tu correo" class="text-input">
+          <form method="post" action="">
+            {% csrf_token %}
+              <input type="email" name="email" placeholder="Ingresa tu correo" class="text-input" required>
               <button type="submit" class="suscribe-button">Suscribirse</button>
           </form>
       </div>

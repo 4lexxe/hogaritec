@@ -1,0 +1,94 @@
+        :root {
+            --discord-profile-bg: #f8f9fa;
+            --discord-card-bg: #ffffff;
+            --discord-text-color: #212529;
+            --discord-header-color: #000000;
+            --discord-border-color: #dee2e6;
+        }
+
+        .discord-profile-card {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--discord-card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: var(--discord-text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .discord-profile-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .discord-banner {
+            height: 180px;
+            background: #e9ecef;
+            position: relative;
+        }
+
+        .discord-profile-picture {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 6px solid var(--discord-card-bg);
+            position: absolute;
+            bottom: -64px;
+            left: 16px;
+            background: #dee2e6;
+        }
+
+        .discord-profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        
+        .discord-online-status {
+            width: 16px;
+            height: 16px;
+            background: #198754;
+            border-radius: 50%;
+            border: 3px solid var(--discord-card-bg);
+            position: absolute;
+            bottom: 6px;
+            right: 6px;
+        }
+
+        .discord-profile-info {
+            padding-top: 70px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .discord-nav-tabs {
+            border-bottom: 2px solid var(--discord-border-color);
+        }
+
+        .discord-nav-tabs .nav-link {
+            border: none;
+            color: #6c757d;
+            padding: 12px 16px;
+        }
+
+        .discord-nav-tabs .nav-link.active {
+            color: var(--discord-header-color);
+            border-bottom: 2px solid var(--discord-header-color);
+            background: none;
+        }
+
+        .discord-about-item {
+            margin-bottom: 10px;
+        }
+
+        .discord-about-item i {
+            width: 20px;
+            text-align: center;
+            margin-right: 10px;
+            color: #6c757d;
+        }

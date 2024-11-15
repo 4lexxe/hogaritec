@@ -15,45 +15,50 @@
 
 <main>
   <section class="contact-section">
-    <h1 class="text-center">Devs-proyect</h1>
+    <h1 class="text-center text">Hogaritec</h1>
 
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <p class="text-center">Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con
+        <p class="text-center text">Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con
           nosotros. Estamos aquí para ayudarte.</p>
       </div>
     </div>
 
     <div class="container2">
 
-      <form class="form-contact">
+      <form method="post" action="{% url 'contacto' %}" class="form-contact">
         <h2 class="form-contact__title">Contáctanos</h2>
+        
+        {% csrf_token %}
         <div class="form-group">
-          <label for="nombre">Nombre</label>
-          <input type="text" class="form-control" id="nombre" placeholder="Ingresa tu nombre" required>
+            <label for="id_name">Nombre</label>
+            <input type="text" name="name" class="form-control" id="id_name" placeholder="Ingresa tu nombre" required>
         </div>
+        
         <div class="form-group">
-          <label for="email">Correo electrónico</label>
-          <input type="email" class="form-control" id="email" placeholder="Ingresa tu correo" required>
+            <label for="id_email">Correo electrónico</label>
+            <input type="email" name="email" class="form-control" id="id_email" placeholder="Ingresa tu correo" required>
         </div>
+        
         <div class="form-group">
-          <label for="subject">Asunto</label>
-          <input type="text" class="form-control" id="subject" placeholder="Ingresa el asunto" required>
+            <label for="id_subject">Asunto</label>
+            <input type="text" name="subject" class="form-control" id="id_subject" placeholder="Ingresa el asunto" required>
         </div>
+        
         <div class="form-group">
-          <label for="message">Mensaje</label>
-          <textarea class="form-control textarea" id="message" rows="4" placeholder="Escribe tu mensaje aquí..."
-            required></textarea>
+            <label for="id_message">Mensaje</label>
+            <textarea name="message" class="form-control textarea" id="id_message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
         </div>
+        
         <button type="submit" class="btn btn-enviar form-group">Enviar</button>
-      </form>
+    </form>
 
       <div class="card information">
-        <h2 class="text-center my-4">Información de Contacto</h2>
+        <h2 class="text-center my-4 text">Información de Contacto</h2>
         <div class="row">
           <div>
-            <p class="text-center">Puedes contactarnos a través de los siguientes medios:</p>
-            <ul class="list-unstyled text-center">
+            <p class="text-center text">Puedes contactarnos a través de los siguientes medios:</p>
+            <ul class="list-unstyled text-center text">
               <li><strong>Teléfono:</strong> (123) 456-7890</li>
               <li><strong>Email:</strong> contacto@hogaritec.com</li>
               <li><strong>Dirección:</strong> Calle Ficticia 123, Ciudad, País</li>

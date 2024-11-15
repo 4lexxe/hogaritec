@@ -1,0 +1,303 @@
+{% block content %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --discord-profile-bg: #f8f9fa;
+            --discord-card-bg: #ffffff;
+            --discord-text-color: #212529;
+            --discord-header-color: #000000;
+            --discord-border-color: #dee2e6;
+        }
+
+        .discord-profile-card {
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--discord-card-bg);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            color: var(--discord-text-color);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .discord-profile-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .discord-banner {
+            height: 180px;
+            background: #e9ecef;
+            position: relative;
+        }
+
+        .discord-profile-picture {
+            width: 128px;
+            height: 128px;
+            border-radius: 50%;
+            border: 6px solid var(--discord-card-bg);
+            position: absolute;
+            bottom: -64px;
+            left: 16px;
+            background: #dee2e6;
+            overflow: hidden;
+        }
+
+        .discord-profile-picture img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .discord-profile-picture-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .discord-profile-picture:hover .discord-profile-picture-overlay {
+            opacity: 1;
+        }
+
+        .discord-profile-info {
+            padding-top: 70px;
+            padding-left: 16px;
+            padding-right: 16px;
+        }
+
+        .discord-form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .discord-form-group i {
+            position: absolute;
+            left: 0.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .discord-form-control {
+            padding-left: 2.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--discord-border-color);
+        }
+
+        .discord-form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+
+        .discord-save-button {
+            background-color: #198754;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .discord-save-button:hover {
+            background-color: #157347;
+        }
+
+        .discord-profile-picture-menu {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--discord-card-bg);
+            border-radius: 4px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .discord-profile-picture-menu.show {
+            display: block;
+        }
+
+        .discord-profile-picture-menu a {
+            display: block;
+            padding: 8px 16px;
+            color: var(--discord-text-color);
+            text-decoration: none;
+        }
+
+        .discord-profile-picture-menu a:hover {
+            background-color: var(--discord-profile-bg);
+        }
+
+        .discord-profile-picture-menu {
+    position: absolute;
+    right: 0;
+    background: white;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: none; /* El menú está oculto por defecto */
+}
+
+.close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #000;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.close-button:hover {
+    color: #000000; /* Color al pasar el ratón */
+}
+
+    </style>
+  <div class="discord-profile-card">
+    <div class="discord-profile-inner">
+      <form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="discord-banner">
+      <div class="discord-profile-picture">
+        {% if user.avatar %}
+            <img src="{{ user.avatar.url }}" alt="Foto de perfil actual" id="profile-picture">
+        {% else %}
+            <img src="icon.sgv" alt="Foto de perfil predeterminada" id="profile-picture">
+        {% endif %}
+        <div class="discord-profile-picture-overlay" onclick="toggleProfilePictureMenu()">
+            <span class="text-white">
+                <i class="bi bi-camera-fill fs-4"></i>
+            </span>
+        </div>
+        <input type="file" id="profile-picture-input" name="avatar" class="d-none" accept="image/*">
+      </div>
+      <div class="discord-profile-picture-menu" id="profile-picture-menu" style="display: none;">
+        <a href="#" onclick="changeProfilePicture()">
+            <i class="bi bi-upload me-2"></i>Cambiar imagen
+        </a>
+        <!-- Botón de Cerrar (X) -->
+        <a href="#" class="close-button" onclick="closeProfilePictureMenu()">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
+    </div>
+
+        <div class="discord-profile-info">
+          <h2 class="mb-4">Editar Perfil</h2>
+  
+          <div class="row">
+            <div class="col-md-6">
+              <div class="discord-form-group">
+                <i class="bi bi-person"></i>
+                <input type="text" class="form-control discord-form-control" name="first_name" placeholder="Primer nombre" value="{{ user.first_name }}">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="discord-form-group">
+                <i class="bi bi-person"></i>
+                <input type="text" class="form-control discord-form-control" name="last_name" placeholder="Segundo nombre" value="{{ user.last_name }}">
+              </div>
+            </div>
+          </div>
+  
+          <div class="discord-form-group">
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-telephone"></i>
+                </span>
+                <input type="tel" class="form-control" name="phone_number" placeholder="Teléfono" value="{{ user.phone_number }}" required>
+            </div>
+            
+            {% if form.phone_number.errors %}
+                <!-- Contenedor para los errores -->
+                <div class="invalid-feedback d-block mt-2">
+                    <ul class="mb-0">
+                        {% for error in form.phone_number.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
+                 
+  
+          <div class="discord-form-group">
+            <i class="bi bi-envelope"></i>
+            <input type="email" class="form-control discord-form-control" placeholder="Correo electrónico" value="{{ user.email }}" disabled>
+          </div>
+  
+          <div class="discord-form-group">
+            <i class="bi bi-calendar3"></i>
+            <input type="text" class="form-control discord-form-control" value="Miembro desde: {{ user.date_joined|date:'d/m/Y' }}" disabled>
+          </div>
+          <div class="d-flex justify-content-end gap-2 mt-4">
+            <form action="{% url 'my-profile' %}" method="get">
+              <button type="submit" class="btn btn-outline-secondary">
+                <i class="bi bi-x-lg"></i> Cancelar
+              </button>
+            </form>                                                                                
+            <button type="submit" class="btn discord-save-button">
+              <i class="bi bi-check-lg"></i> Guardar cambios
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <script>
+        function toggleProfilePictureMenu() {
+            const menu = document.getElementById('profile-picture-menu');
+            menu.classList.toggle('show');
+        }
+
+        function changeProfilePicture() {
+            document.getElementById('profile-picture-input').click();
+        }
+
+        function closeProfilePictureMenu() {
+    var menu = document.getElementById('profile-picture-menu');
+    menu.style.display = 'none'; // Oculta el menú
+}
+
+function toggleProfilePictureMenu() {
+    var menu = document.getElementById('profile-picture-menu');
+    // Alterna la visibilidad del menú
+    if (menu.style.display === 'none' || menu.style.display === '') {
+        menu.style.display = 'block'; // Muestra el menú
+    } else {
+        menu.style.display = 'none'; // Oculta el menú
+    }
+}
+
+function closeProfilePictureMenu() {
+    var menu = document.getElementById('profile-picture-menu');
+    menu.style.display = 'none'; // Oculta el menú cuando se haga clic en la 'X'
+}
+
+
+        document.getElementById('profile-picture-input').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('profile-picture').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+            toggleProfilePictureMenu();
+        });
+    </script>
+{% endblock %}
