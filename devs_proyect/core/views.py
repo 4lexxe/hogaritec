@@ -18,19 +18,57 @@ from django.contrib.auth.decorators import login_required
 
 from sale.models import Customer
 from sale.models import Product
+from core.forms import EditCustomerProfileForm
+from django.contrib.auth.decorators import login_required
+from sale.models import Product
+from .forms import ContactForm
+from sale.models import Subscriber
 
 Customer = get_user_model()
 
 def index(request):
     productos = Product.objects.all()
+    if request.method == 'POST' and 'email' in request.POST:
+        email = request.POST.get('email')
+        if not Subscriber.objects.filter(email=email).exists():
+            Subscriber.objects.create(email=email)  # Crear nuevo suscriptor
+            messages.success(request, '¡Te has suscrito exitosamente al boletín!')
+        else:
+            messages.info(request, 'Ya estás suscrito al boletín.')
     
-    return render(request, "core/index.html", {"products": productos, 'name': 'index'})  # Usa un diccionario para pasar contexto si es necesario
+    return render(request, "core/index.html", {"products": productos, 'name': 'index'})
+
 
 def acercade_view(request):
     return render(request, "core/acercade.html")
 
 def contacto_view(request):
-    return render(request, "core/contacto.html")
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            email = form.cleaned_data['email']
+            subject = form.cleaned_data['subject']
+            message = form.cleaned_data['message']
+            
+            full_message = f"De: {name} <{email}>\n\nAsunto: {subject}\n\nMensaje:\n{message}"
+            
+            # Enviar el correo
+            send_mail(
+                subject,
+                full_message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+            
+            # Añadir mensaje de éxito
+            messages.success(request, "Tu mensaje ha sido enviado con éxito. Nos pondremos en contacto contigo pronto.")
+            form = ContactForm()  # Reinicia el formulario vacío después del envío exitoso
+    else:
+        form = ContactForm()
+
+    return render(request, "core/contacto.html", {'form': form})
 
 # Manejo de errores 404 
 def custom_404_view(request, exception):
@@ -200,9 +238,6 @@ def ResetPassword(request, token):
 
     return render(request, 'auth/reset_password.html', {'token': token})
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
-
 @login_required
 def profile_view(request):
     # Accede a los datos del usuario autenticado, que ahora es una instancia de Customer
@@ -214,3 +249,30 @@ def profile_view(request):
         'member_since': request.user.date_joined.strftime('%d/%m/%Y'),
     }
     return render(request, 'profile/my-profile.html', profile_data)
+
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditCustomerProfileForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('my-profile')
+    else:
+        form = EditCustomerProfileForm(instance=request.user)
+    
+    return render(request, 'profile/edit_profile.html', {'form': form})
+
+def search_products(request):
+    query = request.GET.get('q')  # Campo de búsqueda 'q'
+    products = Product.objects.all()  # Consulta base de productos
+
+    if query:
+        products = products.filter(
+            name__icontains=query) | products.filter(
+            category__icontains=query) | products.filter(
+            supplier__name__icontains=query)
+    
+    return render(request, 'core/search_results.html', {
+        'products': products,
+        'query': query
+    })

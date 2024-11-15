@@ -1,0 +1,62 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+{% block title %}Perfil de Usuario{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+<!-- my-profile.html -->
+<div class="discord-profile-card">
+  <div class="discord-profile-inner">
+    <div class="discord-banner">
+      <div class="discord-profile-picture">
+        {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="Foto de perfil actual" id="profile-picture">
+        {% else %}
+        <!-- Si el usuario no tiene avatar, mostrar el ícono predeterminado de Bootstrap -->
+        <i class="bi bi-person-circle" style="font-size: 5rem; color: #6c757d;"></i>
+        {% endif %}
+        <div class="discord-online-status"></div>
+      </div>
+    </div>
+
+    <div class="discord-profile-info">
+      <div class="d-flex justify-content-between align-items-start mb-3">
+        <div>
+          <h2 class="mb-0" style="color: var(--discord-header-color);">{{ name }}</h2>
+        </div>
+        <a class="btn btn-outline-secondary" href="{% url 'edit_profile' %}">
+          <i class="bi bi-pencil"></i> Editar Perfil
+        </a>
+      </div>
+    </div>
+    <ul class="nav discord-nav-tabs mb-4">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Sobre mí</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Actividad</a>
+      </li>
+    </ul>
+
+    <div class="mb-4">
+      <h6 class="text-uppercase fw-bold mb-3" style="color: var(--discord-header-color);">Sobre mí</h6>
+      <div class="discord-about-item">
+        <i class="bi bi-telephone"></i>
+        <span>{{ phone }}</span>
+      </div>
+      <div class="discord-about-item">
+        <i class="bi bi-envelope"></i>
+        <span>{{ email }}</span>
+      </div>
+      <div class="discord-about-item">
+        <i class="bi bi-calendar3"></i>
+        <span>Miembro desde: {{ member_since }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+<!-- Footer reutilizable -->
+{% include 'tags/footer.html' %}
+{% endblock %}

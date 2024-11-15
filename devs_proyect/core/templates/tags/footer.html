@@ -55,8 +55,9 @@
       <div class="footer-newsletter">
           <h3 class="footer-headline">Newsletter</h3>
           <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
-          <form>
-              <input type="email" placeholder="Ingresa tu correo" class="text-input">
+          <form method="post" action="">
+            {% csrf_token %}
+              <input type="email" name="email" placeholder="Ingresa tu correo" class="text-input" required>
               <button type="submit" class="suscribe-button">Suscribirse</button>
           </form>
       </div>

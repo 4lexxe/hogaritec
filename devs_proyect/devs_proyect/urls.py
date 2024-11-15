@@ -38,6 +38,14 @@ urlpatterns = [
 
     #perfiles
     path('my-profile/', views.profile_view, name='my-profile'),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+
+    #Buscador
+    path("buscar/", views.search_products, name="search_products"),
+    
+    #dashboard
+    path('dashboard/', include('dashboard.urls')),
+
 ]
 
 # Asigna la función personalizada a handler404
