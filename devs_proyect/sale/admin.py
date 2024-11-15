@@ -47,6 +47,7 @@ class CartAdmin(admin.ModelAdmin):
     list_display = ('id', 'customer', 'status', 'created', 'updated')  # Agrega 'id' a la lista de campos a mostrar
 
 admin.site.register(Cart, CartAdmin)
+admin.site.register(CartItem)
 
 #admin para las suscripciones al newsletter
 @admin.register(Subscriber)

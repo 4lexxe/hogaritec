@@ -10,6 +10,7 @@
         "email": "admin@admin.com",
         "phone_number": "123456",
         "avatar": "",
+        "date_joined": "2024-11-15T22:08:34.232Z",
         "is_active": true,
         "is_staff": true,
         "is_superuser": true
@@ -26,6 +27,7 @@
         "email": "asdfasd@gmail.com",
         "phone_number": "asdfasd",
         "avatar": "",
+        "date_joined": "2024-11-15T22:08:34.235Z",
         "is_active": true,
         "is_staff": false,
         "is_superuser": false
@@ -42,6 +44,126 @@
         "email": "asdfasdf@sdasdfsfad.com",
         "phone_number": "2331",
         "avatar": "",
+        "date_joined": "2024-11-15T22:08:34.236Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Maria",
+        "last_name": "Gonzalez",
+        "email": "maria.gonzalez@gmail.com",
+        "phone_number": "123458",
+        "avatar": "avatars/tumblr_22235b68f2ee13bb3f0e427c376c8ac9_f1a94b02_1280_6QFj7uM.png",
+        "date_joined": "2024-11-14T14:10:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Carlos",
+        "last_name": "Rodriguez",
+        "email": "carlos.rodriguez@gmail.com",
+        "phone_number": "123459",
+        "avatar": "avatars/f1_1_QH9D6UA.jpg",
+        "date_joined": "2024-11-14T14:20:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Ana",
+        "last_name": "Martinez",
+        "email": "ana.martinez@gmail.com",
+        "phone_number": "123460",
+        "avatar": "avatars/descarga_tiJnDc8.jpeg",
+        "date_joined": "2024-11-14T14:30:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Federico",
+        "last_name": "Lopez",
+        "email": "federico.lopez@gmail.com",
+        "phone_number": "123461",
+        "avatar": "avatars/Captura_de_pantalla_2024-08-07_032654_2kTQi7o.png",
+        "date_joined": "2024-11-14T14:40:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Laura",
+        "last_name": "Fernandez",
+        "email": "laura.fernandez@gmail.com",
+        "phone_number": "123462",
+        "avatar": "avatars/anime-girl-with-black-hair-and-a-red-sweater-vector_cSh28pZ.jpg",
+        "date_joined": "2024-11-14T14:50:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Lucia",
+        "last_name": "Gomez",
+        "email": "lucia.gomez@gmail.com",
+        "phone_number": "123463",
+        "avatar": "avatars/20240703_152210_Igut7HQ.png",
+        "date_joined": "2024-11-14T15:00:00Z",
+        "is_active": true,
+        "is_staff": false,
+        "is_superuser": false
+    }
+},
+{
+    "model": "sale.customer",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$870000$sample$randompasswordhash",
+        "last_login": null,
+        "first_name": "Santiago",
+        "last_name": "Ruiz",
+        "email": "santiago.ruiz@gmail.com",
+        "phone_number": "123464",
+        "avatar": "avatars/110248582_lXZWjz2.jpg",
+        "date_joined": "2024-11-14T15:10:00Z",
         "is_active": true,
         "is_staff": false,
         "is_superuser": false
@@ -109,7 +231,7 @@
     "fields": {
         "code": "0001",
         "name": "Samsung Galaxy A35 5G 256GB Awesome navy 8GB RAM",
-        "description": "Lo que ten�s que saber de este producto\r\nMemoria RAM: 8 GB\r\nDispositivo liberado para que elijas la compa��a telef�nica que prefieras.\r\nCompatible con redes 5G.\r\nMemoria interna de 256GB.",
+        "description": "Lo que tenes que saber de este producto\r\nMemoria RAM: 8 GB\r\nDispositivo liberado para que elijas la compania telefenica que prefieras.\r\nCompatible con redes 5G.\r\nMemoria interna de 256GB.",
         "brand": "Samsung",
         "category": "Celulares",
         "price": "599999.00",

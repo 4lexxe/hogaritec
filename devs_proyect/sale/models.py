@@ -140,7 +140,7 @@ class Sale(models.Model):
     updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
 
     def __str__(self):
-        return f"Venta de {self.product.name} a {self.customer.name if self.customer else 'Cliente desconocido'}"
+        return f"Venta de {self.product.name} a {self.customer.first_name if self.customer else 'Cliente desconocido'}"
 
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
