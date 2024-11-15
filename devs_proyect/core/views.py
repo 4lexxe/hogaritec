@@ -68,16 +68,13 @@ def contacto_view(request):
     else:
         form = ContactForm()
 
-<<<<<<< HEAD
 def articulo_view(request):
     return render(request, "core/articulo.html")
 
 # Manejo de errores 404
-=======
     return render(request, "core/contacto.html", {'form': form})
 
 # Manejo de errores 404 
->>>>>>> develop
 def custom_404_view(request, exception):
     return render(request, 'core/404.html', {'path': request.path}, status=404) 
 

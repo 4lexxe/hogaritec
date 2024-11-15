@@ -7,18 +7,94 @@
 {% block content %}
 {% include 'tags/header.html' %}
 <main>
-    <div id="imagen-producto">
-        <img class="producto" src="../../static/imgs/general/product2.png"  alt="Producto">
-    </div>
-    <div class="datos-importantes">
-        <h1 class="nombre-producto">Producto</h1>
-        <h2 class="precio">$12.345,67</h2>
-        <h3 class="descripcion-producto">Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi facilis illo eveniet facere similique eius magni sequi exercitationem, maxime veniam non adipisci mollitia sit assumenda dolorum fugiat cupiditate vero quibusdam.</h3>
-        <button class="agregar-carrito">Agregar al carrito</button>
-        <input type="number" class="agregar-productos" value="1" min="1" aria-label="Cambiar cantidad" data-component="adding-amount.value">
-        <h4 class="envios-gratis">Envíos gratis a partis de $12.345,67</h4>
-    </div>
+    <article class="product">
+        <div class="product-image-container">
+            <div class="carousel">
+                <div class="carousel-slide">
+                    <img src="" alt="Imagen Producto - 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="" alt="Imagen Producto - 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="" alt="Imagen Producto - 3">
+                </div>
+                <a href="#" class="carousel-btn prev" aria-label="Imagen anterior">&lt;</a>
+                <a href="#" class="carousel-btn next" aria-label="Imagen siguiente">&gt;</a>
+            </div>
+        </div>
+        <div class="product-details">
+            <h1 class="product-title">Producto</h1>
+            <p class="stock-status">En stock</p>
+            <p class="product-price">$12345,67</p>
+            <p class="product-description">Descripcion del producto.</p>
+            <div class="add-to-cart-container">
+                <button class="add-to-cart" aria-label="Añadir Camiseta Clásica al carrito">Agregar al carrito</button>
+                <div class="quantity-control">
+                    <button class="quantity-btn minus" aria-label="Disminuir cantidad">-</button>
+                    <span class="quantity-display" aria-live="polite">1</span>
+                    <button class="quantity-btn plus" aria-label="Aumentar cantidad">+</button>
+                </div>
+            </div>
+        </div>
+    </article>
 </main>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carrusel
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            let currentSlide = 0;
 
+            function showSlide(n) {
+                slides[currentSlide].style.left = '-100%';
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].style.left = '0';
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                nextSlide();
+            });
+
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                prevSlide();
+            });
+
+            // Inicializar el carrusel
+            slides.forEach((slide, index) => {
+                slide.style.left = index === 0 ? '0' : '100%';
+            });
+
+            // Control de cantidad
+            const minusBtn = document.querySelector('.quantity-btn.minus');
+            const plusBtn = document.querySelector('.quantity-btn.plus');
+            const quantityDisplay = document.querySelector('.quantity-display');
+            let quantity = 1;
+
+            function updateQuantity(newQuantity) {
+                quantity = Math.max(1, newQuantity); // Asegura que la cantidad no sea menor que 1
+                quantityDisplay.textContent = quantity;
+            }
+
+            minusBtn.addEventListener('click', function() {
+                updateQuantity(quantity - 1);
+            });
+
+            plusBtn.addEventListener('click', function() {
+                updateQuantity(quantity + 1);
+            });
+        });
+    </script>
 {% include 'tags/footer.html' %}
-{% endblock %}
+{% endblock %}

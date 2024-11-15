@@ -16,11 +16,9 @@ urlpatterns = [
     
     # Rutas de administración
     path('admin/', admin.site.urls),
-<<<<<<< HEAD
     path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
     path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
     path('artículo/', views.articulo_view, name='artículo'),  # Ruta para la página "Artículo"
-=======
     
     # Otras rutas relacionadas con la aplicación 'core'
     path('acercade/', views.acercade_view, name='about'),
@@ -51,7 +49,6 @@ urlpatterns = [
     #dashboard
     path('dashboard/', include('dashboard.urls')),
 
->>>>>>> develop
 ]
 
 # Asigna la función personalizada a handler404
