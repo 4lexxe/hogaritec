@@ -86,11 +86,8 @@ main button {
     flex-direction: column;
 }
 
-.cart-detalles > div {
-    margin-bottom: 20px;
-}
-
 .resumen-pedido {
+    margin-bottom: 20px;
     border: 2px var(--primary-color) solid;
     border-radius: 7px;
 }

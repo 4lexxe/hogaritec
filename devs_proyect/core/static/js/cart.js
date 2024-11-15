@@ -2,52 +2,81 @@
 window.addEventListener('load', () => {
     const scrollY = localStorage.getItem('scrollY');
     if (scrollY !== null) {
-        window.scrollTo(0, parseInt(scrollY, 10));
-        
+        window.scrollTo({
+            top: parseInt(scrollY, 10),
+            left: 0,
+            behavior: 'smooth' 
+        });        
         localStorage.removeItem('scrollY');
     }
 });
 
-
-
+//Conseguir la cookie
 function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
+    if (!document.cookie) return null;
+
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+        const [key, value] = cookie.trim().split('=');
+        if (key === name) {
+            return decodeURIComponent(value);
         }
     }
-    return cookieValue;
+    return null;
 }
-
-
 const csrftoken = getCookie('csrftoken');
 
 /* Obtiene un array con todos los objetos de las etiqueta con la clase .addToCart-btn */
-let btnsAdd = document.querySelectorAll(".addToCart-btn")
-let btnsDelete = document.querySelectorAll(".deleteOfTheCart-btn")
+
+let btnsAdd2 = document.querySelectorAll(".addToCart-btn2");
+let btnsDelete = document.querySelectorAll(".deleteFromCart-btn");
+let btndDeleteAll = document.querySelectorAll(".deleteProductFromCart");
 
 /* Lo recorre y les añade el evente click y la funcion addToCart */
-btnsAdd.forEach(btn=>{
-    btn.addEventListener("click", addToCart)
+
+btnsAdd2.forEach(btn => {
+    btn.addEventListener("click", addToCart2)
 })
 
 btnsDelete.forEach(btn => {
-    btn.addEventListener("click", deleteOfTheCart)
+    btn.addEventListener("click", deleteFromCart)
 })
 
-function addToCart(e){
+btndDeleteAll.forEach(btn => {
+    btn.addEventListener("click", deleteProductFromCart)
+})
 
-    let product_id = e.target.value
+//Agrega el producto al carrito y recarga la vista del carrito
+function addToCart2(e){
+    let product_id = e.target.value;
     let url = "/sale/add_to_cart";
 
     let data = {id:product_id}
+    console.log("data", data)
+
+    fetch(url, {
+        method: "POST",
+        headers: {"Content-Type":"application/json", 'X-CSRFToken': csrftoken},
+        body: JSON.stringify(data)
+    })
+    .then(res=>res.json())
+    .then(data => {
+        console.log(data)
+        if (data.redirect) {
+            // Guarda la posición actual de desplazamiento en el localStorage
+            localStorage.setItem('scrollY', window.scrollY);
+            window.location.href = data.redirect;  // Redirige a la URL recibida
+        }
+    })
+    .catch(error=>{
+        console.log(error)
+    })
+}
+
+function deleteFromCart(e){
+    let product_id = e.target.value;
+    let url = "/sale/delete_from_cart";
+    let data = {id:product_id};
 
     fetch(url, {
         method: "POST",
@@ -60,9 +89,7 @@ function addToCart(e){
         if (data.redirect) {
             // Guarda la posición actual de desplazamiento en localStorage
             localStorage.setItem('scrollY', window.scrollY);
-
             window.location.href = data.redirect;  // Redirige a la URL recibida
-            
         }
         
     })
@@ -72,12 +99,9 @@ function addToCart(e){
 }
 
 
-
-function deleteOfTheCart(e){
-
-    let product_id = e.target.value
-    let url = "/sale/delete_of_the_cart";
-
+function deleteProductFromCart(e){
+    product_id = e.target.closest(".deleteProductFromCart").value;
+    let url = "/sale/delete_product_from_cart";
     let data = {id:product_id}
 
     fetch(url, {
@@ -92,7 +116,6 @@ function deleteOfTheCart(e){
             // Guarda la posición actual de desplazamiento en localStorage
             localStorage.setItem('scrollY', window.scrollY);
             window.location.href = data.redirect;  // Redirige a la URL recibida
-            
         }
         
     })
