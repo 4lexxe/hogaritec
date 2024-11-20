@@ -8,6 +8,10 @@ from django.contrib import admin
 from .models import Customer, Supplier, Product, Sale, ProductImage, Cart, CartItem
 from .models import Subscriber
 
+from .models import Order
+from .models import OrderItem
+from .models import Payment
+
 # Registrar el modelo Customer con una administración personalizada
 class CustomerAdmin(admin.ModelAdmin):
     list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active')
@@ -55,3 +59,8 @@ class SubscriberAdmin(admin.ModelAdmin):
     list_display = ('email', 'date_subscribed')
     search_fields = ('email',)
     list_filter = ('date_subscribed',)
+    
+
+admin.site.register(Order)
+admin.site.register(OrderItem)
+admin.site.register(Payment)

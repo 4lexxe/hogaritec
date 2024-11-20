@@ -67,12 +67,10 @@ def contacto_view(request):
             form = ContactForm()  # Reinicia el formulario vacío después del envío exitoso
     else:
         form = ContactForm()
+    return render(request, "core/contacto.html", {'form': form})
 
 def articulo_view(request):
     return render(request, "core/articulo.html")
-
-# Manejo de errores 404
-    return render(request, "core/contacto.html", {'form': form})
 
 # Manejo de errores 404 
 def custom_404_view(request, exception):

@@ -27,6 +27,7 @@ function addToCart(e){
     let url = "/sale/add_to_cart";
 
     let data = {id:product_id}
+    
     console.log("data", data)
 
     fetch(url, {

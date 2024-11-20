@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block linkStyle %}
+<link rel="stylesheet" href="{% static 'css/messagges.css' %}">
+{% endblock %}
+
+{% block title %}Success{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+
+<body>
+    <div class="page-wrapper">
+        <div class="thank-you-container">
+            <h1 class="thank-you-title">¡Gracias por tu compra!</h1>
+            <p class="thank-you-message">Apreciamos tu confianza en nosotros. Tu pedido está siendo procesado.</p>
+            <a href="{% url 'index' %}" class="return-button">Volver al Home</a>
+        </div>
+    </div>
+</body>
+</html>
+
+{% include 'tags/footer.html' %}
+
+{% endblock %}

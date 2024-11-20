@@ -12,10 +12,11 @@
 {% include 'tags/header.html' %}
 
 <main>
+    
     <div class="cart-custom">
 
         <h1 class="cart-titulo featured__title-products">Carrito de compras</h1>
-
+        
         <div class="cart-pedidos">
             <div class="cart-pedidos__titulo">
                 <h2>Productos</h2>
@@ -41,7 +42,6 @@
 
                 <div class="cart-item__cantidad">
                     <!-- Sumar o resta de a uno -->
-
                     <button class="btn-deleteOne deleteFromCart-btn" value="{{ item.product.id }}">
                         -
                     </button>
@@ -53,7 +53,6 @@
                     </button>
 
                 </div>
-
 
                 <div class="cart-item__end" >
 
@@ -67,8 +66,6 @@
             </section>
             {% endfor %}
 
-
-
         </div>
 
         <div class="cart-detalles">
@@ -77,7 +74,6 @@
                     <div class="resumen-pedido__item">
                         <h3>Resumen del pedido</h3>
                     </div>
-    
     
                     <div class="resumen-pedido__item">
                         <div>
@@ -100,8 +96,11 @@
                         <p>$ {{ cart.total_price }} </p>
                     </div>
     
-                    <button class="btn more-products buy-btn">
-                        Finalizar compra
+                    <button class="mercadopago-button payment" value="{{ cart.id }}" id="payButton" >
+                        <img src="{% static 'imgs/icons/logoMercadoPago.png' %}" alt="Mercado Pago Logo" style="width: 40px; height: 30px; margin-right: 8px; vertical-align: middle;">
+                        <span id="buttonText">Pagar con Mercado Pago</span>
+                        <div class="loading-overlay"></div>
+                        <div class="spinner"></div>
                     </button>
     
                 </div>
@@ -110,14 +109,12 @@
                     <a href="{% url 'productos' %}" class="btn more-products">Ver más productos</a>
                 </div>
             </div>
-
         </div>
-    </div>
+    
 </main>
 
 {% include 'tags/footer.html' %}
 
-<script src="{% static 'js/cart.js' %}">
-</script>
-
+<script src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'js/payment.js' %}"></script>
 {% endblock %}

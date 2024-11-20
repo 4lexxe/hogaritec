@@ -19,7 +19,7 @@ def products_view(request):
     return render(request, "core/products.html", {"products": productos})
 
 
-""" Urls relacionadas con el carrito. """
+# Funcionalidades relacionadas con el carrito --------------------------------------------------------------------------
 
 def cart_view(request):
     cart = None
@@ -28,8 +28,10 @@ def cart_view(request):
     if request.user.is_authenticated:    
         cart, created = Cart.objects.get_or_create(customer=request.user, defaults={"status": True})
         cartitems = cart.cartitems.all()
+        
+    context = {"cart": cart,"cartitems": cartitems}
 
-    return render(request, "core/cart.html", {"cart":cart, "cartitems":cartitems})
+    return render(request, "core/cart.html", context)
 
 
 @login_required

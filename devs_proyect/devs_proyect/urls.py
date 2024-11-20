@@ -23,9 +23,6 @@ urlpatterns = [
     # Otras rutas relacionadas con la aplicación 'core'
     path('acercade/', views.acercade_view, name='about'),
     path('contacto/', views.contacto_view, name='contacto'),
-    
-    # Incluyendo las rutas de la app 'sale'
-    path('sale/', include('sale.urls')),
 
     # Rutas de autenticación
     path('register/', views.RegisterView, name='register'),
@@ -48,6 +45,12 @@ urlpatterns = [
     
     #dashboard
     path('dashboard/', include('dashboard.urls')),
+    
+    # Incluyendo las rutas de la app 'sale'
+    path('sale/', include('sale.urls')),
+    
+    # Pagos
+    path("payment/", include('payment.urls'))
 
 ]
 

@@ -9,6 +9,8 @@ from django.contrib.auth.models import Permission
 from django.utils import timezone
 import os
 
+from django.forms.models import model_to_dict
+
 class CustomerManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         """
@@ -130,27 +132,12 @@ def delete_image_product(sender, instance, **kwargs):
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
 
-"""Modelo para representar una venta."""
-class Sale(models.Model):
-    date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de la venta")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sales', verbose_name="Producto")
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Cliente")
-    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio de venta")
-    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
-    updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
-
-    def __str__(self):
-        return f"Venta de {self.product.name} a {self.customer.first_name if self.customer else 'Cliente desconocido'}"
-
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
     date_subscribed = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.email
-
-
-
 
 # Modelos para el carrito de compras -----------------------------------------------------------------
 
@@ -180,7 +167,6 @@ class Cart(models.Model):
         quantity = sum([item.quantity for item in cartitems])
         return quantity
 
-
 class CartItem(models.Model):
     """Modelo para representar un elemento en el carrito."""
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='cartitems', verbose_name="Carrito")
@@ -198,3 +184,90 @@ class CartItem(models.Model):
         total = pricePerProduct * self.quantity
         return total
     
+# Modelos para el registro de las ventas ------------------------------------------------------------------------
+"""Modelo para representar una venta."""
+class Sale(models.Model):
+    
+    STATUS_CHOICES = [
+        ('paid', 'Pagado'),
+        ('pending', 'Pendiente'),
+        ('cancelled', 'Cancelado'),
+    ]
+
+    id = models.AutoField(primary_key=True, verbose_name="ID de la venta")  # ID único
+    date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de la venta")
+    product = models.ForeignKey(
+        'Product', on_delete=models.CASCADE, related_name='sales', verbose_name="Producto"
+    )
+    customer = models.ForeignKey(
+        'Customer', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Cliente"
+    )
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio de venta")
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name="Estado del pedido"
+    )
+    reference = models.CharField(
+        max_length=50, unique=True, verbose_name="Referencia única del pedido", blank=True
+    )
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
+    updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
+
+    def save(self, *args, **kwargs):
+        """Generar una referencia única antes de guardar."""
+        if not self.reference:
+            self.reference = f"SALE-{self.id}-{self.date.strftime('%Y%m%d%H%M%S')}"
+        super().save(*args, **kwargs)
+
+    def _str_(self):
+        customer_name = self.customer.get_full_name() if self.customer else "Cliente desconocido"
+        return f"Venta #{self.id} de {self.product.name} a {customer_name} ({self.get_status_display()})"
+
+    class Meta:
+        verbose_name = ("Sale")
+        verbose_name_plural = ("Sales")
+        ordering = ['-date']
+
+#Modelos para el registro de ordenes y pagos
+
+class Order(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='orders', verbose_name="Usuario")
+    date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de la venta")
+    
+    total_amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio total de la venta")
+    status = models.CharField(max_length=50, choices=(
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    ))
+    
+    cart = models.ForeignKey(Cart, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Carrito")
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
+    updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
+    
+    def __str__(self):
+        return f"Orden de {self.customer}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='orderitems', verbose_name="Item de orden")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="Producto")
+    quantity = models.PositiveIntegerField(verbose_name="Cantidad")
+    price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio")
+    
+    def __str__(self):
+        return f"Item de {self.order}"
+
+class Payment(models.Model):
+    order = models.OneToOneField(Order, on_delete=models.CASCADE, related_name='payment')
+    amount = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Monto") 
+    method = models.CharField(max_length=50, verbose_name="Metodo de pago")  
+    status = models.CharField(max_length=50, verbose_name="Estado")
+    transaction_id = models.CharField(max_length=255, null=True, blank=True, verbose_name="Id de transaccion")
+    date_approved = models.DateTimeField(null=True, blank=True, verbose_name="Fecha de aprobacion del pago")
+    description = models.TextField(null=True, blank=True, verbose_name="Descripcion")
+    installments = models.PositiveIntegerField(default=1, verbose_name="Cuotas")  
+
+    created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creacion")  
+    updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de actualizacion") 
+
+    def __str__(self):
+        return f"Payment {self.id} - Order {self.order.id} - {self.status}"

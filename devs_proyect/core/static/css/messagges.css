@@ -1,0 +1,39 @@
+.page-wrapper {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    margin: 0;
+    background-color: #f0f0f0;
+}
+.thank-you-container {
+    text-align: center;
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.thank-you-title {
+    color: #4a4a4a;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+.thank-you-message {
+    color: #6a6a6a;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+.return-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+}
+.return-button:hover {
+    background-color: #2980b9;
+}

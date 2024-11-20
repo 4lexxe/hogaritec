@@ -10,6 +10,7 @@ pillow = "*"
 pylint = "*"
 pylint-django = "*"
 pylint-celery = "*"
+mercadopago = "*"
 
 [dev-packages]
 
