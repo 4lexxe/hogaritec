@@ -24,9 +24,7 @@
 
             {% for item in cartitems %}
 
-            <p> {{ item.product.name }} gdf</p>
-
-            <section class="cart-item">
+            <section class="cart-item" id="cartitem{{ item.product.id }}">
                 <div class="item-container">
 
                     <div class="cart-item__img">
@@ -38,7 +36,7 @@
 
                 <h3 class="cart-item__titulo"> {{ item.product.name }} </h3>
 
-                <p>$ {{ item.product.get_final_price }}</p>
+                <p id="get_final_price{{ item.product.id }}">$ {{ item.product.get_final_price }}</p>
 
                 <div class="cart-item__cantidad">
                     <!-- Sumar o resta de a uno -->
@@ -46,7 +44,7 @@
                         -
                     </button>
 
-                    <span>{{ item.quantity }}</span>
+                    <span id="quantity{{ item.product.id }}">{{ item.quantity }}</span>
 
                     <button class="btn-addOne addToCart-btn2" value="{{ item.product.id }}">
                         +
@@ -56,7 +54,7 @@
 
                 <div class="cart-item__end" >
 
-                    <p>$ {{ item.final_price }}</p>
+                    <p id="final_price{{ item.product.id }}">$ {{ item.final_price }}</p>
 
                     <button style="border-width: 0px; background-color: white;" class="deleteProductFromCart" value="{{ item.product.id }}" >
                         <i class="bi bi-trash"></i>
@@ -77,10 +75,10 @@
     
                     <div class="resumen-pedido__item">
                         <div>
-                            <p>Productos({{ cart.num_of_items }})</p>
+                            <p>Productos(<span id="num_of_items{{ cart.id }}">{{ cart.num_of_items }}</span>)</p>
                         </div>
                         <div>
-                            <p>$ {{ cart.total_price }}</p>
+                            <p id="total_price{{ cart.id }}">$ {{ cart.total_price }}</p>
                         </div>
                     </div>
                     <div class="resumen-pedido__item">
@@ -93,7 +91,7 @@
                     </div>
                     <div class="resumen-pedido__item resumen-total">
                         <p>Total: </p>
-                        <p>$ {{ cart.total_price }} </p>
+                        <p id="total_price{{ cart.id }}2">$ {{ cart.total_price }} </p>
                     </div>
     
                     <button class="mercadopago-button payment" value="{{ cart.id }}" id="payButton" >

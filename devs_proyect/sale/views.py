@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
+from django.forms.models import model_to_dict
 
 """ Datos de los modelos """
 from .models import Product
@@ -17,9 +18,6 @@ def products_view(request):
     productos = Product.objects.all()
 
     return render(request, "core/products.html", {"products": productos})
-
-
-# Funcionalidades relacionadas con el carrito --------------------------------------------------------------------------
 
 def cart_view(request):
     cart = None
@@ -50,9 +48,16 @@ def add_to_cart(request):
         cart_item, _ = CartItem.objects.get_or_create(cart=cart, product=product)
         cart_item.quantity += 1
         cart_item.save()
-
-        redirect_url = "/sale/cart"
-        return JsonResponse({"redirect": redirect_url}, status=200)
+        
+        dictCart = model_to_dict(cart)
+        dictCart["total_price"] = cart.total_price
+        dictCart["num_of_items"] = cart.num_of_items
+        
+        dicCartItem = model_to_dict(cart_item)
+        dicCartItem["final_price"] = cart_item.final_price
+        dicCartItem["get_final_price"] = cart_item.product.get_final_price()
+        
+        return JsonResponse({"cart": dictCart, "cartitem": dicCartItem}, status=200)
 
     except json.JSONDecodeError:
         return JsonResponse({"error": "Formato JSON inválido."}, status=400)
@@ -80,10 +85,17 @@ def delete_from_cart(request):
                 cart_item.quantity -= 1
                 cart_item.save()
             else:
-                cart_item.delete()
-
-            redirect_url = "/sale/cart"
-            return JsonResponse({"redirect": redirect_url}, status=200)
+                cart_item.delete()            
+            
+            dictCart = model_to_dict(cart)
+            dictCart["total_price"] = cart.total_price
+            dictCart["num_of_items"] = cart.num_of_items
+        
+            dicCartItem = model_to_dict(cart_item)
+            dicCartItem["final_price"] = cart_item.final_price
+            dicCartItem["get_final_price"] = cart_item.product.get_final_price()
+                
+            return JsonResponse({"cart": dictCart, "cartitem": dicCartItem}, status=200)
         else:
             return JsonResponse({"error": "El producto no está en el carrito."}, status=404)
 
@@ -111,8 +123,15 @@ def delete_product_from_cart(request):
         if cart_item:
             cart_item.delete()
 
-            redirect_url = "/sale/cart"
-            return JsonResponse({"redirect": redirect_url}, status=200)
+            dictCart = model_to_dict(cart)
+            dictCart["total_price"] = cart.total_price
+            dictCart["num_of_items"] = cart.num_of_items
+        
+            dicCartItem = model_to_dict(cart_item)
+            dicCartItem["final_price"] = cart_item.final_price
+            dicCartItem["get_final_price"] = cart_item.product.get_final_price()
+        
+            return JsonResponse({"cart": dictCart, "cartitem": dicCartItem}, status=200)
         else:
             return JsonResponse({"error": "El producto no está en el carrito."}, status=404)
 

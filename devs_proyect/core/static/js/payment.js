@@ -3,19 +3,19 @@ const buttonText = document.getElementById('buttonText');
 const loadingOverlay = document.querySelector('.loading-overlay');
 const spinner = document.querySelector('.spinner');
 
-button.addEventListener('click', (e) => {
+button.addEventListener('click', async (e) => {
     if (button.disabled) return;
-
     button.disabled = true;
     buttonText.style.opacity = '0';
     loadingOverlay.style.width = '100%';
     spinner.style.display = 'block';
 
-    setTimeout(() => {
-        payment(e)
-    }, 1300)
+    await new Promise(resolve => setTimeout(resolve, 2000)) 
+    
+    await payment(e);
+    
+    setTimeout(() => {        
 
-    setTimeout(() => {
         button.disabled = false;
         buttonText.style.opacity = '1';
         loadingOverlay.style.width = '0%';
@@ -26,18 +26,20 @@ button.addEventListener('click', (e) => {
 async function payment(e) {
     data = { id_cart: e.target.value }
 
-    let url = "/payment/create_order"
+    let url = "/payment/create_order";
 
-    fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", 'X-CSRFToken': csrftoken },
-        body: JSON.stringify(data)
-    })
-        .then(res => res.json())
-        .then(data => {
-            window.open(data.init_point, "_blank")
+    try{
+        const response = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json", 'X-CSRFToken': csrftoken },
+            body: JSON.stringify(data)
         })
-        .catch(error => {
-            console.log(error)
-        })
+
+        const datar = await response.json();
+
+        window.open(datar.init_point, "_blank")
+
+    }catch(error){
+        console.error("Error: ", error)
+    }
 }

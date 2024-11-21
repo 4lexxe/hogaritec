@@ -26,6 +26,33 @@ function getCookie(name) {
 }
 const csrftoken = getCookie('csrftoken');
 
+//Funcion para actualizar la data del carrito
+async function update(data) {
+    console.log(data)
+    
+    productId = data.cartitem.product
+    cartId = data.cart.id
+
+    document.getElementById(`num_of_items${ cartId }`).innerHTML = data.cart.num_of_items
+    document.getElementById(`total_price${ cartId }`).innerHTML = "$ " + data.cart.total_price
+    document.getElementById(`total_price${ cartId }2`).innerHTML = "$ " +  data.cart.total_price
+
+    if(data.cartitem.id == null){
+        document.getElementById(`cartitem${ data.cartitem.product }`).style.display = "none"
+        return
+    }
+
+    const getFinalPrice = document.getElementById(`get_final_price${ productId }`)
+    const quantity = document.getElementById(`quantity${ productId }`)
+    const finalPrice = document.getElementById(`final_price${ productId }`)
+
+    getFinalPrice.innerHTML = "$ " + data.cartitem.get_final_price
+    quantity.innerHTML = data.cartitem.quantity
+    finalPrice.innerHTML = "$ " + data.cartitem.final_price
+    
+}
+
+
 /* Obtiene un array con todos los objetos de las etiqueta con la clase .addToCart-btn */
 
 let btnsAdd2 = document.querySelectorAll(".addToCart-btn2");
@@ -50,9 +77,7 @@ btndDeleteAll.forEach(btn => {
 function addToCart2(e){
     let product_id = e.target.value;
     let url = "/sale/add_to_cart";
-
-    let data = {id:product_id}
-    console.log("data", data)
+    let data = {id:product_id}    
 
     fetch(url, {
         method: "POST",
@@ -60,18 +85,14 @@ function addToCart2(e){
         body: JSON.stringify(data)
     })
     .then(res=>res.json())
-    .then(data => {
-        console.log(data)
-        if (data.redirect) {
-            // Guarda la posición actual de desplazamiento en el localStorage
-            localStorage.setItem('scrollY', window.scrollY);
-            window.location.href = data.redirect;  // Redirige a la URL recibida
-        }
+    .then(data2 => {
+        update(data2)
     })
     .catch(error=>{
         console.log(error)
     })
 }
+
 
 function deleteFromCart(e){
     let product_id = e.target.value;
@@ -84,14 +105,8 @@ function deleteFromCart(e){
         body: JSON.stringify(data)
     })
     .then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-        if (data.redirect) {
-            // Guarda la posición actual de desplazamiento en localStorage
-            localStorage.setItem('scrollY', window.scrollY);
-            window.location.href = data.redirect;  // Redirige a la URL recibida
-        }
-        
+    .then(data2 =>{
+        update(data2)
     })
     .catch(error=>{
         console.log(error)
@@ -110,14 +125,8 @@ function deleteProductFromCart(e){
         body: JSON.stringify(data)
     })
     .then(res=>res.json())
-    .then(data=>{
-        console.log(data)
-        if (data.redirect) {
-            // Guarda la posición actual de desplazamiento en localStorage
-            localStorage.setItem('scrollY', window.scrollY);
-            window.location.href = data.redirect;  // Redirige a la URL recibida
-        }
-        
+    .then(data2=>{
+        update(data2)
     })
     .catch(error=>{
         console.log(error)
