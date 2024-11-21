@@ -29,7 +29,7 @@ class CustomerAdmin(admin.ModelAdmin):
 # Configuración de ProductImage para ser inluso dentro del formulario de edición de Producto
 class ProductImageInline(admin.TabularInline):
     model = ProductImage
-    extra = 1  # Número de imágenes que se mostrarán por defecto
+    extra = 3  # Número de imágenes que se mostrarán por defecto
 
 # Administración personalizada para el modelo Product
 class ProductAdmin(admin.ModelAdmin):

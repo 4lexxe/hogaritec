@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from decimal import Decimal
 from django.contrib.auth.models import Permission
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 import os
 
 class CustomerManager(BaseUserManager):
@@ -104,6 +105,13 @@ class Product(models.Model):
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
 
+    @property
+    def images_urls(self):
+        """
+        Devuelve una lista de las URLs de todas las imágenes asociadas al producto.
+        """
+        return [image.image.url for image in self.images.all()]
+
     def __str__(self):
         return f"{self.name} ({self.code})"
 
@@ -130,17 +138,48 @@ def delete_image_product(sender, instance, **kwargs):
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
 
-"""Modelo para representar una venta."""
 class Sale(models.Model):
+    """Modelo para representar una venta."""
+    
+    STATUS_CHOICES = [
+        ('paid', 'Pagado'),
+        ('pending', 'Pendiente'),
+        ('cancelled', 'Cancelado'),
+    ]
+
+    id = models.AutoField(primary_key=True, verbose_name="ID de la venta")  # ID único
     date = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de la venta")
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='sales', verbose_name="Producto")
-    customer = models.ForeignKey(Customer, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Cliente")
+    product = models.ForeignKey(
+        'Product', on_delete=models.CASCADE, related_name='sales', verbose_name="Producto"
+    )
+    customer = models.ForeignKey(
+        'Customer', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Cliente"
+    )
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="Precio de venta")
+    status = models.CharField(
+        max_length=10, choices=STATUS_CHOICES, default='pending', verbose_name="Estado del pedido"
+    )
+    reference = models.CharField(
+        max_length=50, unique=True, verbose_name="Referencia única del pedido"
+    )
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
 
+    def save(self, *args, **kwargs):
+        """Generar una referencia única antes de guardar."""
+        if not self.reference:
+            self.reference = f"SALE-{self.id}-{self.date.strftime('%Y%m%d%H%M%S')}"
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return f"Venta de {self.product.name} a {self.customer.name if self.customer else 'Cliente desconocido'}"
+        customer_name = self.customer.get_full_name() if self.customer else "Cliente desconocido"
+        return f"Venta #{self.id} de {self.product.name} a {customer_name} ({self.get_status_display()})"
+
+    class Meta:
+        verbose_name = _("Sale")
+        verbose_name_plural = _("Sales")
+        ordering = ['-date']
+
     
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)

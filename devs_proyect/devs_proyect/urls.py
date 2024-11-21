@@ -45,6 +45,7 @@ urlpatterns = [
     
     #dashboard
     path('dashboard/', include('dashboard.urls')),
+    path('', include('dashboard.urls')),  # Asegúrate de incluir 'dashboard.urls'
 
 ]
 
