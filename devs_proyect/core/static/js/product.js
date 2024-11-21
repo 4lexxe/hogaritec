@@ -13,7 +13,7 @@ function getCookie(name) {
     }
     return null;
 }
-
+ 
 const csrftoken = getCookie('csrftoken');
 
 //Seleccionar las etiquetas con la clase addToCart-btn y capturar los evento de click
@@ -40,3 +40,4 @@ function addToCart(e){
         console.log(error)
     })
 }
+

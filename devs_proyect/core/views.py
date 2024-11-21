@@ -1,8 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
 from django.contrib import messages
-from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from .decorators import redirect_authenticated_user
 from django.core.mail import EmailMessage
@@ -12,15 +10,14 @@ from django.conf import settings
 from .models import PasswordReset
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
-import uuid
-from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.forms.models import model_to_dict
 
 from sale.models import Customer
 from sale.models import Product
 from core.forms import EditCustomerProfileForm
-from django.contrib.auth.decorators import login_required
 from sale.models import Product
+from sale.models import ProductImage
 from .forms import ContactForm
 from sale.models import Subscriber
 
@@ -69,8 +66,10 @@ def contacto_view(request):
         form = ContactForm()
     return render(request, "core/contacto.html", {'form': form})
 
-def articulo_view(request):
-    return render(request, "core/articulo.html")
+def articulo_view(request, id):
+    articulo = get_object_or_404(Product, id=id)
+    
+    return render(request, "core/articulo.html", {"product": articulo})
 
 # Manejo de errores 404 
 def custom_404_view(request, exception):

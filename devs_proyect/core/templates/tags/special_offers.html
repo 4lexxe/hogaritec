@@ -19,13 +19,17 @@
             <div class="card-img-wrapper">
               {% if product.images.all %}
               <!-- Mostrar la primera imagen del producto -->
-              <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}"
-                class="card-img-top-custom card-img-contain">
+               <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" 
+                 class="card-img-top-custom card-img-contain">                 
+               </a>
 
               {% else %}
               <!-- Imagen de reserva si no hay imágenes para el producto -->
-              <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
-                class="card-img-top-custom card-img-contain">
+               <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
+                   class="card-img-top-custom card-img-contain">
+               </a>
               {% endif %}
             </div>
 

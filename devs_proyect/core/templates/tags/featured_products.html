@@ -2,27 +2,6 @@
 
 <section class="featured-products main-section">
   <h2 class="featured__title-products">PRODUCTOS DESTACADOS</h2>
-  
-  <!------------------------------------------------ Seccion de cards -------------------------------------------->
-  <div class="card">
-      <img src="{% static './imgs/general/product2.png' %}" class="card-img-top" alt="imagen del producto">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
-
-          <div class="card-buy">
-              <p class="card-text card-price">
-                  $00.00
-              </p>
-              <a href="{% url 'artículo' %}" class="btn btn-primary btn-cart">
-                  <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar">
-              </a>
-          </div>
-      </div>
-  </div>
-    <h2 class="featured__title-products fs-1 fw-bolder">PRODUCTOS DESTACADOS</h2>
 
     <!------------------------------------------------ Seccion de cards -------------------------------------------->
 
@@ -32,11 +11,15 @@
         <div class="card-img-wrapper">
             {% if product.images.all %}
             <!-- Mostrar la primera imagen del producto -->
-            <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain">
+             <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain">
+             </a>
 
             {% else %}
             <!-- Imagen de reserva si no hay imágenes para el producto -->
-            <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+             <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+             </a>
             {% endif %}
         </div>
 

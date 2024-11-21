@@ -18,11 +18,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
     path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
-    path('artículo/', views.articulo_view, name='artículo'),  # Ruta para la página "Artículo"
-    
-    # Otras rutas relacionadas con la aplicación 'core'
-    path('acercade/', views.acercade_view, name='about'),
-    path('contacto/', views.contacto_view, name='contacto'),
+    path('article/<int:id>/', views.articulo_view, name='articulo'),  # Ruta para la página "Artículo"
 
     # Rutas de autenticación
     path('register/', views.RegisterView, name='register'),

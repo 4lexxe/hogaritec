@@ -55,6 +55,12 @@ header a {
   padding: 10px 5px;
 }
 
+input:focus{
+  outline: none;
+  border-color: var(--tertiary-color);
+  box-shadow: 0 0 5px rgba(226, 163, 199, 0.5);
+}
+
 .search-button{
   background-color: white;
   border: none;
