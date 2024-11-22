@@ -71,6 +71,9 @@ def articulo_view(request, id):
     
     return render(request, "core/articulo.html", {"product": articulo})
 
+def categorias_view(request):
+    return render(request, "core/categorias.html")
+
 # Manejo de errores 404 
 def custom_404_view(request, exception):
     return render(request, 'core/404.html', {'path': request.path}, status=404) 
