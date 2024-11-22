@@ -5,53 +5,41 @@
               <thead>
                   <tr>
                       <th>Avatar</th>
-                      <th>ID</th>
                       <th>Nombre</th>
                       <th>Email</th>
                       <th>Teléfono</th>
                       <th>Fecha de registro</th>
-                      <th>Acciones</th>
+                      <th>Activo</th>
                   </tr>
               </thead>
               <tbody>
+                  {% for customer in customers %}
                   <tr>
                       <td>
-                          <img src="https://via.placeholder.com/40" alt="Juan Pérez" class="rounded-circle">
+                          {% if customer.avatar %}
+                              <img src="{{ customer.avatar.url }}" alt="{{ customer.get_full_name }}" class="rounded-circle" width="40" height="40">
+                          {% else %}
+                              <img src="https://via.placeholder.com/40" alt="Avatar" class="rounded-circle">
+                          {% endif %}
                       </td>
-                      <td>1</td>
-                      <td>Juan Pérez</td>
-                      <td>juan@example.com</td>
-                      <td>555-1234</td>
-                      <td>01/01/2023</td>
+                      <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+                      <td>{{ customer.email }}</td>
+                      <td>{{ customer.phone_number }}</td>
+                      <td>{{ customer.date_joined|date:"d/m/Y" }}</td>
                       <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
+                          {% if customer.is_active %}
+                              <span class="badge bg-success">Activo</span>
+                          {% else %}
+                              <span class="badge bg-danger">Inactivo</span>
+                          {% endif %}
                       </td>
                   </tr>
-                  <tr>
-                      <td>
-                          <img src="https://via.placeholder.com/40" alt="María García" class="rounded-circle">
-                      </td>
-                      <td>2</td>
-                      <td>María García</td>
-                      <td>maria@example.com</td>
-                      <td>555-5678</td>
-                      <td>15/02/2023</td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
-                  </tr>
+                  {% endfor %}
               </tbody>
           </table>
+      </div>
+      <div class="text-center">
+          <a href="{%url 'customers_dashboard_view'%}" class="btn btn-primary mt-3">Ver más clientes</a>
       </div>
   </div>
 </div>

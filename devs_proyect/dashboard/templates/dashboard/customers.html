@@ -1,0 +1,311 @@
+{% extends 'dashboard/base.html' %}
+{% load tags %}
+{% load static %}
+{% block title %}Panel de Administración - Clientes{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'tags/navbar.html' %}
+
+<div class="container-fluid mt-5 pt-5">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h1 class="h2">Clientes <span class="badge bg-primary">{{ customers|length }}</span></h1>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <button type="button" class="btn btn-primary" id="addCustomerBtn">
+        <i class="bi bi-person-plus me-2"></i>Agregar Cliente
+      </button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>Avatar</th>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Teléfono</th>
+              <th>Fecha de registro</th>
+              <th>Activo</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for customer in customers %}
+            <tr>
+              <td data-label="Avatar">
+                {% if customer.avatar %}
+                  <img src="{{ customer.avatar.url }}" alt="{{ customer.get_full_name }}" class="rounded-circle" width="40" height="40">
+                {% else %}
+                  <img src="{% static 'images/default-avatar.png' %}" alt="Avatar" class="rounded-circle" width="40" height="40">
+                {% endif %}
+              </td>
+              <td data-label="Nombre">{{ customer.first_name }} {{ customer.last_name }}</td>
+              <td data-label="Email">{{ customer.email }}</td>
+              <td data-label="Teléfono">{{ customer.phone_number }}</td>
+              <td data-label="Fecha de registro">{{ customer.date_joined|date:"d/m/Y" }}</td>
+              <td data-label="Activo">
+                {% if customer.is_active %}
+                  <span class="badge bg-success">Activo</span>
+                {% else %}
+                  <span class="badge bg-danger">Inactivo</span>
+                {% endif %}
+              </td>
+              <td data-label="Acciones">
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-sm btn-outline-primary edit-customer" 
+                          data-customer-id="{{ customer.id }}"
+                          data-customer-first-name="{{ customer.first_name }}"
+                          data-customer-last-name="{{ customer.last_name }}"
+                          data-customer-email="{{ customer.email }}"
+                          data-customer-phone="{{ customer.phone_number }}"
+                          data-customer-is-active="{{ customer.is_active|yesno:"true,false" }}"
+                          data-customer-avatar="{% if customer.avatar %}{{ customer.avatar.url }}{% else %}''{% endif %}">
+                    <i class="bi bi-pencil"></i>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-customer" 
+                          data-customer-id="{{ customer.id }}"
+                          data-customer-name="{{ customer.get_full_name }}">
+                    <i class="bi bi-trash"></i>
+                    <span class="d-none d-md-inline">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="7" class="text-center text-muted">No hay clientes registrados</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<!-- Customer Modal (for both Add and Edit) -->
+<div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="customerModalLabel">Cliente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="customerForm" method="POST" enctype="multipart/form-data">
+          {% csrf_token %}
+          <input type="hidden" id="customerId" name="id"> <!-- Hidden field for customer ID -->
+          
+          <!-- First Name -->
+          <div class="mb-3">
+            <label for="customerFirstName" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="customerFirstName" name="first_name" required>
+          </div>
+          
+          <!-- Last Name -->
+          <div class="mb-3">
+            <label for="customerLastName" class="form-label">Apellido</label>
+            <input type="text" class="form-control" id="customerLastName" name="last_name" required>
+          </div>
+          
+          <!-- Email -->
+          <div class="mb-3">
+            <label for="customerEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="customerEmail" name="email" required>
+          </div>
+          
+          <!-- Phone Number -->
+          <div class="mb-3">
+            <label for="customerPhone" class="form-label">Teléfono</label>
+            <input type="tel" class="form-control" id="customerPhone" name="phone_number">
+          </div>
+          
+          <!-- Active Status -->
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="customerIsActive" name="is_active">
+            <label class="form-check-label" for="customerIsActive">Activo</label>
+          </div>
+          
+          <!-- Avatar Upload -->
+          <div class="mb-3">
+            <label for="customerAvatar" class="form-label">Avatar</label>
+            <input type="file" class="form-control" id="customerAvatar" name="avatar" accept="image/*">
+          </div>
+
+          <!-- Avatar Display -->
+          <div id="currentAvatarContainer" class="mb-3 d-none">
+            <img id="currentAvatar" src="" alt="Current Avatar" class="rounded-circle" width="100" height="100">
+            <button type="button" class="btn btn-sm btn-danger mt-2" id="removeAvatar">Eliminar Avatar</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveCustomer">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Delete Customer Modal -->
+<div class="modal fade" id="deleteCustomerModal" tabindex="-1" aria-labelledby="deleteCustomerModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteCustomerModalLabel">Confirmar eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar al cliente <span id="deleteCustomerName"></span>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteCustomer">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+  const customerModal = new bootstrap.Modal(document.getElementById('customerModal'));
+  const customerForm = document.getElementById('customerForm');
+  const saveCustomerBtn = document.getElementById('saveCustomer');
+  const removeAvatarBtn = document.getElementById('removeAvatar');
+  const currentAvatarContainer = document.getElementById('currentAvatarContainer');
+  let avatarToRemove = false;
+
+  // Open modal to add customer
+  document.getElementById('addCustomerBtn').addEventListener('click', function() {
+    customerForm.reset();
+    document.getElementById('customerId').value = ''; // Clear customer ID for new entry
+    document.getElementById('customerModalLabel').textContent = 'Agregar Cliente'; // Set title to Add
+    currentAvatarContainer.classList.add('d-none');
+    avatarToRemove = false;
+    customerModal.show();
+  });
+
+  // Open modal to edit customer
+  document.querySelectorAll('.edit-customer').forEach(button => {
+    button.addEventListener('click', function() {
+      const customerId = this.getAttribute('data-customer-id');
+      const firstName = this.getAttribute('data-customer-first-name');
+      const lastName = this.getAttribute('data-customer-last-name');
+      const email = this.getAttribute('data-customer-email');
+      const phone = this.getAttribute('data-customer-phone');
+      const isActive = this.getAttribute('data-customer-is-active') === 'true';
+      const avatarUrl = this.getAttribute('data-customer-avatar');
+
+      // Fill form with customer data
+      document.getElementById('customerId').value = customerId;
+      document.getElementById('customerFirstName').value = firstName;
+      document.getElementById('customerLastName').value = lastName;
+      document.getElementById('customerEmail').value = email;
+      document.getElementById('customerPhone').value = phone;
+      document.getElementById('customerIsActive').checked = isActive;
+      document.getElementById('customerModalLabel').textContent = 'Editar Cliente'; // Set title to Edit
+
+      // Show current avatar if exists
+      if (avatarUrl) {
+        document.getElementById('currentAvatar').src = avatarUrl;
+        currentAvatarContainer.classList.remove('d-none');
+      } else {
+        currentAvatarContainer.classList.add('d-none');
+      }
+
+      avatarToRemove = false;
+      customerModal.show();
+    });
+  });
+
+  // Remove avatar functionality
+  removeAvatarBtn.addEventListener('click', function() {
+    currentAvatarContainer.classList.add('d-none');
+    avatarToRemove = true;
+  });
+
+  // Save customer (Add or Edit)
+  saveCustomerBtn.addEventListener('click', function() {
+    if (customerForm.checkValidity()) {
+      const formData = new FormData(customerForm);
+      const customerId = formData.get('id');
+      const url = customerId ? '{% url "edit_customer" %}' : '{% url "add_customer" %}'; // Determine URL based on whether it's edit or add
+
+      if (avatarToRemove) {
+        formData.append('remove_avatar', 'true');
+      }
+
+      fetch(url, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'X-CSRFToken': '{{ csrf_token }}'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload(); // Reload the page to show updated list of customers
+        } else {
+          alert('Error al guardar el cliente: ' + data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al guardar el cliente');
+      });
+    } else {
+      customerForm.reportValidity(); // Show validation errors if form is invalid
+    }
+  });
+});
+</script>
+
+<style>
+@media (max-width: 767px) {
+  .table-responsive {
+    border: 0;
+  }
+  .table-responsive table {
+    border: 0;
+  }
+  .table-responsive table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .table-responsive table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  .table-responsive table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  .table-responsive table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .table-responsive table td:last-child {
+    border-bottom: 0;
+  }
+}
+</style>
+{% endblock %}

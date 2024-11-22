@@ -1,50 +1,53 @@
 <div class="card">
   <div class="card-body">
-      <div class="table-responsive">
-          <table class="table table-hover">
-              <thead>
-                  <tr>
-                      <th>ID</th>
-                      <th>Fecha</th>
-                      <th>Cliente</th>
-                      <th>Total</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr>
-                      <td>1</td>
-                      <td>01/03/2023</td>
-                      <td>Juan Pérez</td>
-                      <td>$150.00</td>
-                      <td><span class="badge bg-success">Completada</span></td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>2</td>
-                      <td>02/03/2023</td>
-                      <td>María García</td>
-                      <td>$75.50</td>
-                      <td><span class="badge bg-warning text-dark">En proceso</span></td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
-                  </tr>
-              </tbody>
-          </table>
-      </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Total</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if sales %}
+          {% for sale in sales %}
+          <tr>
+            <td>{{ sale.id }}</td>
+            <td>{{ sale.date|date:"d/m/Y" }}</td>
+            <td>
+              {% if sale.customer %}
+                {{ sale.customer.first_name }} {{ sale.customer.last_name }}
+              {% else %}
+                <span class="text-muted">Cliente desconocido</span>
+              {% endif %}
+            </td>
+            <td>${{ sale.price }}</td>
+            <td>
+              {% if sale.status == 'paid' %}
+                <span class="badge bg-success">Pagado</span>
+              {% elif sale.status == 'pending' %}
+                <span class="badge bg-warning text-dark">Pendiente</span>
+              {% elif sale.status == 'cancelled' %}
+                <span class="badge bg-danger">Cancelado</span>
+              {% else %}
+                <span class="badge bg-secondary">Desconocido</span>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+          {% else %}
+          <tr>
+            <td colspan="5" class="text-center text-muted">No hay ninguna venta realizada</td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    <div class="text-center">
+      <a href="{%url 'sales_dashboard_view'%}" class="btn btn-primary mt-3">Ver todas las ventas</a>
+  </div>
   </div>
 </div>

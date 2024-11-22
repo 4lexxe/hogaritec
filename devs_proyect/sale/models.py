@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from decimal import Decimal
 from django.contrib.auth.models import Permission
 from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 import os
 
 from django.forms.models import model_to_dict
@@ -105,6 +106,13 @@ class Product(models.Model):
     supplier = models.ForeignKey(Supplier, on_delete=models.SET_NULL, null=True, verbose_name="Proveedor")
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Última actualización")
+
+    @property
+    def images_urls(self):
+        """
+        Devuelve una lista de las URLs de todas las imágenes asociadas al producto.
+        """
+        return [image.image.url for image in self.images.all()]
 
     def __str__(self):
         return f"{self.name} ({self.code})"

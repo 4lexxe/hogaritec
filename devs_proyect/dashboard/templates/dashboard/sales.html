@@ -1,0 +1,165 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Panel de Administración - Ventas{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'tags/navbar.html' %}
+
+<div class="container-fluid mt-5 pt-5">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h1 class="h2">Ventas <span class="badge bg-primary">{{ sales|length }}</span></h1>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Producto</th>
+              <th>Cliente</th>
+              <th>Precio</th>
+              <th>Estado</th>
+              <th>Referencia</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="salesTableBody">
+            {% for sale in sales %}
+            <tr data-sale-id="{{ sale.id }}">
+              <td data-label="ID">{{ sale.id }}</td>
+              <td data-label="Fecha">{{ sale.date|date:"d/m/Y H:i" }}</td>
+              <td data-label="Producto">{{ sale.product.name }}</td>
+              <td data-label="Cliente">{{ sale.customer.get_full_name }}</td>
+              <td data-label="Precio">${{ sale.price }}</td>
+              <td data-label="Estado">
+                <span class="badge {% if sale.status == 'paid' %}bg-success{% elif sale.status == 'pending' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                  {{ sale.get_status_display }}
+                </span>
+              </td>
+              <td data-label="Referencia">{{ sale.reference }}</td>
+              <td data-label="Acciones">
+                <button type="button" class="btn btn-sm btn-outline-danger delete-sale" 
+                        data-sale-id="{{ sale.id }}">
+                  <i class="bi bi-trash"></i>
+                  <span class="d-none d-md-inline">Eliminar</span>
+                </button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="8" class="text-center text-muted">No hay ventas registradas</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Sale Modal -->
+<div class="modal fade" id="deleteSaleModal" tabindex="-1" aria-labelledby="deleteSaleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteSaleModalLabel">Confirmar eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta venta?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteSale">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const deleteSaleModal = new bootstrap.Modal(document.getElementById('deleteSaleModal'));
+  const confirmDeleteSale = document.getElementById('confirmDeleteSale');
+  let saleIdToDelete;
+
+  // Delete Sale
+  document.querySelectorAll('.delete-sale').forEach(button => {
+    button.addEventListener('click', function() {
+      saleIdToDelete = this.getAttribute('data-sale-id');
+      deleteSaleModal.show();
+    });
+  });
+
+  confirmDeleteSale.addEventListener('click', function() {
+    fetch('{% url "delete_sale" %}', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': '{{ csrf_token }}'
+      },
+      body: `sale_id=${saleIdToDelete}`
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        location.reload();
+      } else {
+        alert('Error al eliminar la venta: ' + data.error);
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error al eliminar la venta');
+    });
+  });
+});
+</script>
+
+<style>
+@media (max-width: 767px) {
+  .table-responsive {
+    border: 0;
+  }
+  .table-responsive table {
+    border: 0;
+  }
+  .table-responsive table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .table-responsive table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  .table-responsive table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  .table-responsive table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .table-responsive table td:last-child {
+    border-bottom: 0;
+  }
+}
+</style>
+{% endblock %}
