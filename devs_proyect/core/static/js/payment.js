@@ -24,7 +24,7 @@ button.addEventListener('click', async (e) => {
 });
 
 async function payment(e) {
-    data = { id_cart: e.target.value }
+    data = { id_cart:  e.target.closest("#payButton").value }
 
     let url = "/payment/create_order";
 

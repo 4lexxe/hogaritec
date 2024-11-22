@@ -56,7 +56,7 @@ def add_to_cart(request):
         dicCartItem = model_to_dict(cart_item)
         dicCartItem["final_price"] = cart_item.final_price
         dicCartItem["get_final_price"] = cart_item.product.get_final_price()
-        
+        print("Se ejecuta esto")
         return JsonResponse({"cart": dictCart, "cartitem": dicCartItem}, status=200)
 
     except json.JSONDecodeError:

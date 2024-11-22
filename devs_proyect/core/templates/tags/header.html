@@ -1,8 +1,20 @@
 {% load static %}
 <header>
-<!-- Desktop Navigation -->
- {%include 'tags/navbar_desktop.html'%}
+  <!-- Desktop Navigation -->
+  {%include 'tags/navbar_desktop.html'%}
 
   <!-- Mobile Navigation -->
-{%include 'tags/navbar_mobile.html'%}
+  {%include 'tags/navbar_mobile.html'%}
+
+  <div class="notification" id="notification">
+    <div class="notification-mensaje">
+      <p class="notification-title">Nuevo mensaje</p>
+      <p class="notificacion-desc">
+        Se ha agregado correctamente al carrito
+      </p>
+    </div>
+    <div class="progress-bar">
+      <div class="progress"></div>
+    </div>
+  </div>
 </header>

@@ -1,4 +1,5 @@
 {% load static %}
+
 <section class="main-section">
   <div class="special-offers">
     <div class="offers-header">
@@ -19,17 +20,17 @@
             <div class="card-img-wrapper">
               {% if product.images.all %}
               <!-- Mostrar la primera imagen del producto -->
-               <a href="{% url 'articulo' id=product.id  %}">
-                 <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" 
-                 class="card-img-top-custom card-img-contain">                 
-               </a>
+              <a href="{% url 'articulo' id=product.id  %}">
+                <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}"
+                  class="card-img-top-custom card-img-contain">
+              </a>
 
               {% else %}
               <!-- Imagen de reserva si no hay imágenes para el producto -->
-               <a href="{% url 'articulo' id=product.id  %}">
-                 <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
-                   class="card-img-top-custom card-img-contain">
-               </a>
+              <a href="{% url 'articulo' id=product.id  %}">
+                <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
+                  class="card-img-top-custom card-img-contain">
+              </a>
               {% endif %}
             </div>
 
@@ -44,7 +45,7 @@
                   {{product.discount}}% OFF
                 </p>
               </div>
-              
+
               <p>$ {{ product.get_final_price }}</p>
 
               <button class="btn btn-primary card-carousel__btn addToCart-btn" value="{{ product.id }}">
