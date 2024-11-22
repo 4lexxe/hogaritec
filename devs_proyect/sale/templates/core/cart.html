@@ -28,8 +28,11 @@
                 <div class="item-container">
 
                     <div class="cart-item__img">
-                        <img src="{{ item.product.images.all.0.image.url }}" alt="imagen del producto"
-                            class="card-img-top-custom card-img-contain">
+                        <a href="{% url 'articulo' id=item.product.id  %}">
+                            <img src="{{ item.product.images.all.0.image.url }}" alt="imagen del producto"
+                                class="card-img-top-custom card-img-contain">
+
+                        </a>
                     </div>
                 </div>
 
@@ -80,7 +83,7 @@
                     </div>
     
                     <div class="resumen-pedido__item">
-                        <div>
+                        <div> 
                             <p>Productos(<span id="num_of_items{{ cart.id }}">{{ cart.num_of_items }}</span>)</p>
                         </div>
                         <div>
