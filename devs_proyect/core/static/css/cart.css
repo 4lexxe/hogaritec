@@ -5,8 +5,8 @@ main button {
 
 .cart-custom {
     margin-top: 20px;
-    width: 90%;
-    margin-left: 5%;
+    width: 70%;
+    margin-left: 15%;
 }
 
 .cart-titulo {
@@ -22,21 +22,20 @@ main button {
 }
 
 .cart-pedidos__titulo{
+    font-size: 10px;
     border-bottom: solid var(--primary-color) 2px;
 }
 
 .cart-item {
-    
     border-bottom: solid var(--primary-color) 2px;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
 }
 
 .item-container{
-    width: 100%;
+    width: 60%;
 }
 
 .cart-item__img{
@@ -46,15 +45,14 @@ main button {
 }
 
 .cart-item__titulo{
+    font-size: 20px;
     color: black;
 }
-
 
 .cart-item__cantidad {
     padding: 5px 10px;
     border: solid var(--primary-color) 2px;
     border-radius: 30px;
-
 }
 /* Estilado de la cantidad */
 .cart-item__cantidad button {
@@ -64,6 +62,27 @@ main button {
     font-size: 20px; 
     background-color: white;
     border: none;
+}
+
+.container-price{
+    margin-top: 20px;
+}
+
+.product-discount{
+    display: inline;
+    font-size: 14px;
+    color: var(--secondary-color);
+}
+
+.product-price{
+    display: inline;
+    font-size: 14px;
+    text-decoration: line-through;
+}
+
+.product-final-price{
+    margin-top: 18px;
+    font-size: 20px;
 }
 
 .cart-item__end{
@@ -78,12 +97,21 @@ main button {
 .bi-trash{
     font-size: 20px;
     color: var(--primary-color);
+    transition: all 0.5s;
+}
+
+.bi-trash:hover{
+    color: red
 }
 
 
 .cart-detalles {
-    display: flex;
-    flex-direction: column;
+    align-self:stretch;
+}
+
+.container-resumen{
+    position: sticky;
+    top: 10vh  ;
 }
 
 .resumen-pedido {
@@ -214,13 +242,15 @@ main button {
         gap: 10px;   
     }
 
-
     .cart-custom {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        width: 92%;
+        margin-left: 4%;
     }
 
     .cart-pedidos {
@@ -236,7 +266,6 @@ main button {
     }
 
     .cart-item__titulo{
-        font-size: 16px;
         width: 15%;
     }
     
@@ -250,5 +279,21 @@ main button {
 
     .cart-detalles {
         width: 35%;
+    }
+
+    .product-discount{
+        font-size: 11px;
+    }
+    
+    .product-price{
+        font-size: 11px;
+    }
+    
+    .product-final-price{
+        font-size: 16px;
+    }
+
+    .cart-item__titulo{
+        font-size: 14px;
     }
 }

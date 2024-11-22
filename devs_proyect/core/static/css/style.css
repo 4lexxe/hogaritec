@@ -39,6 +39,7 @@ header{
   font-family: 'Montserrat', sans-serif;
   font-size: 18px;
   font-weight: bold;
+  
 }
 
 header a {
@@ -191,6 +192,8 @@ footer ul{
 /* DISEÑO MOBILE */
 @media (max-width: 991px) {
 /* HEADER -------------------------------------------------------------------------------------------------------- */
+
+
 .desktop-only {
   display: none;
 }

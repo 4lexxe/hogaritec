@@ -34,9 +34,7 @@
                 </div>
 
 
-                <h3 class="cart-item__titulo"> {{ item.product.name }} </h3>
-
-                <p id="get_final_price{{ item.product.id }}">$ {{ item.product.get_final_price }}</p>
+                <p class="cart-item__titulo"> {{ item.product.name }} </p>
 
                 <div class="cart-item__cantidad">
                     <!-- Sumar o resta de a uno -->
@@ -52,14 +50,22 @@
 
                 </div>
 
-                <div class="cart-item__end" >
+                <div>
+                    <div class="container-price">
+                        <p class="product-discount">{{ item.product.discount }}% OFF</p>
+                        <p class="product-price" id="get_final_price{{ item.product.id }}">$ {{ item.product.price }}</p>
+                    </div>
 
-                    <p id="final_price{{ item.product.id }}">$ {{ item.final_price }}</p>
+                    <p id="final_price{{ item.product.id }}" class="product-final-price">$ {{ item.final_price }}</p>
 
                     <button style="border-width: 0px; background-color: white;" class="deleteProductFromCart" value="{{ item.product.id }}" >
                         <i class="bi bi-trash"></i>
-
                     </button>
+                </div>
+
+
+                <div class="cart-item__end" >
+    
                 </div>
             </section>
             {% endfor %}
