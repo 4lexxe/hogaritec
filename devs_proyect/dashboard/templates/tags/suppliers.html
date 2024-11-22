@@ -4,47 +4,23 @@
           <table class="table table-hover">
               <thead>
                   <tr>
-                      <th>ID</th>
                       <th>Nombre</th>
-                      <th>Contacto</th>
                       <th>Email</th>
-                      <th>Teléfono</th>
-                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
+                  {% for supplier in suppliers %}
                   <tr>
-                      <td>1</td>
-                      <td>Proveedor A</td>
-                      <td>Carlos Rodríguez</td>
-                      <td>carlos@proveedora.com</td>
-                      <td>555-9876</td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
+                      <td>{{ supplier.name }}</td>
+                      <td>{{ supplier.email }}</td>
                   </tr>
-                  <tr>
-                      <td>2</td>
-                      <td>Proveedor B</td>
-                      <td>Ana Martínez</td>
-                      <td>ana@proveedorb.com</td>
-                      <td>555-5432</td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
-                  </tr>
+                  {% endfor %}
               </tbody>
           </table>
+      </div>
+      <!-- Botón para ver más proveedores -->
+      <div class="text-center mt-3">
+          <a href="{%url 'suppliers_dashboard_view'%}" class="btn btn-primary">Ver más proveedores</a>
       </div>
   </div>
 </div>

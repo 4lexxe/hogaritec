@@ -1,0 +1,258 @@
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .edit-container {
+      background-color: #ffffff;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 30px;
+      margin-top: 50px;
+      margin-bottom: 50px;
+    }
+    .form-label {
+      font-weight: 600;
+      color: #495057;
+    }
+    .image-preview {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-top: 15px;
+    }
+    .image-preview-item {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+    .image-preview-item:hover {
+      transform: scale(1.05);
+    }
+    .image-preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .image-preview-item .remove-image {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgba(255,255,255,0.8);
+      border-radius: 50%;
+      padding: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .image-preview-item .remove-image:hover {
+      background-color: #fff;
+    }
+    .custom-file-input::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+    .custom-file-input::before {
+      content: 'Seleccionar imágenes';
+      display: inline-block;
+      background: linear-gradient(top, #f9f9f9, #e3e3e3);
+      border: 1px solid #999;
+      border-radius: 3px;
+      padding: 5px 8px;
+      outline: none;
+      white-space: nowrap;
+      cursor: pointer;
+      text-shadow: 1px 1px #fff;
+      font-weight: 700;
+      font-size: 10pt;
+    }
+    .custom-file-input:hover::before {
+      border-color: black;
+    }
+    .custom-file-input:active::before {
+      background: -webkit-linear-gradient(top, #e3e3e3, #f9f9f9);
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container edit-container">
+    <h2 class="mb-4 text-center">Editar Producto: {{ product.name }}</h2>
+
+    {% if messages %}
+      <div class="mb-3">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form id="productEditForm" method="post" enctype="multipart/form-data" class="needs-validation"
+     novalidate action="?id={{ product.id }}">
+      {% csrf_token %}
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label for="code" class="form-label">Código del producto</label>
+          <input type="text" class="form-control" id="code" name="code" value="{{ product.code }}" required>
+          <div class="invalid-feedback">Por favor, ingrese el código del producto.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="name" class="form-label">Nombre del producto</label>
+          <input type="text" class="form-control" id="name" name="name" value="{{ product.name }}" required>
+          <div class="invalid-feedback">Por favor, ingrese el nombre del producto.</div>
+        </div>
+        <div class="col-md-12">
+          <label for="description" class="form-label">Descripción</label>
+          <textarea class="form-control" id="description" name="description" rows="4" required>{{ product.description }}</textarea>
+          <div class="invalid-feedback">Por favor, ingrese la descripción del producto.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="brand" class="form-label">Marca del producto</label>
+          <input type="text" class="form-control" id="brand" name="brand" value="{{ product.brand }}">
+        </div>
+        <div class="col-md-6">
+          <label for="category" class="form-label">Categoría del producto</label>
+          <input type="text" class="form-control" id="category" name="category" value="{{ product.category }}" required>
+          <div class="invalid-feedback">Por favor, ingrese la categoría del producto.</div>
+        </div>
+        <div class="col-md-4">
+          <label for="price" class="form-label">Precio</label>
+          <div class="input-group">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" id="price" name="price" value="{{ product.price }}" step="0.01" required>
+            <div class="invalid-feedback">Por favor, ingrese el precio del producto.</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="discount" class="form-label">Descuento (%)</label>
+          <input type="number" class="form-control" id="discount" name="discount" value="{{ product.discount }}" min="0" max="100">
+        </div>
+        <div class="col-md-4">
+          <label for="number" class="form-label">Cantidad en inventario</label>
+          <input type="number" class="form-control" id="number" name="number" value="{{ product.number }}" min="0" required>
+          <div class="invalid-feedback">Por favor, ingrese la cantidad en inventario.</div>
+        </div>
+        <div class="col-md-6">
+          <label for="supplier" class="form-label">Proveedor</label>
+          <select class="form-select" id="supplier" name="supplier" required>
+            <option selected disabled value="">Seleccione un proveedor...</option>
+            {% for supplier in suppliers %}
+              <option value="{{ supplier.id }}" {% if supplier.id == product.supplier.id %}selected{% endif %}>{{ supplier.name }}</option>
+            {% endfor %}
+          </select>
+          <div class="invalid-feedback">Por favor, seleccione un proveedor.</div>
+        </div>
+        <div class="col-md-12">
+          <label class="form-label">Imágenes actuales</label>
+          <div class="image-preview" id="currentImages">
+            {% for image in images %}
+              <div class="image-preview-item">
+                <img src="{{ image.image.url }}" alt="Product Image">
+                <button type="button" class="btn btn-danger btn-sm remove-image delete-image" data-image-id="{{ image.id }}">
+                  <i class="bi bi-trash-fill text-danger"></i>
+                  <span class="visually-hidden">Eliminar imagen</span>
+                </button>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-md-12">
+          <label for="new_images" class="form-label">Agregar nuevas imágenes</label>
+          <input type="file" class="form-control custom-file-input" id="new_images" name="new_images" multiple accept="image/*">
+        </div>
+        <div class="col-12 text-center mt-4">
+          <button type="submit" class="btn btn-primary btn-lg me-2">Guardar Cambios</button>
+          <a href="{%url 'dashboard'%}" class="btn btn-secondary btn-lg">Cancelar</a>
+      </div>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('productEditForm');
+      const currentImages = document.getElementById('currentImages');
+    
+      currentImages.addEventListener('click', function(e) {
+        if (e.target.closest('.delete-image')) {
+          e.preventDefault();
+          const deleteButton = e.target.closest('.delete-image');
+          const imageId = deleteButton.dataset.imageId;
+          const imageElement = deleteButton.closest('.image-preview-item');
+    
+          if (confirm('¿Estás seguro de que quieres eliminar esta imagen?')) {
+            fetch('{% url "delete_product_image" %}', {
+              method: 'POST',
+              headers: {
+                'X-CSRFToken': '{{ csrf_token }}',
+                'X-Requested-With': 'XMLHttpRequest',
+                'Content-Type': 'application/x-www-form-urlencoded',
+              },
+              body: `image_id=${imageId}`
+            })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                imageElement.remove();
+              } else {
+                alert('Error al eliminar la imagen: ' + (data.error || 'Desconocido'));
+              }
+            })
+            .catch(error => {
+              console.error('Error:', error);
+              alert('Error al eliminar la imagen');
+            });
+          }
+        }
+      });
+    
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (this.checkValidity()) {
+          const formData = new FormData(this);
+    
+          fetch(this.action, {
+            method: 'POST',
+            body: formData,
+          })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              window.location.href = '{% url "dashboard" %}';
+            } else {
+              alert('Error al actualizar el producto: ' + (data.error || 'Desconocido'));
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error al actualizar el producto');
+          });
+        } else {
+          this.classList.add('was-validated');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+{% endblock %}

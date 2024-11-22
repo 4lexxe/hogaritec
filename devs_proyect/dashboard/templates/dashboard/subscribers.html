@@ -1,0 +1,314 @@
+{% extends 'dashboard/base.html' %}
+{% load tags %}
+{% load static %}
+{% block title %}Panel de Administración - Suscriptores{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'tags/navbar.html' %}
+
+<div class="container-fluid mt-5 pt-5">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h1 class="h2">Suscriptores <span class="badge bg-primary">{{ subscribers|length }}</span></h1>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSubscriberModal">
+        <i class="bi bi-plus-circle me-2"></i>Agregar Suscriptor
+      </button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Fecha de inicio</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for subscriber in subscribers %}
+            <tr>
+              <td>{{ subscriber.id }}</td>
+              <td>{{ subscriber.email }}</td>
+              <td>{{ subscriber.date_subscribed|date:"d/m/Y" }}</td>
+              <td>
+                <div class="btn-group" role="group">
+                  <button type="button" class="btn btn-sm btn-outline-primary edit-subscriber" data-bs-toggle="modal"
+                    data-bs-target="#editSubscriberModal" data-subscriber-id="{{ subscriber.id }}"
+                    data-subscriber-email="{{ subscriber.email }}"
+                    data-subscriber-date="{{ subscriber.date_subscribed|date:'Y-m-d' }}">
+                    <i class="bi bi-pencil"></i>
+                    <span class="d-none d-md-inline">Editar</span>
+                  </button>
+                  <button type="button" class="btn btn-sm btn-outline-danger delete-subscriber" data-bs-toggle="modal"
+                    data-bs-target="#deleteSubscriberModal" data-subscriber-id="{{ subscriber.id }}"
+                    data-subscriber-email="{{ subscriber.email }}">
+                    <i class="bi bi-trash"></i>
+                    <span class="d-none d-md-inline">Eliminar</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Subscriber Modal -->
+<div class="modal fade" id="addSubscriberModal" tabindex="-1" aria-labelledby="addSubscriberModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSubscriberModalLabel">Agregar Suscriptor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addSubscriberForm">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="newSubscriberEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="newSubscriberEmail" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="newSubscriberDate" class="form-label">Fecha de inicio</label>
+            <input type="date" class="form-control" id="newSubscriberDate" name="date_subscribed" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveNewSubscriber">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Subscriber Modal -->
+<div class="modal fade" id="editSubscriberModal" tabindex="-1" aria-labelledby="editSubscriberModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editSubscriberModalLabel">Editar Suscriptor</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="editSubscriberForm">
+          {% csrf_token %}
+          <input type="hidden" id="editSubscriberId" name="id">
+          <div class="mb-3">
+            <label for="editSubscriberEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editSubscriberEmail" name="email" required>
+          </div>
+          <div class="mb-3">
+            <label for="editSubscriberDate" class="form-label">Fecha de inicio</label>
+            <input type="date" class="form-control" id="editSubscriberDate" name="date_subscribed" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveEditSubscriber">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Subscriber Modal -->
+<div class="modal fade" id="deleteSubscriberModal" tabindex="-1" aria-labelledby="deleteSubscriberModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteSubscriberModalLabel">Confirmar eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar al suscriptor <span id="deleteSubscriberEmail"></span>?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteSubscriber">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Add Subscriber
+    const addSubscriberModal = document.getElementById('addSubscriberModal');
+    const addSubscriberForm = document.getElementById('addSubscriberForm');
+    const saveNewSubscriber = document.getElementById('saveNewSubscriber');
+
+    saveNewSubscriber.addEventListener('click', function () {
+      if (addSubscriberForm.checkValidity()) {
+        const formData = new FormData(addSubscriberForm);
+        fetch('{% url "add_subscriber" %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Error de red o servidor');
+            }
+            return response.json();
+          })
+          .then(data => {
+            if (data.success) {
+              location.reload();
+            } else {
+              alert('Error al agregar el suscriptor: ' + data.error);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error al agregar el suscriptor');
+          });
+
+      } else {
+        addSubscriberForm.reportValidity();
+      }
+    });
+
+    // Edit Subscriber
+    const editSubscriberModal = document.getElementById('editSubscriberModal');
+    const editSubscriberForm = document.getElementById('editSubscriberForm');
+    const saveEditSubscriber = document.getElementById('saveEditSubscriber');
+
+    editSubscriberModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      const subscriberId = button.getAttribute('data-subscriber-id');
+      const subscriberEmail = button.getAttribute('data-subscriber-email');
+      const subscriberDate = button.getAttribute('data-subscriber-date');
+
+      editSubscriberForm.querySelector('#editSubscriberId').value = subscriberId;
+      editSubscriberForm.querySelector('#editSubscriberEmail').value = subscriberEmail;
+      editSubscriberForm.querySelector('#editSubscriberDate').value = subscriberDate;
+    });
+
+    saveEditSubscriber.addEventListener('click', function () {
+      if (editSubscriberForm.checkValidity()) {
+        const formData = new FormData(editSubscriberForm);
+        fetch('{% url "edit_subscriber" %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              location.reload();
+            } else {
+              alert('Error al editar el suscriptor: ' + data.error);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error al editar el suscriptor');
+          });
+      } else {
+        editSubscriberForm.reportValidity();
+      }
+    });
+
+    // Delete Subscriber
+    const deleteSubscriberModal = document.getElementById('deleteSubscriberModal');
+    const deleteSubscriberEmail = document.getElementById('deleteSubscriberEmail');
+    const confirmDeleteSubscriber = document.getElementById('confirmDeleteSubscriber');
+    let subscriberIdToDelete;
+
+    deleteSubscriberModal.addEventListener('show.bs.modal', function (event) {
+      const button = event.relatedTarget;
+      subscriberIdToDelete = button.getAttribute('data-subscriber-id');
+      const subscriberEmail = button.getAttribute('data-subscriber-email');
+      deleteSubscriberEmail.textContent = subscriberEmail;
+    });
+
+    confirmDeleteSubscriber.addEventListener('click', function () {
+      fetch('{% url "delete_subscriber" %}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: `subscriber_id=${subscriberIdToDelete}`
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          } else {
+            alert('Error al eliminar el suscriptor: ' + data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error al eliminar el suscriptor');
+        });
+    });
+  });
+</script>
+
+<style>
+  @media (max-width: 767px) {
+    .table-responsive {
+      border: 0;
+    }
+
+    .table-responsive table {
+      border: 0;
+    }
+
+    .table-responsive table thead {
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+    }
+
+    .table-responsive table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+
+    .table-responsive table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+    }
+
+    .table-responsive table td::before {
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .table-responsive table td:last-child {
+      border-bottom: 0;
+    }
+  }
+</style>
+{% endblock %}

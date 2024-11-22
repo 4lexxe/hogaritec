@@ -6,45 +6,22 @@
                   <tr>
                       <th>ID</th>
                       <th>Cliente</th>
-                      <th>Plan</th>
                       <th>Fecha de inicio</th>
-                      <th>Estado</th>
-                      <th>Acciones</th>
                   </tr>
               </thead>
               <tbody>
+                  {% for subscriber in subscribers %}
                   <tr>
-                      <td>1</td>
-                      <td>Juan Pérez</td>
-                      <td>Premium</td>
-                      <td>01/01/2023</td>
-                      <td><span class="badge bg-success">Activa</span></td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
+                      <td>{{ subscriber.id }}</td>
+                      <td>{{ subscriber.email }}</td>
+                      <td>{{ subscriber.date_subscribed|date:"d/m/Y" }}</td>
                   </tr>
-                  <tr>
-                      <td>2</td>
-                      <td>María García</td>
-                      <td>Básico</td>
-                      <td>15/02/2023</td>
-                      <td><span class="badge bg-success">Activa</span></td>
-                      <td>
-                          <button class="btn btn-sm btn-outline-primary me-1" title="Editar">
-                              <i class="bi bi-pencil"></i>
-                          </button>
-                          <button class="btn btn-sm btn-outline-danger" title="Eliminar">
-                              <i class="bi bi-trash"></i>
-                          </button>
-                      </td>
-                  </tr>
+                  {% endfor %}
               </tbody>
           </table>
+      </div>
+      <div class="text-center">
+          <a href="{%url 'subscribers_dashboard_view'%}" class="btn btn-primary mt-3">Ver más suscriptores</a>
       </div>
   </div>
 </div>

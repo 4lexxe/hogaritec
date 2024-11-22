@@ -43,6 +43,10 @@
               </button>
             </form>
           </li>
+          <!-- Enlace al panel de administración si el usuario es superusuario -->
+          {% if user.is_superuser %}
+            <li><a class="dropdown-item" href="{% url 'dashboard' %}">Panel de administración</a></li>
+          {% endif %}
         </ul>
         {% else %}
         <!-- Mostrar enlaces de autenticación si el usuario no está autenticado -->
