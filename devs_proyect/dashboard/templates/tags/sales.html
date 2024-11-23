@@ -1,8 +1,11 @@
 <div class="card">
+  <div class="card-header">
+    <h5 class="card-title mb-0">Órdenes Recientes</h5>
+  </div>
   <div class="card-body">
     <div class="table-responsive">
       <table class="table table-hover align-middle">
-        <thead>
+        <thead class="table-light">
           <tr>
             <th>ID</th>
             <th>Fecha</th>
@@ -11,43 +14,29 @@
             <th>Estado</th>
           </tr>
         </thead>
-        <tbody>
-          {% if sales %}
-          {% for sale in sales %}
+        <tbody id="ordersTableBody">
+          {% for order in latest_orders %}
+          <tr data-order-id="{{ order.id }}">
+            <td data-label="ID">{{ order.id }}</td>
+            <td data-label="Fecha">{{ order.date|date:"d/m/Y H:i" }}</td>
+            <td data-label="Cliente">{{ order.customer.get_full_name }}</td>
+            <td data-label="Total">${{ order.total_amount }}</td>
+            <td data-label="Estado">
+              <span class="badge {% if order.status == 'completed' %}bg-success{% elif order.status == 'pending' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                {{ order.get_status_display }}
+              </span>
+            </td>
+          </tr>
+          {% empty %}
           <tr>
-            <td>{{ sale.id }}</td>
-            <td>{{ sale.date|date:"d/m/Y" }}</td>
-            <td>
-              {% if sale.customer %}
-                {{ sale.customer.first_name }} {{ sale.customer.last_name }}
-              {% else %}
-                <span class="text-muted">Cliente desconocido</span>
-              {% endif %}
-            </td>
-            <td>${{ sale.price }}</td>
-            <td>
-              {% if sale.status == 'paid' %}
-                <span class="badge bg-success">Pagado</span>
-              {% elif sale.status == 'pending' %}
-                <span class="badge bg-warning text-dark">Pendiente</span>
-              {% elif sale.status == 'cancelled' %}
-                <span class="badge bg-danger">Cancelado</span>
-              {% else %}
-                <span class="badge bg-secondary">Desconocido</span>
-              {% endif %}
-            </td>
+            <td colspan="6" class="text-center text-muted">No hay órdenes recientes</td>
           </tr>
           {% endfor %}
-          {% else %}
-          <tr>
-            <td colspan="5" class="text-center text-muted">No hay ninguna venta realizada</td>
-          </tr>
-          {% endif %}
         </tbody>
       </table>
     </div>
     <div class="text-center">
-      <a href="{%url 'sales_dashboard_view'%}" class="btn btn-primary mt-3">Ver todas las ventas</a>
-  </div>
+      <a href="{% url 'orders_list' %}" class="btn btn-primary mt-3">Ver todas las ventas</a>
+    </div>
   </div>
 </div>

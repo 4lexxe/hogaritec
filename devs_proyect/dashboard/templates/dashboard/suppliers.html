@@ -1,61 +1,69 @@
 {% extends 'dashboard/base.html' %}
 {% load tags %}
 {% load static %}
-{% block title %}Panel de Administración{% endblock %}
+{% block title %}Panel de Administración - Proveedores{% endblock %}
   
 {% block content %}
 <!-- Navbar -->
 {% include 'tags/navbar.html' %}
 
-<div class="row align-items-center" style="margin-top: 100px;">
-  <div class="col-md-6">
-    <h1 class="mb-4">Proveedores <span class="badge bg-primary">{{ suppliers|length }}</span></h1>
-  </div>
-  <div class="col-md-6 text-md-end">
-    <a href="#" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
-      <i class="bi bi-person-plus me-2"></i> Agregar Proveedor
-    </a>
-  </div>
-</div>
-
-<div class="card">
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% if suppliers %}
-          {% for supplier in suppliers %}
-          <tr>
-            <td>{{ supplier.name }}</td>
-            <td>{{ supplier.email }}</td>
-            <td>
-              <a href="#" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editSupplierModal-{{ supplier.id }}" title="Editar">
-                <i class="bi bi-pencil"></i>
-              </a>
-              <button class="btn btn-sm btn-outline-danger" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteSupplierModal-{{ supplier.id }}">
-                <i class="bi bi-trash"></i>
-              </button>
-            </td>
-          </tr>
-          {% endfor %}
-          {% else %}
-          <tr>
-            <td colspan="3" class="text-center text-muted">No hay proveedores registrados</td>
-          </tr>
-          {% endif %}
-        </tbody>
-      </table>
+<div class="container-fluid mt-4">
+  <div class="row align-items-center" style="margin-top: 100px;">
+    <div class="col-md-6">
+      <h1 class="mb-4">Proveedores <span class="badge bg-primary" id="supplierCount">{{ suppliers|length }}</span></h1>
     </div>
-    <!-- Botón para ver más proveedores -->
-    <div class="text-center mt-3">
-      <a href="#" class="btn btn-primary">Ver más proveedores</a>
+    <div class="col-md-6 text-md-end">
+      <a href="#" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addSupplierModal">
+        <i class="bi bi-person-plus me-2"></i> Agregar Proveedor
+      </a>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Search form -->
+      <form id="searchForm" class="mb-4">
+        <div class="input-group">
+          <input type="text" id="searchInput" class="form-control" placeholder="Buscar por nombre o email">
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="bi bi-search"></i> Buscar
+          </button>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-hover" id="supplierTable">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Email</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% if suppliers %}
+            {% for supplier in suppliers %}
+            <tr>
+              <td>{{ supplier.name }}</td>
+              <td>{{ supplier.email }}</td>
+              <td>
+                <a href="#" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editSupplierModal-{{ supplier.id }}" title="Editar">
+                  <i class="bi bi-pencil"></i>
+                </a>
+                <button class="btn btn-sm btn-outline-danger" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteSupplierModal-{{ supplier.id }}">
+                  <i class="bi bi-trash"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="3" class="text-center text-muted">No hay proveedores registrados</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
@@ -142,58 +150,54 @@
     </div>
   </div>
 </div>
+{% endfor %}
+
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-  // Modal de agregar proveedor
-  const addSupplierModal = new bootstrap.Modal(document.getElementById('addSupplierModal'));
-  const addSupplierBtn = document.querySelector('[data-bs-target="#addSupplierModal"]');
 
-  addSupplierBtn.addEventListener('click', function () {
-    document.getElementById('name').value = '';
-    document.getElementById('email').value = '';
-  });
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const supplierTable = document.getElementById('supplierTable');
+    const supplierCount = document.getElementById('supplierCount');
 
-  // Modal de editar proveedor
-  const editSupplierModal = new bootstrap.Modal(document.getElementById('editSupplierModal'));
-  const editButtons = document.querySelectorAll('[data-bs-target^="#editSupplierModal"]');
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      fetch(`{% url 'search_suppliers' %}?query=${searchTerm}`)
+        .then(response => response.json())
+        .then(data => {
+          const tbody = supplierTable.querySelector('tbody');
+          tbody.innerHTML = '';
+          
+          data.forEach(supplier => {
+            const row = `
+              <tr>
+                <td>${supplier.name}</td>
+                <td>${supplier.email}</td>
+                <td>
+                  <a href="#" class="btn btn-sm btn-outline-primary me-1" data-bs-toggle="modal" data-bs-target="#editSupplierModal-${supplier.id}" title="Editar">
+                    <i class="bi bi-pencil"></i>
+                  </a>
+                  <button class="btn btn-sm btn-outline-danger" title="Eliminar" data-bs-toggle="modal" data-bs-target="#deleteSupplierModal-${supplier.id}">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+          });
 
-  editButtons.forEach((button) => {
-    button.addEventListener('click', function () {
-      const supplierId = button.getAttribute('data-bs-target').split('-')[1];
-      const supplierName = document.getElementById(`edit-name-${supplierId}`).value;
-      const supplierEmail = document.getElementById(`edit-email-${supplierId}`).value;
-
-      document.getElementById(`edit-name-${supplierId}`).value = supplierName;
-      document.getElementById(`edit-email-${supplierId}`).value = supplierEmail;
-    });
-  });
-
-  // Eliminar proveedor con confirmación
-  const deleteButtons = document.querySelectorAll('[data-bs-toggle="modal"][data-bs-target^="#deleteSupplierModal"]');
-  deleteButtons.forEach((button) => {
-    button.addEventListener('click', function () {
-      const supplierId = button.getAttribute('data-bs-target').split('-')[1];
-      const deleteForm = document.querySelector(`#deleteSupplierModal-${supplierId} form`);
-
-      deleteForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        fetch(deleteForm.action, {
-          method: 'POST',
-          body: new FormData(deleteForm),
-          headers: {
-            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
-          }
-        }).then(response => response.json()).then(data => {
-          if (data.success) {
-            document.querySelector(`#deleteSupplierModal-${supplierId}`).modal('hide');
-            location.reload(); // Recargar la página para reflejar los cambios
-          }
+          supplierCount.textContent = data.length;
         });
-      });
+    });
+
+    searchInput.addEventListener('input', function() {
+      if (this.value === '') {
+        searchForm.dispatchEvent(new Event('submit'));
+      }
     });
   });
-});
 </script>
-{% endfor %}
 
 {% endblock %}

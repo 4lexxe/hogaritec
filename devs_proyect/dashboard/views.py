@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db.models import Sum
 from .forms import ProductForm, CustomerForm
-from sale.models import Product, Sale, Customer, Subscriber, Supplier, ProductImage
+from sale.models import Product, Customer,Sale, Subscriber, Supplier, ProductImage, Order, OrderItem, Payment
 from django.utils.timezone import now
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
@@ -13,56 +13,74 @@ from decimal import Decimal
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
+from django.db.models import Q
+from django.shortcuts import render, get_object_or_404
+from django.http import JsonResponse
+from django.template.loader import render_to_string
+from django.utils import timezone
 
 @login_required
 def dashboard_view(request):
-  # Verifica si el usuario es un superusuario
-  if not request.user.is_superuser:
-    raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
+    # Verifica si el usuario es un superusuario
+    if not request.user.is_superuser:
+        raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
 
-  # Total de productos
-  total_products = Product.objects.count()
+    # Total de productos
+    total_products = Product.objects.count()
 
-  # Ventas del mes
-  current_month = now().month
-  current_year = now().year
-  sales_this_month = Sale.objects.filter(date__year=current_year, date__month=current_month)
-  total_sales = sales_this_month.aggregate(Sum('price'))['price__sum'] or 0  # Evitar None si no hay ventas
+    # Ventas del mes
+    current_month = now().month
+    current_year = now().year
+    sales_this_month = Sale.objects.filter(date__year=current_year, date__month=current_month)
+    total_sales = sales_this_month.aggregate(Sum('price'))['price__sum'] or 0  # Evitar None si no hay ventas
 
-  # Nuevas ventas (todas las ventas para mostrar en la tabla)
-  sales = Sale.objects.all().order_by('-date')
+# Calcular el total de ventas del mes actual desde las órdenes
+    current_month = timezone.now().month
+    current_year = timezone.now().year
+    total_sales_orders = Order.objects.filter(
+        date__year=current_year, 
+        date__month=current_month
+    ).aggregate(Sum('total_amount'))['total_amount__sum'] or 0
 
-  # Nuevos clientes del mes
-  new_customers = Customer.objects.filter(date_joined__year=current_year, date_joined__month=current_month).count()
+    # Nuevas ventas (todas las ventas para mostrar en la tabla)
+    sales = Sale.objects.all().order_by('-date')
 
-  # Pedidos pendientes
-  pending_orders_count = Sale.objects.filter(status='pending').count()
+    # Nuevos clientes del mes
+    new_customers = Customer.objects.filter(date_joined__year=current_year, date_joined__month=current_month).count()
 
-  # Limitar productos
-  products = Product.objects.prefetch_related('images', 'supplier').order_by('-created')[:5]
+    # Pedidos pendientes
+    pending_orders_count = Sale.objects.filter(status='pending').count()
 
-  # Obtener los últimos suscriptores
-  subscribers = Subscriber.objects.order_by('-date_subscribed')[:5]
+    # Limitar productos
+    products = Product.objects.prefetch_related('images', 'supplier').order_by('-created')[:5]
 
-  # Obtener los últimos clientes
-  customers = Customer.objects.order_by('-date_joined')[:5]
+    # Obtener los últimos suscriptores
+    subscribers = Subscriber.objects.order_by('-date_subscribed')[:5]
 
-  # Obtener los últimos proveedores
-  suppliers = Supplier.objects.order_by('-id')[:5]
-  suppliersAll = Supplier.objects.all()
+    # Obtener los últimos clientes
+    customers = Customer.objects.order_by('-date_joined')[:5]
 
-  return render(request, 'dashboard/dashboard.html', {
-    'total_products': total_products,
-    'total_sales': total_sales,
-    'new_customers': new_customers,
-    'products': products,
-    'subscribers': subscribers,
-    'customers': customers,
-    'suppliers': suppliers,
-    'suppliersAll': suppliersAll,
-    'sales': sales,
-    'pending_orders_count': pending_orders_count,
-  })
+    # Obtener los últimos proveedores
+    suppliers = Supplier.objects.order_by('-id')[:5]
+    suppliersAll = Supplier.objects.all()
+
+    # Obtener las últimas 5 órdenes
+    latest_orders = Order.objects.select_related('customer').order_by('-date')[:5]
+
+    return render(request, 'dashboard/dashboard.html', {
+        'total_products': total_products,
+        'total_sales': total_sales,
+        'new_customers': new_customers,
+        'products': products,
+        'subscribers': subscribers,
+        'customers': customers,
+        'suppliers': suppliers,
+        'suppliersAll': suppliersAll,
+        'sales': sales,
+        'pending_orders_count': pending_orders_count,
+        'latest_orders': latest_orders,  # Añadimos las últimas órdenes al contexto
+        'total_sales_orders': total_sales_orders
+    })
 
 @login_required
 def products_dashboard_view(request):
@@ -331,6 +349,16 @@ def delete_subscriber(request):
 
   return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=400)
 
+#Vista para buscador suscriptores
+def search_subscribers(request):
+    query = request.GET.get('query', '')
+    subscribers = Subscriber.objects.filter(
+        Q(email__icontains=query) | Q(date_subscribed__icontains=query)
+    )
+    data = list(subscribers.values('id', 'email', 'date_subscribed'))
+    return JsonResponse(data, safe=False)
+
+#Vista para agregar producto  
 @login_required
 def add_supplier(request):
   if not request.user.is_superuser:
@@ -372,42 +400,60 @@ def delete_supplier(request, supplier_id):
 
   return redirect('suppliers_dashboard_view')  # En caso de que no sea un POST, solo redirige.
 
-# Vista para agregar un usuario
+# Buscador para proovedor
+@login_required
+def search_suppliers(request):
+    query = request.GET.get('query', '')
+    suppliers = Supplier.objects.filter(
+        Q(name__icontains=query) | Q(email__icontains=query)
+    ).values('id', 'name', 'email')
+    return JsonResponse(list(suppliers), safe=False)
+
 @login_required
 @require_POST
 def add_customer(request):
-  if not request.user.is_superuser:
-    raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
-  form = CustomerForm(request.POST, request.FILES)
-  if form.is_valid():
-    customer = form.save()
-    return JsonResponse({'success': True, 'customer_id': customer.id})
-  return JsonResponse({'success': False, 'error': form.errors})
+    if not request.user.is_superuser:
+        raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
+    form = CustomerForm(request.POST, request.FILES)
+    if form.is_valid():
+        customer = form.save()
+        return JsonResponse({'success': True, 'customer_id': customer.id})
+    return JsonResponse({'success': False, 'error': form.errors})
 
-# Vista para editar un usuario
 @login_required
 @require_POST
 def edit_customer(request):
-  if not request.user.is_superuser:
-    raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
-  customer = get_object_or_404(Customer, id=request.POST.get('id'))
-  form = CustomerForm(request.POST, request.FILES, instance=customer)
-  if form.is_valid():
-    if request.POST.get('remove_avatar') == 'true':
-      customer.avatar.delete()
-    customer = form.save()
-    return JsonResponse({'success': True})
-  return JsonResponse({'success': False, 'error': form.errors})
+    if not request.user.is_superuser:
+        raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
+    customer = get_object_or_404(Customer, id=request.POST.get('id'))
+    form = CustomerForm(request.POST, request.FILES, instance=customer)
+    if form.is_valid():
+        if request.POST.get('remove_avatar') == 'true':
+            customer.avatar.delete()
+        customer = form.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'error': form.errors})
 
-# Vista para eliminar un usuario
 @login_required
 @require_POST
 def delete_customer(request):
-  if not request.user.is_superuser:
-    raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
-  customer = get_object_or_404(Customer, id=request.POST.get('customer_id'))
-  customer.delete()
-  return JsonResponse({'success': True})
+    if not request.user.is_superuser:
+        raise PermissionDenied("No tienes permisos suficientes para acceder a esta página")
+
+    customer_id = request.POST.get('customer_id')
+    try:
+        customer = Customer.objects.get(id=customer_id)
+        customer_name = customer.get_full_name()
+        customer.delete()
+        return JsonResponse({
+            'success': True,
+            'redirect_url': reverse('customers_dashboard_view'),
+            'message': f'Cliente "{customer_name}" eliminado con éxito.'
+        })
+    except Customer.DoesNotExist:
+        return JsonResponse({'success': False, 'error': 'Cliente no encontrado'})
+    except Exception as e:
+        return JsonResponse({'success': False, 'error': str(e)})
 
 # Vista para eliminar una venta
 @login_required
@@ -418,3 +464,97 @@ def delete_sale(request):
   sale = get_object_or_404(Sale, id=request.POST.get('sale_id'))
   sale.delete()
   return JsonResponse({'success': True})
+
+@login_required
+def orders_list(request):
+    orders = Order.objects.all().order_by('-date')
+    customers = Customer.objects.all()
+    products = Product.objects.all()
+    context = {
+        'orders': orders,
+        'customers': customers,
+        'products': products,
+    }
+    return render(request, 'dashboard/orders.html', context)
+
+@login_required
+@csrf_exempt
+def add_order(request):
+    if request.method == 'POST':
+        customer_id = request.POST.get('customer')
+        product_id = request.POST.get('product')
+        quantity = int(request.POST.get('quantity'))
+        total_amount = Decimal(request.POST.get('total'))
+
+        customer = get_object_or_404(Customer, id=customer_id)
+        product = get_object_or_404(Product, id=product_id)
+
+        order = Order.objects.create(
+            customer=customer,
+            total_amount=total_amount,
+            status='pending'
+        )
+
+        OrderItem.objects.create(
+            order=order,
+            product=product,
+            quantity=quantity,
+            price=product.price
+        )
+
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=400)
+
+@login_required
+def view_order(request):
+    order_id = request.GET.get('order_id')
+    order = get_object_or_404(Order, id=order_id)
+    
+    # Calcular subtotales
+    order_items = order.orderitems.all()
+    for item in order_items:
+        item.subtotal = item.price * item.quantity
+
+    context = {
+        'order': order,
+        'order_items': order_items,
+    }
+
+    html = render_to_string('dashboard/order_details.html', context)
+    return JsonResponse({'success': True, 'html': html})
+
+@login_required
+@csrf_exempt
+def delete_order(request):
+    if request.method == 'POST':
+        order_id = request.POST.get('order_id')
+        order = get_object_or_404(Order, id=order_id)
+        order.delete()
+        return JsonResponse({'success': True})
+
+    return JsonResponse({'success': False, 'error': 'Método no permitido'}, status=400)
+
+@login_required
+def search_orders(request):
+    customer_query = request.GET.get('customer', '')
+    date_query = request.GET.get('date', '')
+
+    orders = Order.objects.all()
+
+    if customer_query:
+        orders = orders.filter(Q(customer__first_name__icontains=customer_query) | Q(customer__last_name__icontains=customer_query))
+
+    if date_query:
+        orders = orders.filter(date__date=date_query)
+
+    orders_data = [{
+        'id': order.id,
+        'date': order.date,
+        'customer_name': order.customer.get_full_name(),
+        'total_amount': str(order.total_amount),
+        'status': order.get_status_display(),
+    } for order in orders]
+
+    return JsonResponse(orders_data, safe=False)
+

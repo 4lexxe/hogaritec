@@ -21,6 +21,18 @@
 
   <div class="card shadow-sm">
     <div class="card-body">
+      <!-- Search form -->
+      <form id="searchForm" class="mb-4">
+        <div class="input-group">
+          <input type="text" id="searchInput" class="form-control" placeholder="Buscar por email">
+          <button class="btn btn-outline-secondary" type="submit">
+            <i class="bi bi-search"></i> Buscar
+          </button>
+        </div>
+      </form>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
       <div class="table-responsive">
         <table class="table table-hover align-middle">
           <thead class="table-light">
@@ -261,6 +273,70 @@
           console.error('Error:', error);
           alert('Error al eliminar el suscriptor');
         });
+    });
+
+    // Search Subscribers
+    const searchForm = document.getElementById('searchForm');
+    const searchInput = document.getElementById('searchInput');
+    const subscriberTable = document.querySelector('.table-responsive table');
+    const subscriberCount = document.querySelector('.badge');
+
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const searchTerm = searchInput.value.toLowerCase();
+      
+      fetch(`{% url 'search_subscribers' %}?query=${searchTerm}`, {
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'X-CSRFToken': '{{ csrf_token }}'
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          const tbody = subscriberTable.querySelector('tbody');
+          tbody.innerHTML = '';
+          
+          data.forEach(subscriber => {
+            const row = `
+              <tr>
+                <td>${subscriber.id}</td>
+                <td>${subscriber.email}</td>
+                <td>${new Date(subscriber.date_subscribed).toLocaleDateString('es-ES')}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-sm btn-outline-primary edit-subscriber" data-bs-toggle="modal"
+                      data-bs-target="#editSubscriberModal" data-subscriber-id="${subscriber.id}"
+                      data-subscriber-email="${subscriber.email}"
+                      data-subscriber-date="${subscriber.date_subscribed}">
+                      <i class="bi bi-pencil"></i>
+                      <span class="d-none d-md-inline">Editar</span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-outline-danger delete-subscriber" data-bs-toggle="modal"
+                      data-bs-target="#deleteSubscriberModal" data-subscriber-id="${subscriber.id}"
+                      data-subscriber-email="${subscriber.email}">
+                      <i class="bi bi-trash"></i>
+                      <span class="d-none d-md-inline">Eliminar</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+          });
+
+          subscriberCount.textContent = data.length;
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error al buscar suscriptores');
+        });
+    });
+
+    // Reset search when input is cleared
+    searchInput.addEventListener('input', function() {
+      if (this.value === '') {
+        searchForm.dispatchEvent(new Event('submit'));
+      }
     });
   });
 </script>

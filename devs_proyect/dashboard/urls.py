@@ -21,11 +21,13 @@ urlpatterns = [
     path('add-subscriber/', views.add_subscriber, name='add_subscriber'),  # Agregar suscriptor
     path('edit-subscriber/', views.edit_subscriber, name='edit_subscriber'),  # Editar suscriptor
     path('delete-subscriber/', views.delete_subscriber, name='delete_subscriber'),  # Eliminar suscriptor
+    path('search-subscribers/', views.search_subscribers, name='search_subscribers'),
 
     # Supplier Management URLs
     path('add_supplier/', views.add_supplier, name='add_supplier'),  # Agregar proveedor
     path('edit_supplier/<int:supplier_id>/', views.edit_supplier, name='edit_supplier'),  # Editar proveedor por ID
     path('delete_supplier/<int:supplier_id>/', views.delete_supplier, name='delete_supplier'),  # Eliminar proveedor por ID
+    path('search-suppliers/', views.search_suppliers, name='search_suppliers'),
 
     # Sale Management URLs
     path('delete_sale/', views.delete_sale, name='delete_sale'),  # Eliminar venta
@@ -34,4 +36,10 @@ urlpatterns = [
     path('customers/add/', views.add_customer, name='add_customer'),  # Agregar cliente
     path('customers/edit/', views.edit_customer, name='edit_customer'),  # Editar cliente
     path('customers/delete/', views.delete_customer, name='delete_customer'),  # Eliminar cliente
+
+    path('orders/', views.orders_list, name='orders_list'),
+    path('add_order/', views.add_order, name='add_order'),
+    path('view_order/', views.view_order, name='view_order'),
+    path('delete_order/', views.delete_order, name='delete_order'),
+    path('search_orders/', views.search_orders, name='search_orders'),
 ]

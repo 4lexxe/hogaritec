@@ -140,6 +140,7 @@ def delete_image_product(sender, instance, **kwargs):
         if os.path.isfile(instance.image.path):
             os.remove(instance.image.path)
 
+# Modelo para el suscriptor
 class Subscriber(models.Model):
     email = models.EmailField(unique=True)
     date_subscribed = models.DateTimeField(auto_now_add=True)
