@@ -1,0 +1,99 @@
+<!-- core/templates/core/contacto.html -->
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% load tags %} <!-- Carga el tag de tus componentes -->
+
+{% block linkStyle %}
+<link rel="stylesheet" href="{% static 'css/contacto.css' %}"> {% endblock %}
+{% block title %}Contacto - Hogaritec{% endblock %}
+
+
+{% block content %}
+<!-- Header reutilizable -->
+{% include 'tags/header.html' %}
+
+<main>
+  <section class="contact-section">
+    <h1 class="text-center text">Hogaritec</h1>
+
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <p class="text-center text">Si tienes alguna pregunta, comentario o sugerencia, no dudes en ponerte en contacto con
+          nosotros. Estamos aquí para ayudarte.</p>
+      </div>
+    </div>
+
+    <div class="container2">
+
+      <form method="post" action="{% url 'contacto' %}" class="form-contact">
+        <h2 class="form-contact__title">Contáctanos</h2>
+        
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_name">Nombre</label>
+            <input type="text" name="name" class="form-control" id="id_name" placeholder="Ingresa tu nombre" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_email">Correo electrónico</label>
+            <input type="email" name="email" class="form-control" id="id_email" placeholder="Ingresa tu correo" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_subject">Asunto</label>
+            <input type="text" name="subject" class="form-control" id="id_subject" placeholder="Ingresa el asunto" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="id_message">Mensaje</label>
+            <textarea name="message" class="form-control textarea" id="id_message" rows="4" placeholder="Escribe tu mensaje aquí..." required></textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-enviar form-group">Enviar</button>
+    </form>
+
+      <div class="card information">
+        <h2 class="text-center my-4 text">Información de Contacto</h2>
+        <div class="row">
+          <div>
+            <p class="text-center text">Puedes contactarnos a través de los siguientes medios:</p>
+            <ul class="list-unstyled text-center text">
+              <li><strong>Teléfono:</strong> (123) 456-7890</li>
+              <li><strong>Email:</strong> contacto@hogaritec.com</li>
+              <li><strong>Dirección:</strong> Calle Ficticia 123, Ciudad, País</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>Redes Sociales</h3>
+        <div class="networks">
+          <a href="https://www.whatsapp.com/?lang=es_LA" class="network">
+            <img src="{% static 'imgs/contact/whatsapp.png' %}" alt="whatsapp" id="icono-logo">
+            <p>Whatsapp</p>
+          </a>
+          <a href="https://www.instagram.com/?hl=es" class="network">
+            <img src="{% static 'imgs/contact/instagram.png' %}" alt="instagram" id="icono-logo">
+            <p>Instagram</p>
+          </a>
+          <a href="https://www.facebook.com/?locale=es_LA" class="network">
+            <img src="{% static 'imgs/contact/facebook.png' %}" alt="facebook" id="icono-logo">
+            <p>Facebook</p>
+          </a>
+          <a href="https://www.tiktok.com/es/" class="network">
+            <img src="{% static 'imgs/contact/tik-tok.png' %}" alt="tik-tok" id="icono-logo">
+            <p>Tik tok</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </section>
+</main>
+
+<!-- Footer reutilizable -->
+{% include 'tags/footer.html' %}
+{% endblock %}

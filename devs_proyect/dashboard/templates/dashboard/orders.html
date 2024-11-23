@@ -1,0 +1,382 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Panel de Administración - Órdenes{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'tags/navbar.html' %}
+
+<div class="container-fluid mt-5 pt-5">
+  <div class="row align-items-center mb-4">
+    <div class="col-md-6">
+      <h1 class="h2">Órdenes <span class="badge bg-primary">{{ orders|length }}</span></h1>
+    </div>
+    <div class="col-md-6 text-md-end">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addOrderModal">
+        <i class="bi bi-plus-circle me-2"></i>Nueva Orden
+      </button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <!-- Search form -->
+      <form id="searchForm" class="mb-4">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <input type="text" id="searchCustomer" class="form-control" placeholder="Buscar por cliente">
+          </div>
+          <div class="col-md-4">
+            <input type="date" id="searchDate" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-outline-secondary w-100" type="submit">
+              <i class="bi bi-search"></i> Buscar
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
+            <tr>
+              <th>ID</th>
+              <th>Fecha</th>
+              <th>Cliente</th>
+              <th>Total</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="ordersTableBody">
+            {% for order in orders %}
+            <tr data-order-id="{{ order.id }}">
+              <td data-label="ID">{{ order.id }}</td>
+              <td data-label="Fecha">{{ order.date|date:"d/m/Y H:i" }}</td>
+              <td data-label="Cliente">{{ order.customer.get_full_name }}</td>
+              <td data-label="Total">${{ order.total_amount }}</td>
+              <td data-label="Estado">
+                <span class="badge {% if order.status == 'completed' %}bg-success{% elif order.status == 'pending' %}bg-warning text-dark{% else %}bg-danger{% endif %}">
+                  {{ order.get_status_display }}
+                </span>
+              </td>
+              <td data-label="Acciones">
+                <button type="button" class="btn btn-sm btn-outline-primary view-order" 
+                        data-bs-toggle="modal" data-bs-target="#viewOrderModal" data-order-id="{{ order.id }}">
+                  <i class="bi bi-eye"></i>
+                  <span class="d-none d-md-inline">Ver</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger delete-order" 
+                        data-order-id="{{ order.id }}">
+                  <i class="bi bi-trash"></i>
+                  <span class="d-none d-md-inline">Eliminar</span>
+                </button>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+              <td colspan="6" class="text-center text-muted">No hay órdenes registradas</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Order Modal -->
+<div class="modal fade" id="addOrderModal" tabindex="-1" aria-labelledby="addOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addOrderModalLabel">Nueva Orden</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="addOrderForm">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="customer" class="form-label">Cliente</label>
+            <select class="form-select" id="customer" name="customer" required>
+              <option value="">Seleccione un cliente</option>
+              {% for customer in customers %}
+              <option value="{{ customer.id }}">{{ customer.get_full_name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="product" class="form-label">Producto</label>
+            <select class="form-select" id="product" name="product" required>
+              <option value="">Seleccione un producto</option>
+              {% for product in products %}
+              <option value="{{ product.id }}" data-price="{{ product.price }}">{{ product.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="quantity" class="form-label">Cantidad</label>
+            <input type="number" class="form-control" id="quantity" name="quantity" min="1" value="1" required>
+          </div>
+          <div class="mb-3">
+            <label for="total" class="form-label">Total</label>
+            <input type="text" class="form-control" id="total" name="total" readonly>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" id="saveNewOrder">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View Order Modal -->
+<div class="modal fade" id="viewOrderModal" tabindex="-1" aria-labelledby="viewOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewOrderModalLabel">Detalles de la Orden</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="orderDetails">
+        <!-- Order details will be loaded here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Order Modal -->
+<div class="modal fade" id="deleteOrderModal" tabindex="-1" aria-labelledby="deleteOrderModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteOrderModalLabel">Confirmar eliminación</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ¿Estás seguro de que deseas eliminar esta orden?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteOrder">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const addOrderModal = new bootstrap.Modal(document.getElementById('addOrderModal'));
+    const viewOrderModal = new bootstrap.Modal(document.getElementById('viewOrderModal'));
+    const deleteOrderModal = new bootstrap.Modal(document.getElementById('deleteOrderModal'));
+    const confirmDeleteOrder = document.getElementById('confirmDeleteOrder');
+    let orderIdToDelete;
+  
+    // Add Order
+    const addOrderForm = document.getElementById('addOrderForm');
+    const saveNewOrder = document.getElementById('saveNewOrder');
+    const productSelect = document.getElementById('product');
+    const quantityInput = document.getElementById('quantity');
+    const totalInput = document.getElementById('total');
+  
+    function updateTotal() {
+      const selectedOption = productSelect.options[productSelect.selectedIndex];
+      const price = selectedOption.dataset.price;
+      const quantity = quantityInput.value;
+      totalInput.value = (price * quantity).toFixed(2);
+    }
+  
+    productSelect.addEventListener('change', updateTotal);
+    quantityInput.addEventListener('input', updateTotal);
+  
+    saveNewOrder.addEventListener('click', function() {
+      if (addOrderForm.checkValidity()) {
+        const formData = new FormData(addOrderForm);
+        fetch('{% url "add_order" %}', {
+          method: 'POST',
+          body: formData,
+          headers: {
+            'X-CSRFToken': '{{ csrf_token }}'
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            location.reload();
+          } else {
+            alert('Error al agregar la orden: ' + data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Error al agregar la orden');
+        });
+      } else {
+        addOrderForm.reportValidity();
+      }
+    });
+  
+    // View Order
+    function addViewOrderListeners() {
+      document.querySelectorAll('.view-order').forEach(button => {
+        button.addEventListener('click', function() {
+          const orderId = this.getAttribute('data-order-id');
+          fetch(`{% url "view_order" %}?order_id=${orderId}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              document.getElementById('orderDetails').innerHTML = data.html;
+              viewOrderModal.show();
+            } else {
+              alert('Error al cargar los detalles de la orden: ' + data.error);
+            }
+          })
+          .catch(error => {
+            console.error('Error:', error);
+            alert('Error al cargar los detalles de la orden');
+          });
+        });
+      });
+    }
+  
+    // Llamar a la función inicialmente
+    addViewOrderListeners();
+  
+    // Delete Order
+    function addDeleteOrderListeners() {
+      document.querySelectorAll('.delete-order').forEach(button => {
+        button.addEventListener('click', function() {
+          orderIdToDelete = this.getAttribute('data-order-id');
+          deleteOrderModal.show();
+        });
+      });
+    }
+  
+    // Llamar a la función inicialmente
+    addDeleteOrderListeners();
+  
+    confirmDeleteOrder.addEventListener('click', function() {
+      fetch('{% url "delete_order" %}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: `order_id=${orderIdToDelete}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          location.reload();
+        } else {
+          alert('Error al eliminar la orden: ' + data.error);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al eliminar la orden');
+      });
+    });
+  
+    // Search
+    const searchForm = document.getElementById('searchForm');
+    const searchCustomer = document.getElementById('searchCustomer');
+    const searchDate = document.getElementById('searchDate');
+  
+    searchForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const customerQuery = searchCustomer.value;
+      const dateQuery = searchDate.value;
+      
+      fetch(`{% url 'search_orders' %}?customer=${customerQuery}&date=${dateQuery}`)
+      .then(response => response.json())
+      .then(data => {
+        const tbody = document.getElementById('ordersTableBody');
+        tbody.innerHTML = '';
+        
+        data.forEach(order => {
+          const row = `
+            <tr data-order-id="${order.id}">
+              <td data-label="ID">${order.id}</td>
+              <td data-label="Fecha">${new Date(order.date).toLocaleString('es-ES')}</td>
+              <td data-label="Cliente">${order.customer_name}</td>
+              <td data-label="Total">$${order.total_amount}</td>
+              <td data-label="Estado">
+                <span class="badge ${order.status === 'completed' ? 'bg-success' : order.status === 'pending' ? 'bg-warning text-dark' : 'bg-danger'}">
+                  ${order.status}
+                </span>
+              </td>
+              <td data-label="Acciones">
+                <button type="button" class="btn btn-sm btn-outline-primary view-order" 
+                        data-bs-toggle="modal" data-bs-target="#viewOrderModal" data-order-id="${order.id}">
+                  <i class="bi bi-eye"></i>
+                  <span class="d-none d-md-inline">Ver</span>
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-danger delete-order" 
+                        data-order-id="${order.id}">
+                  <i class="bi bi-trash"></i>
+                  <span class="d-none d-md-inline">Eliminar</span>
+                </button>
+              </td>
+            </tr>
+          `;
+          tbody.insertAdjacentHTML('beforeend', row);
+        });
+        
+        // Volver a agregar los event listeners después de actualizar la tabla
+        addViewOrderListeners();
+        addDeleteOrderListeners();
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Error al buscar órdenes');
+      });
+    });
+  });
+  </script>
+
+<style>
+@media (max-width: 767px) {
+  .table-responsive {
+    border: 0;
+  }
+  .table-responsive table {
+    border: 0;
+  }
+  .table-responsive table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  .table-responsive table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: .625em;
+  }
+  .table-responsive table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: .8em;
+    text-align: right;
+  }
+  .table-responsive table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  .table-responsive table td:last-child {
+    border-bottom: 0;
+  }
+}
+</style>
+{% endblock %}

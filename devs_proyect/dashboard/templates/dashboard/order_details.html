@@ -1,0 +1,86 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+
+{% block title %}Detalles de la Orden{% endblock %}
+
+{% block content %}
+<div class="container mt-3 pt-3">
+  <h2 class="mb-4">Detalles de la Orden #{{ order.id }}</h2>
+  
+  <div class="card mb-4" style="margin-top: 50px;">
+    <div class="card-header">
+      Información de la Orden
+    </div>
+    <div class="card-body">
+      <p><strong>Cliente:</strong> {{ order.customer.get_full_name }}</p>
+      <p><strong>Correo electrónico:</strong> {{ order.customer.email }}</p>
+      <p><strong>Fecha:</strong> {{ order.date|date:"d/m/Y H:i" }}</p>
+      <p><strong>Estado:</strong> {{ order.get_status_display }}</p>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      Productos de la Orden
+    </div>
+    <div class="card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Código</th>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in order_items %}
+          <tr>
+            <td>{{ item.product.code }}</td>
+            <td>{{ item.product.name }}</td>
+            <td>{{ item.quantity }}</td>
+            <td>${{ item.price|floatformat:2 }}</td>
+            <td>${{ item.subtotal|floatformat:2 }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="5" class="text-center">No hay productos en esta orden.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-header">
+      Resumen de la Orden
+    </div>
+    <div class="card-body">
+      <p class="text-end"><strong>Total:</strong> ${{ order.total_amount|floatformat:2 }}</p>
+    </div>
+  </div>
+
+  {% if order.payment %}
+  <div class="card">
+    <div class="card-header">
+      Información de Pago
+    </div>
+    <div class="card-body">
+      <p><strong>Método de pago:</strong> {{ order.payment.method }}</p>
+      <p><strong>Estado del pago:</strong> {{ order.payment.status }}</p>
+      <p><strong>Monto:</strong> ${{ order.payment.amount|floatformat:2 }}</p>
+      <p><strong>Fecha de aprobación:</strong> {{ order.payment.date_approved|default:"N/A" }}</p>
+      <p><strong>ID de transacción:</strong> {{ order.payment.transaction_id|default:"N/A" }}</p>
+      <p><strong>Descripción:</strong> {{ order.payment.description|default:"N/A" }}</p>
+      <p><strong>Cuotas:</strong> {{ order.payment.installments }}</p>
+    </div>
+  </div>
+  {% else %}
+  <div class="alert alert-warning">
+    No hay información de pago disponible para esta orden.
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

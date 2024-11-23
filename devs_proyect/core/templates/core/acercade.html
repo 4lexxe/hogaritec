@@ -1,128 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hogaritec - Acerca de</title>
-</head>
-<body>
-    <header>
-        <div class="top-bar">
-            <img src="logo.png" alt="Hogaritec Logo" class="logo">
-            <form class="search-form">
-                <input type="search" placeholder="¿Qué estás buscando?">
-                <button type="submit">Buscar</button>
-            </form>
-            <div class="user-actions">
-                <a href="#">Iniciar sesión</a> | <a href="#">Registrarse</a>
-                <a href="#" class="cart-icon">Carrito</a>
-            </div>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="#">INICIO</a></li>
-                <li><a href="#">ACERCA DE</a></li>
-                <li><a href="#">CONTACTOS</a></li>
-                <li><a href="#">COCINA</a></li>
-                <li><a href="#">REFRIGERACIÓN</a></li>
-                <li><a href="#">CELULARES</a></li>
-                <li><a href="#">OFERTAS</a></li>
-            </ul>
-        </nav>
-    </header>
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
 
-    <h1>Sobre nosotros</h1>
-    <p>
+{% block title %}Acerca de - Hogaritec{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+
+<main>
+  <section class="about-section container my-5">
+    <h1 class="text-center mb-4">Acerca de Hogaritec</h1>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <p>Bienvenido, tu destino en línea para los mejores electrodomésticos. Nos especializamos en ofrecer productos
+          de alta calidad a precios competitivos, asegurando que cada cliente encuentre lo que necesita para hacer su
+          hogar más funcional y cómodo.</p>
+        <p>Nuestra misión es proporcionar una experiencia de compra excepcional, con atención al cliente de primer
+          nivel y una selección variada de productos. Creemos que todos merecen acceso a tecnología de vanguardia y
+          electrodomésticos que faciliten la vida diaria.</p>
+      </div>
+    </div>
+
+    <h1 class="text-center my-4">¿Por qué elegirnos?</h1>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <ul class="list"> <!-- Asegúrate de que esto esté dentro de una lista -->
+          <li>Variedad de productos de las mejores marcas.</li>
+          <li>Precios competitivos y ofertas especiales.</li>
+          <li>Envío rápido y seguro a tu domicilio.</li>
+          <li>Soporte al cliente amigable y disponible.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h1 class="text-center my-4">Acerca del equipo de fundadores</h1>
+    <div class="row text-center">
+      <div class="col-lg-10 mx-auto">
+        <p>
         Somos estudiantes de la Facultad de Ingeniería de San Salvador de Jujuy, y estamos lanzando
         nuestra página de ventas de electrodomésticos para toda la comunidad. Cuenta con la página de inicio
-        donde encontrarás los productos más destacados y las distintas opciones para comprar y agregar cosas 
+        donde encontrarás los productos más destacados y las distintas opciones para comprar y agregar cosas
         a tu carrito, esta pestaña con información sobre la empresa y nosotros los fundadores, y una pestaña
         de contactos para que nos encuentres y nos puedas comunicar tus inquietudes, tus dudas, o simplemente
-        dejarnos tu mensaje de apoyo hacia nuestro trabajo. 
-    </p>
-    <p>
-        Atte: el equipo de fundadores de "HOGARITEC".
-    </p>
-    <h1>Historia y visión</h1>
-    <p>
-        Empezamos hace poco con esta idea de negocio, y queremos que cada persona tenga la posibilidad de elegir
-        libremente los artículos para cada necesidad. Tenemos productos de todo tipo y para el gusto de cada
-        usuario por lo que les será muy facil encontrar lo que desean.
-    </p>
-    <p>
-        Buscamos tener un futuro más grande, hasta poder poner una sucursal y llegar a más gente, tenemos
-        tambien el sueño de ser internacionales y poder darle nuestros productos cada vez a más personas. 
-    </p>
-    <h1>Valores de la empresa</h1>
-    <p>
-        En Hogaritec, buscamos siempre la sencillez, y la transparencia y el respeto de los empleados hacia
-        los clientes y viceversa. Buscamos siempre facilitarle las cosas al usuario de nuestros productos,
-        contamos con garantías y equipos de reparación de primera mano. Nuestros pilares son: respeto,
-        eficiencia y calidad.
-    </p>
-    <h1>Equipo de fundadores</h1>
-    <figure>
-        <h2>Calatayud, Alex Gabriel</h2>
-        <img src="fotoAlex.png" alt="Alexxe" height="200" width="200">
-        <figcaption>Alex Calatayud, xx años, estudiante de APU en la Facultad de Ingeniería de Jujuy</figcaption>
-    </figure>
-    <figure>
-        <h2>Mamaní, Luis Carlos Manuel</h2>
-        <img src="fotoLuis.png" alt="Luis" height="200" width="200">
-        <figcaption>Luis Mamaní, xx años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</figcaption>
-    </figure>
-    <figure>
-        <h2>Romero, Lucas Ezequiel</h2>
-        <img src="fotoLucas.png" alt="Lucas" height="200" width="200">
-        <figcaption>Lucas Romero, 19 años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</figcaption>
-    </figure>
-    <footer>
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="logo.png" alt="Hogaritec Logo">
-                <p>Tienda online de electrodomésticos</p>
+        dejarnos tu mensaje de apoyo hacia nuestro trabajo.
+        </p>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="dropdown">
+          <figure class="figure">
+            <img src="{% static 'imgs/general/fotoAlex.png' %}" class="figure-img img-fluid rounded-circle" alt="Alex" height="200" width="200">
+            <div class="mb-4">
+              <h3 class="nombres-fundadores">Alex Gabriel Calatayud</h3>
             </div>
-            <div class="footer-categories">
-                <h3>Categorías</h3>
-                <ul>
-                    <li><a href="#">Cocina</a></li>
-                    <li><a href="#">Refrigeración</a></li>
-                    <li><a href="#">Celulares</a></li>
-                    <li><a href="#">Portátiles</a></li>
-                    <li><a href="#">Consolas</a></li>
-                    <li><a href="#">Limpieza</a></li>
-                    <li><a href="#">Ofertas</a></li>
-                </ul>
+            <div class="dropdown-content">
+              <figcaption class="figure-caption mt-3">
+                <h5>xx años, estudiante de Ingeniria informatica en la Facultad de Ingeniería de Jujuy</h5>
+                <h6>
+                  Tengo 21 años y actualmente estudio Ingeniería Informática en la Facultad de Ingeniería de la Universidad Nacional de Jujuy (UNJu). 
+                  Apasionado por la tecnología y con un firme compromiso de incorporarme al apasionante mundo de la informática.
+                  Cada día, me esfuerzo por aprender y crecer, impulsado por la determinación de estar al nivel de los programadores más talentosos. 
+                  Mi búsqueda constante de conocimiento me ha lleva a explorar diversas áreas de la tecnología, y estoy emocionado por la oportunidad de seguir desarrollando mis habilidades
+                </h6>
+              </figcaption>
             </div>
-            <div class="footer-legal">
-                <h3>Información legal</h3>
-                <ul>
-                    <li><a href="#">Términos y condiciones</a></li>
-                    <li><a href="#">Política de privacidad</a></li>
-                    <li><a href="#">Política de cookies</a></li>
-                </ul>
-            </div>
-            <div class="footer-contact">
-                <h3>Contacto</h3>
-                <p>+54 9 388 0000-0000</p>
-                <p>info@hogaritec.com.ar</p>
-                <p>Av. LOL Jujuy, Argentina</p>
-                <h3>Redes sociales</h3>
-                <div class="social-icons">
-                </div>
-            </div>
-            <div class="footer-newsletter">
-                <h3>Newsletter</h3>
-                <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
-                <form>
-                    <input type="email" placeholder="Ingresa tu correo">
-                    <button type="submit">Suscribirse</button>
-                </form>
-            </div>
+          </figure>
         </div>
-        <div class="footer-bottom">
-            <p>Hogaritec © 2024. Todos los derechos reservados.</p>
+      </div>
+
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="dropdown">
+          <figure class="figure">
+            <img src="{% static 'imgs/general/fotoLuis.png' %}" class="figure-img img-fluid rounded-circle" alt="Luis" height="200" width="200">
+            <div class="mb-4">
+              <h3 class="nombres-fundadores">Luis Carlos Manuel Mamaní</h3>
+            </div>
+            <div class="dropdown-content">
+              <figcaption class="figure-caption">
+                <h5>18 años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</h5>
+                <h6>
+                Vivo en San Salvador de Jujuy, Argentina. Tengo 18 años y actualmente estudio Ingeniería Informática en la Facultad de Ingeniería de la Universidad Nacional de Jujuy (UNJu).
+                Junto a mi equipo de trabajo, estamos desarrollando un sitio web para la venta de productos electrodomésticos. Este proyecto me permite fortalecer mis habilidades blandas, como la comunicación, el trabajo en equipo, la colaboración y la organización, entre otras.
+                Me gusta hacer ejercicio de vez en cuando, especialmente salir a correr. También disfruto cocinar e investigar temas de desarrollo personal. Soy apasionado del aprendizaje continuo, sobre todo en áreas como la informática, las matemáticas y la electrónica.
+                </h6>            
+              </figcaption>
+            </div>
+          </figure>
         </div>
-    </footer>
-</body>
-</html>
+      </div>
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="dropdown">
+          <figure class="figure">
+            <img src="{% static 'imgs/general/fotoLucas.png' %}" class="figure-img img-fluid rounded-circle" alt="Lucas" height="200" width="200">
+            <div class="mb-4">
+              <h3 class="nombres-fundadores">Lucas Ezequiel Romero</h3>
+            </div>
+            <div class="dropdown-content">
+              <figcaption class="figure-caption">                
+                <h5>19 años, estudiante de I. Informática en la Facultad de Ingeniería de Jujuy</h5>
+                <h6>
+                  Soy Lucas, tengo 19 años, nací el 18/10/2005 y vivo en San Salvador de Jujuy. Estoy en 1° año de I. Informática en la Facultad de Ingeniería de la Universidad Nacional de Jujuy.
+                  Esta página que estamos desarrollando, es un gran proyecto y un gran desafío personalmente, será mi primer página web, y voy a hacer todo lo que esté en mi alcance para llegar a un buen producto.
+                  Me gusta el fútbol, y divertirme con amigos. Soy bueno aprendiendo y enseñando cuando toca hacerlo.
+                </h6>
+              </figcaption> 
+            </div>        
+          </figure>          
+        </div>  
+      </div>
+    </div>
+
+    <h2 class="text-center my-4">Contáctanos</h2>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <p class="text-center">Si tienes alguna pregunta o necesitas más información, no dudes en <a
+            href="/contacto">contactarnos</a>. Estamos aquí para ayudarte.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+{% include 'tags/footer.html' %}
+{% endblock %}

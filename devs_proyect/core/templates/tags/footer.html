@@ -1,0 +1,68 @@
+<!-- footer.html -->
+{% load static %}
+
+<footer>
+  <div class="footer-content">
+      <div class="footer-logo">
+          <img src="{% static './imgs/icons/logo.png' %}" alt="Hogaritec Logo">
+          <p>Tienda online de electrodomésticos</p>
+      </div>
+      <div class="footer-categories">
+          <h3 class="footer-headline">Categorías</h3>
+          <div class="categories-container">
+              <ul class="categories-list line">
+                  <li><a href="#">Cocina</a></li>
+                  <li><a href="#">Refrigeración</a></li>
+                  <li><a href="#">Celulares</a></li>
+              </ul>
+              <ul class="categories-list">
+                  <li><a href="#">Portátiles</a></li>
+                  <li><a href="#">Consolas</a></li>
+                  <li><a href="#">Limpieza</a></li>
+                  <li><a href="#">Ofertas</a></li>
+              </ul>
+          </div>
+      </div>
+      <div class="footer-legal">
+          <h3 class="footer-headline">Información legal</h3>
+          <ul>
+              <li><a href="#">Términos y condiciones</a></li>
+              <li><a href="#">Política de privacidad</a></li>
+              <li><a href="#">Política de cookies</a></li>
+          </ul> 
+      </div>
+      <div class="footer-contact">
+          <h3 class="footer-headline">Contacto</h3>
+          <p>+54 9 388 0000-0000</p>
+          <p>info@hogaritec.com.ar</p>
+          <p>Av. LOL Jujuy, Argentina</p>
+          <h3 class="footer-headline">Redes sociales</h3>
+          <div class="social-icons contact-icons">
+              <a href="https://www.whatsapp.com/?lang=es_LA">
+                  <img src="{% static './imgs/icons/whatsapp.png' %}" alt="whatsapp">
+              </a>
+              <a href="https://www.instagram.com/?hl=es">
+                  <img src="{% static './imgs/icons/instagram.png' %}" alt="instagram" >
+              </a>
+              <a href="https://www.facebook.com/?locale=es_LA">
+                  <img src="{% static './imgs/icons/facebook.png' %}" alt="facebook">
+              </a>
+              <a href="https://www.tiktok.com/es/">
+                  <img src="{% static './imgs/icons/tik-tok.png' %}" alt="tik-tok">
+              </a>
+          </div>
+      </div>
+      <div class="footer-newsletter">
+          <h3 class="footer-headline">Newsletter</h3>
+          <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
+          <form method="post" action="">
+            {% csrf_token %}
+              <input type="email" name="email" placeholder="Ingresa tu correo" class="text-input" required>
+              <button type="submit" class="suscribe-button">Suscribirse</button>
+          </form>
+      </div>
+  </div>
+  <div class="footer-bottom">
+      <p>Hogaritec © 2024. Todos los derechos reservados.</p>
+  </div>
+</footer>

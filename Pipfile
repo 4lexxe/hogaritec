@@ -10,10 +10,12 @@ pillow = "*"
 pylint = "*"
 pylint-django = "*"
 pylint-celery = "*"
+mercadopago = "*"
 
 [dev-packages]
 
 [requires]
 python_version = "3.13"
+
 [scripts]
 djangoExample = "python djangoExample/manage.py runserver"

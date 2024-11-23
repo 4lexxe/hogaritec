@@ -1,0 +1,89 @@
+{% extends 'dashboard/base.html' %}
+{% load tags %}
+{% load static %}
+{% block title %}Panel de Administración{% endblock %}
+
+{% block content %}
+<!-- Navbar -->
+{% include 'tags/navbar.html' %}
+<div class="container-fluid">
+  <div class="row">
+    <main class="col-lg-8 main-content">
+
+      {% if messages or request.GET.message %}
+      <div class="messages">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+
+        {% if request.GET.message %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ request.GET.message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+      </div>
+      {% endif %}
+
+      <div
+        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Dashboard</h1>
+      </div>
+
+      <div class="row mb-4">
+        <!-- Total de productos -->
+        {% include 'tags/totalProducts.html' %}
+        <!-- Recaudacion de ventas -->
+        {% include 'tags/totalSales.html' %}
+        <!-- Nuevos Clientes -->
+        {% include 'tags/newsCustomers.html' %}
+        <!-- Ordenes pendientes -->
+        {% include 'tags/pendingOrders.html' %}
+      </div>
+
+      <section id="productos" class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Ultimos productos</h2>
+        </div>
+        <!-- products -->
+        {% include 'tags/products.html' %}
+      </section>
+
+      <section id="suscripciones" class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Ultimos suscripciones</h2>
+        </div>
+        <!-- Suscripciones -->
+        {% include 'tags/subscriptions.html' %}
+      </section>
+
+      <section id="ventas" class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Ultimas ventas</h2>
+        </div>
+        <!-- Ventas -->
+        {% include 'tags/sales.html' %}
+      </section>
+
+      <section id="clientes" class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Ultimos clientes</h2>
+        </div>
+        <!-- CLientes -->
+        {% include 'tags/customers.html' %}
+      </section>
+
+      <section id="proveedores" class="mb-4">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h2>Ultimos proveedores</h2>
+        </div>
+        <!-- Proveedores -->
+        {% include 'tags/suppliers.html' %}
+      </section>
+    </main>
+  </div>
+</div>
+{% endblock %}

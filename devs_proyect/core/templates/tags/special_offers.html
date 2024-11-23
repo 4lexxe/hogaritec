@@ -1,0 +1,70 @@
+{% load static %}
+
+<section class="main-section">
+  <div class="special-offers">
+    <div class="offers-header">
+      <h2>OFERTAS ESPECIALES</h2>
+    </div>
+
+    <!-- Carrusel para dispositivos móviles -->
+    <div class="swiper swiperCarouselCards custom-swiper">
+      <div class="swiper-wrapper">
+        <!-- SLIDES -->
+
+        {% for product in products %}
+        {% if product.discount %}
+        <div class="swiper-slide custom-swiper-slide">
+
+          <div class="card carousel-card">
+
+            <div class="card-img-wrapper">
+              {% if product.images.all %}
+              <!-- Mostrar la primera imagen del producto -->
+              <a href="{% url 'articulo' id=product.id  %}">
+                <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}"
+                  class="card-img-top-custom card-img-contain">
+              </a>
+
+              {% else %}
+              <!-- Imagen de reserva si no hay imágenes para el producto -->
+              <a href="{% url 'articulo' id=product.id  %}">
+                <img src="{% static './imgs/general/product2.png' %}" alt="No image available"
+                  class="card-img-top-custom card-img-contain">
+              </a>
+              {% endif %}
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title card-title-limited">{{product.name}}</h5>
+
+              <div class="card-buy">
+                <p class="card-text card-price card-carousel__price">
+                  $ {{product.price}}
+                </p>
+                <p class="card-carousel__discount">
+                  {{product.discount}}% OFF
+                </p>
+              </div>
+
+              <p>$ {{ product.get_final_price }}</p>
+
+              <button class="btn btn-primary card-carousel__btn addToCart-btn" value="{{ product.id }}">
+                <img src="{% static './imgs/icons/carrito-de-compras.png' %}" alt="comprar" id="cart-icon">
+                ¡Aprovecha ahora!
+              </button>
+
+            </div>
+
+          </div>
+
+        </div>
+        {% endif %}
+        {% endfor %}
+
+      </div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+
+    </div>
+  </div>
+</section>

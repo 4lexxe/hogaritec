@@ -1,0 +1,143 @@
+.row{
+    --bs-gutter-x: 0px
+}
+
+.text{
+    margin: 20px 20%;
+}
+
+.container2{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.form-contact{
+    width: 90%;
+    text-align: start;
+    background-color: #f0f0f0; 
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+
+    .form-contact__title{
+        margin: 3% 5%;
+    }
+    
+    .form-group{
+        margin: 3% 5%;
+    }
+
+    .btn-enviar{
+        width: 90%;
+        margin-top: 0px;
+        background-color: var(--primary-color);
+        color: white;
+        transition: all 0.5s;
+    }
+}
+
+
+.form-control:focus{
+    border-color: var(--tertiary-color);
+    box-shadow: 0 0 5px rgba(226, 163, 199, 0.5);
+}
+
+
+.btn-enviar:hover{
+    background-color: var(--secondary-color);
+    color: white;
+}
+
+.information{
+    margin-top: 30px;
+    width: 90%;
+}
+
+
+.networks{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 5px;
+}
+
+.network{
+    margin-top: 10px;
+    color: black;
+}
+
+.textarea{
+    resize: none;
+}
+
+#icono-logo{
+    position: relative;
+    transition: transform 0.3s ease-in-out;
+}
+
+#icono-logo:hover{
+    animation: move 1s ease 0.5s infinite;
+}
+
+.alert-container {
+  margin-top: 20px;
+}
+
+.alert {
+  padding: 10px;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+}
+
+@keyframes move {
+    0% {
+        bottom: 0px;
+        
+    }
+    20%{
+        bottom: 20px;
+        transform: rotate(0deg);
+    }
+    30%{
+        transform: rotate(-40deg);
+    }
+    50%{
+        transform: rotate(40deg);
+    }
+    70%{
+        transform: rotate(-40deg)
+    }
+    80%{
+        transform: rotate(0deg) ;
+        bottom: 20px;
+    }
+    100% {
+        bottom: 0px;
+        
+    }
+}
+
+@media (min-width: 576px){
+}
+
+@media (min-width: 992px){
+    .container2{
+        flex-flow: wrap row;
+        justify-content: space-around;
+    }
+
+    .form-contact{
+        width: 50%;
+    }
+
+    .information{
+        width: 35%;
+    }
+
+}

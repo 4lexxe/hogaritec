@@ -1,0 +1,316 @@
+.main-section {
+  margin: 0 5vw 100px;
+
+}
+
+.notification{
+  display: none;
+  top: 0;
+  right: 0;
+  margin: 37px 20px;
+  padding: 10px 10px 0px 10px;
+  z-index: 10;
+  border: solid 1px rgba(0, 0, 0, 0.2);
+  
+  position: fixed;
+  background-color: white;
+  font-size: 16px;
+  border-radius: 5px;
+}
+.notification p{
+  margin: 0;
+}
+
+.notification-title{
+  text-align: start;
+  color: var(--primary-color);
+}
+
+.notification.show {
+  display: block;
+}
+
+.progress-bar {
+  height: 4px;
+  /* background-color: #e0e0e0; */
+}
+
+.progress {
+  height: 100%;
+  width: 0;
+  background-color: var(--primary-color);
+  transition: width 0.1s linear;
+}
+
+
+/* SECTION 1 --------------------------------------------------------------- */
+.hero-banner {
+  margin-bottom: 100px;
+}
+
+.custom-swiper-carousel{
+  height: 50vh;
+}
+
+.banner-img{
+  width: 100%;
+  height: 100%;
+}
+
+/* SECTION 2 -------------------------------------------------------------- */
+
+.special-offers {
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.special-offers .offers-header h2 {
+  font-size: 30px !important;
+  font-weight: 800 !important;
+  text-shadow: 0.5px 0.5px #423E28, -0.5px -0.5px #423E28;
+  color: #423E28;
+}
+
+.offers-header {
+  text-align: start;
+  padding: 5px 30px;
+  border-radius: 10px 10px 0 0;
+
+  background-image: url('../imgs/general/patron1.svg'),
+    linear-gradient(90deg, var(--quaternary-color), var(--primary-color), var(--secondary-color));
+  background-blend-mode: overlay;
+  background-size: cover, 200% 200%;
+  background-position: center, 0% 0%;
+  animation: colorShift 10s infinite linear;
+}
+
+@keyframes colorShift {
+  0% {
+    background-position: center, 0% 0%;
+  }
+
+  50% {
+    background-position: center, 100% 0%;
+  }
+
+  100% {
+    background-position: center, 0% 0%;
+  }
+}
+
+
+/* Estilos del carousel de cards */
+
+.custom-swiper{
+  border-radius: 0px 0px 20px 20px;
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-swiper-slide{
+  padding: 20px 0px;
+}
+
+.carousel-card {
+  border-width: 0px;
+}
+
+.card-carousel__price {
+  color: silver;
+  text-decoration: line-through;
+}
+
+.card-carousel__discount {
+  color: var(--secondary-color);
+}
+
+.card-carousel__btn {
+  height: 50px;
+  border-radius: 20px;
+  border-width: 0px;
+  background-color: var(--primary-color);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-carousel__btn:hover{
+  background-color: var(--secondary-color);
+}
+
+#cart-icon {
+  width: 30px;
+}
+/* OFERTAS ESPECIALES */
+
+/* Contenedor principal de ofertas especiales */
+.special-offers {
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* SECTION 3 -------------------------------------------------------------- */
+
+
+.featured-products {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.featured__title-products {
+  text-align: start;
+  width: 100%;
+  border-bottom: 2px solid var(--primary-color);
+  margin-bottom: 40px;
+}
+
+
+/* card2------------------------------------------------------------------------- */
+.card {
+  width: 250px;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-wrapper {
+  position: relative;
+  padding-top: 56.25%;
+  /* Relación de aspecto 16:9 */
+  overflow: hidden;
+}
+
+.card-img-top-custom {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.card-img-contain {
+  object-fit: contain;
+}
+
+.card-title-limited {
+  font-size: 15px;
+  line-height: 1.4; /* Mejora la legibilidad */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: calc(1.4em * 2); /* Limita la altura a dos líneas */
+}
+
+.card-buy {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.btn-cart {
+  padding: 0px;
+  border: 0px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+}
+
+.more-products{
+  padding: 10px 80px;
+  background-color: var(--primary-color);
+  margin-bottom: 20px;
+  color: white;
+  
+}
+
+.more-products:hover{
+  color: white;
+  background-color: var(--secondary-color);
+}
+
+.btn-cart:hover{
+  border: 0px;
+  background-color: var(--secondary-color);
+}
+
+
+/* SECTION 4 ------------------------------------------------------------------- */
+.newsletter-signup {
+  color: white;
+  padding: 40px 20px;
+  background-image: url("../imgs/general/patron2.png");
+  background-color: var(--secondary-color);
+}
+
+.suscribe-button2 {
+  background-color: black;
+}
+
+@media (min-width: 576px) {
+  .featured-products {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    gap: 18px;
+  }
+
+  .featured__title-products {
+    text-align: start;
+    width: 100%;
+    border-bottom: 2px solid var(--primary-color);
+    margin-bottom: 40px;
+  }
+
+
+  /* SECTION 4 */
+  .newsletter-signup {
+    text-align: start;
+    color: white;
+    padding: 40px 20px;
+  }
+
+  .newsletter-signup h2 {
+    margin-left: 100px;
+  }
+
+  .newsletter-signup p {
+    margin-left: 100px;
+  }
+
+  .forms-suscribe {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .suscribe-input {
+    width: 50%;
+
+  }
+
+  .suscribe-button2 {
+    width: 30%;
+    padding: 11px 15px;
+    margin: 0px;
+  }
+
+}
+
+/* Para escritorio (pantallas grandes) */
+@media (min-width: 1024px) {}

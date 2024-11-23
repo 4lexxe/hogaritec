@@ -1,0 +1,14 @@
+<div class="col-md-3 mb-4">
+  <div class="card bg-warning text-dark">
+    <div class="card-body text-center">
+      <h5 class="card-title">Pedidos Pendientes</h5>
+      <p class="card-text display-4">
+        {% if pending_orders_count %}
+          {{ pending_orders_count }}
+        {% else %}
+          0
+        {% endif %}
+      </p>
+    </div>
+  </div>
+</div>

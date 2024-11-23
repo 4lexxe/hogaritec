@@ -1,0 +1,126 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+
+{% block linkStyle %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+{% endblock %}
+
+{% block title %}Carrito{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+
+<main>
+    <div class="cart-custom">
+
+        <h1 class="cart-titulo featured__title-products">Carrito de compras</h1>
+        
+        <div class="cart-pedidos">
+            <div class="cart-pedidos__titulo">
+                <h2>Productos</h2>
+            </div>
+
+            {% for item in cartitems %}
+
+            <section class="cart-item" id="cartitem{{ item.product.id }}">
+                <div class="item-container">
+
+                    <div class="cart-item__img">
+                        <a href="{% url 'articulo' id=item.product.id  %}">
+                            <img src="{{ item.product.images.all.0.image.url }}" alt="imagen del producto"
+                                class="card-img-top-custom card-img-contain">
+
+                        </a>
+                    </div>
+                </div>
+
+
+                <p class="cart-item__titulo"> {{ item.product.name }} </p>
+
+                <div class="cart-item__cantidad">
+                    <!-- Sumar o resta de a uno -->
+                    <button class="btn-deleteOne deleteFromCart-btn" value="{{ item.product.id }}">
+                        -
+                    </button>
+
+                    <span id="quantity{{ item.product.id }}">{{ item.quantity }}</span>
+
+                    <button class="btn-addOne addToCart-btn2" value="{{ item.product.id }}">
+                        +
+                    </button>
+
+                </div>
+
+                <div>
+                    <div class="container-price">
+                        <p class="product-discount">{{ item.product.discount }}% OFF</p>
+                        <p class="product-price" id="get_final_price{{ item.product.id }}">$ {{ item.product.price }}</p>
+                    </div>
+
+                    <p id="final_price{{ item.product.id }}" class="product-final-price">$ {{ item.final_price }}</p>
+
+                    <button style="border-width: 0px; background-color: white;" class="deleteProductFromCart" value="{{ item.product.id }}" >
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
+
+
+                <div class="cart-item__end" >
+    
+                </div>
+            </section>
+            {% endfor %}
+
+        </div>
+
+        <div class="cart-detalles">
+            <div class="container-resumen">
+                <div class="resumen-pedido">
+                    <div class="resumen-pedido__item">
+                        <h3>Resumen del pedido</h3>
+                    </div>
+    
+                    <div class="resumen-pedido__item">
+                        <div> 
+                            <p>Productos(<span id="num_of_items{{ cart.id }}">{{ cart.num_of_items }}</span>)</p>
+                        </div>
+                        <div>
+                            <p id="total_price{{ cart.id }}">$ {{ cart.total_price }}</p>
+                        </div>
+                    </div>
+                    <div class="resumen-pedido__item">
+                        <label for="coupon">¿Tienes un cupón de descuento?</label>
+                        <div class="resumen-pedido__item-search">
+                            <input type="search" name="" id="coupon" placeholder="Código de cupon" class="item-search">
+                            <button class="pedido-btn">Aplicar</button>
+                            <p>- $ 00.00</p>
+                        </div>
+                    </div>
+                    <div class="resumen-pedido__item resumen-total">
+                        <p>Total: </p>
+                        <p id="total_price{{ cart.id }}2">$ {{ cart.total_price }} </p>
+                    </div>
+    
+                    <button class="mercadopago-button payment" value="{{ cart.id }}" id="payButton" >
+                        <img src="{% static 'imgs/icons/logoMercadoPago.png' %}" alt="Mercado Pago Logo" style="width: 40px; height: 30px; margin-right: 8px; vertical-align: middle;">
+                        <span id="buttonText">Pagar con Mercado Pago</span>
+                        <div class="loading-overlay"></div>
+                        <div class="spinner"></div>
+                    </button>
+    
+                </div>
+    
+                <div class="mas-productos">
+                    <a href="{% url 'productos' %}" class="btn more-products">Ver más productos</a>
+                </div>
+            </div>
+        </div>
+    
+</main>
+
+{% include 'tags/footer.html' %}
+
+<script src="{% static 'js/cart.js' %}"></script>
+<script src="{% static 'js/payment.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,45 @@
+<div class="card">
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-hover align-middle">
+              <thead>
+                  <tr>
+                      <th>Avatar</th>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                      <th>Teléfono</th>
+                      <th>Fecha de registro</th>
+                      <th>Activo</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for customer in customers %}
+                  <tr>
+                      <td>
+                          {% if customer.avatar %}
+                              <img src="{{ customer.avatar.url }}" alt="{{ customer.get_full_name }}" class="rounded-circle" width="40" height="40">
+                          {% else %}
+                              <img src="https://via.placeholder.com/40" alt="Avatar" class="rounded-circle">
+                          {% endif %}
+                      </td>
+                      <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+                      <td>{{ customer.email }}</td>
+                      <td>{{ customer.phone_number }}</td>
+                      <td>{{ customer.date_joined|date:"d/m/Y" }}</td>
+                      <td>
+                          {% if customer.is_active %}
+                              <span class="badge bg-success">Activo</span>
+                          {% else %}
+                              <span class="badge bg-danger">Inactivo</span>
+                          {% endif %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      <div class="text-center">
+          <a href="{%url 'customers_dashboard_view'%}" class="btn btn-primary mt-3">Ver más clientes</a>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<div class="card">
+  <div class="card-body">
+      <div class="table-responsive">
+          <table class="table table-hover">
+              <thead>
+                  <tr>
+                      <th>Nombre</th>
+                      <th>Email</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for supplier in suppliers %}
+                  <tr>
+                      <td>{{ supplier.name }}</td>
+                      <td>{{ supplier.email }}</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      <!-- Botón para ver más proveedores -->
+      <div class="text-center mt-3">
+          <a href="{%url 'suppliers_dashboard_view'%}" class="btn btn-primary">Ver más proveedores</a>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load tags %}
+
+
+{% block linkStyle %}
+<link rel="stylesheet" href="{% static 'css/articulo.css' %}">
+{% endblock %}
+{% block title %}Artículo{% endblock %}
+
+{% block content %}
+{% include 'tags/header.html' %}
+<main>
+    <section class="product">
+        <article class="product-image-container">
+            <div class="carousel">
+                {% for image in product.images.all %}
+                <div class="carousel-slide card-img-wrapper">
+                    <img src="{{ image.image.url }}" alt="Imagen Producto - {{ product.id }}" class="card-img-top-custom">
+                </div>
+                {% endfor %}
+                <a href="#" class="carousel-btn prev" aria-label="Imagen anterior">&lt;</a>
+                <a href="#" class="carousel-btn next" aria-label="Imagen siguiente">&gt;</a>
+            </div>
+        </article>
+        <article class="product-details">
+            <h1 class="product-title">{{product.name}}</h1>
+
+            <div class="product-cat">
+                <a href="" class="btn more-products" style="padding-right: 10px; padding-left: 10px;">{{ product.category }}</a>
+                <a href="" class="btn more-products" style="padding-right: 10px; padding-left: 10px;">{{ product.brand }}</a>
+
+            </div>
+            
+            {% if product.number %}
+            <p class="stock-status">{{ product.number }} unidades disponibles </p>
+            {% else %}
+            <p class="stock-status"> Sin unidades disponibles</p>
+            {% endif %}
+
+            <div>
+                {% if product.discount %}
+                <div class="product-container-price">
+                    <p class="card-price card-carousel__price textP">{{ product.price }}</p>
+                    <p class="card-carousel__discount textP">{{ product.discount }}% OFF</p>
+                </div>
+                <p class="product-price">{{ product.get_final_price }}</p>
+                {% else %}
+                <p class="product-price">{{ product.price }}</p>
+                {% endif %}
+            </div>
+            
+            <div class="add-to-cart-container">
+                <button class="add-to-cart addToCart-btn" aria-label="Añadir producto al carrito">Agregar al carrito</button>
+                <div class="quantity-control">
+                    <button class="quantity-btn minus" aria-label="Disminuir cantidad">-</button>
+                    <span class="quantity-display" aria-live="polite">1</span>
+                    <button class="quantity-btn plus" aria-label="Aumentar cantidad">+</button>
+                </div>
+            </div>
+        </article>
+
+        <article class="product-features ">
+            <h2 class="featured__title-products" >Descripción</h2>
+            <p class="product-description">{{ product.description }}</p>
+        </article>
+    </section>
+</main>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Carrusel
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevBtn = document.querySelector('.carousel-btn.prev');
+            const nextBtn = document.querySelector('.carousel-btn.next');
+            let currentSlide = 0;
+
+            function showSlide(n) {
+                slides[currentSlide].style.left = '-100%';
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].style.left = '0';
+            }
+
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+
+            nextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                nextSlide();
+            });
+
+            prevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                prevSlide();
+            });
+
+            // Inicializar el carrusel
+            slides.forEach((slide, index) => {
+                slide.style.left = index === 0 ? '0' : '100%';
+            });
+
+            // Control de cantidad
+            const minusBtn = document.querySelector('.quantity-btn.minus');
+            const plusBtn = document.querySelector('.quantity-btn.plus');
+            const quantityDisplay = document.querySelector('.quantity-display');
+            let quantity = 1;
+
+            function updateQuantity(newQuantity) {
+                quantity = Math.max(1, newQuantity); // Asegura que la cantidad no sea menor que 1
+                quantityDisplay.textContent = quantity;
+            }
+
+            minusBtn.addEventListener('click', function() {
+                updateQuantity(quantity - 1);
+            });
+
+            plusBtn.addEventListener('click', function() {
+                updateQuantity(quantity + 1);
+            });
+        });
+    </script>
+{% include 'tags/footer.html' %}
+<script src="{% static 'js/product.js' %}"></script>
+{% endblock %}

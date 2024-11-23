@@ -1,0 +1,50 @@
+{% load static %}
+
+<section class="featured-products main-section">
+  <h2 class="featured__title-products">PRODUCTOS DESTACADOS</h2>
+
+    <!------------------------------------------------ Seccion de cards -------------------------------------------->
+
+    {% for product in products|slice:":10" %}
+    <div class="card">
+        
+        <div class="card-img-wrapper">
+            {% if product.images.all %}
+            <!-- Mostrar la primera imagen del producto -->
+             <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{{ product.images.all.0.image.url }}" alt="{{ product.name }}" class="card-img-top-custom card-img-contain">
+             </a>
+
+            {% else %}
+            <!-- Imagen de reserva si no hay imágenes para el producto -->
+             <a href="{% url 'articulo' id=product.id  %}">
+                 <img src="{% static './imgs/general/product2.png' %}" alt="No image available" class="card-img-top-custom card-img-contain">
+             </a>
+            {% endif %}
+        </div>
+
+
+
+        <div class="card-body">
+            <h5 class="card-title card-title-limited">{{product.name}}</h5>
+            
+            <div class="card-buy">
+                <p class="card-text card-price">
+                    $  {{product.price}}
+                </p>
+                <button
+                    class="btn btn-primary btn-cart d-flex align-items-center justify-content-center addToCart-btn" value="{{ product.id }}"
+                    style="width: 50px; height:50px;">
+                    <i class="bi bi-cart-plus text-white"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+</section>
+
+<section>
+    <a href="{% url 'productos' %}" class="btn more-products">Mas productos</a>
+
+</section>

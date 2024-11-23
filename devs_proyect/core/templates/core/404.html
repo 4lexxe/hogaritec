@@ -1,0 +1,21 @@
+{% extends 'core/base.html' %}
+
+{% load static %}
+{% load tags %}
+
+{% block title %}Error 404 - Página no encontrada{% endblock %}
+
+{% block content %}
+<!-- Header reutilizable -->
+{% include 'tags/header.html' %}
+<div class="container text-center" style="margin-top: 100px; margin-bottom: 50px;">
+    <h1 style="font-size: 6rem; color: #dc3545;">404</h1> 
+    <p style="font-size: 2rem;">Página no encontrada</p>
+    <p style="font-size: 1.5rem;">Lo sentimos, la página que buscas no existe o ha sido movida.</p>
+    <p style="font-size: 1.5rem;">URL solicitada: <strong>{{ path }}</strong></p>  <!-- Muestra la URL ingresada -->
+    <a href="/" class="btn btn-primary btn-lg">Volver a la página de inicio</a>
+</div>
+
+<!-- Footer reutilizable -->
+{% include 'tags/footer.html' %}
+{% endblock %}

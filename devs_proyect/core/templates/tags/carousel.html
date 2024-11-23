@@ -1,0 +1,32 @@
+{% load static %}
+<section class="hero-banner">
+    <!-- Carousel de bootstrap de imagenes -->
+    <div class="swiper swiperCarousel custom-swiper-carousel ">
+        <div class="swiper-wrapper custom-swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/Carrusel1.png' %}" alt="banner1.png" class="banner-img">
+
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel2.jpg' %}" alt="banner2.jpg" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel3.webp' %}" alt="banner3.webp" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel4.jpg' %}" alt="banner4.jpg" class="banner-img">
+            
+          </div>
+          <div class="swiper-slide">
+            <img src="{% static './imgs/carousel/carousel5.jpg' %}" alt="banner5.jpg" class="banner-img">
+            
+          </div>
+          
+        </div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-pagination"></div>
+      </div>
+</section>
