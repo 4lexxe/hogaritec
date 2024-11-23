@@ -160,6 +160,8 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'sale.Customer'
 
+CSRF_TRUSTED_ORIGINGS = ['http://*','https://hogaritec-production.up.railway.app']
+
 
 # Configuración de correo electrónico usando variables del entorno
 EMAIL_BACKEND = os.getenv('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
