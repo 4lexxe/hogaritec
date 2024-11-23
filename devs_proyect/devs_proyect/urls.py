@@ -19,6 +19,7 @@ urlpatterns = [
     path('acercade/', views.acercade_view, name='about'),  # Ruta para la página "Acerca de"
     path('contacto/', views.contacto_view, name='contacto'),  # Ruta para la página "Contacto"
     path('article/<int:id>/', views.articulo_view, name='articulo'),  # Ruta para la página "Artículo"
+    path('categorias/', views.categorias_view, name='categories'),
 
     # Rutas de autenticación
     path('register/', views.RegisterView, name='register'),
@@ -46,8 +47,10 @@ urlpatterns = [
     path('sale/', include('sale.urls')),
     
     # Pagos
-    path("payment/", include('payment.urls'))
+    path("payment/", include('payment.urls')),
 
+    # Categorias
+    path('categories/', views.categories, name='categories'),
 ]
 
 # Asigna la función personalizada a handler404

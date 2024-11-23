@@ -12,6 +12,7 @@ from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 from django.contrib.auth.decorators import login_required
 from django.forms.models import model_to_dict
+from django.core.paginator import Paginator
 
 from sale.models import Customer
 from sale.models import Product
@@ -70,6 +71,9 @@ def articulo_view(request, id):
     articulo = get_object_or_404(Product, id=id)
     
     return render(request, "core/articulo.html", {"product": articulo})
+
+def categorias_view(request):
+    return render(request, "core/categorias.html")
 
 # Manejo de errores 404 
 def custom_404_view(request, exception):
@@ -277,3 +281,23 @@ def search_products(request):
         'products': products,
         'query': query
     })
+
+def categories(request):
+    category = request.GET.get('category', '')
+    if category.lower() == 'ofertas':
+        # Filtrar productos con descuento mayor a 0
+        products = Product.objects.filter(discount__gt=0).order_by('-discount')
+    else:
+        # Filtrar productos por categoría
+        products = Product.objects.filter(category__iexact=category)
+    
+    # Configurar la paginación
+    paginator = Paginator(products, 12)  # 12 productos por página
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    context = {
+        'category': category,
+        'products': page_obj,
+    }
+    return render(request, 'core/categories.html', context)

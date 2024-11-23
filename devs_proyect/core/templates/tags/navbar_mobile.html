@@ -66,19 +66,32 @@
             <a class="nav-link mobile-nav-link" href="{% url 'contacto' %}">CONTACTOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="#">COCINA</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=cocina">COCINA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="#">REFRIGERACION</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=refrigeracion">REFRIGERACION</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="#">CELULARES</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=celulares">CELULARES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="#">OFERTAS</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=portatiles">PORTÁTILES</a>
           </li>
-          <!-- Cerrar sesión solo visible si el usuario está autenticado -->
+          <li class="nav-item mobile-nav-link">
+            <a class="nav-link" href="{% url 'categories' %}?category=consolas">CONSOLAS</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=limpieza">LIMPIEZA</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=ofertas">OFERTAS</a>
+          </li>
           {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link mobile-nav-link" href="{% url 'dashboard' %}">PANEL DE ADMINISTRACIÓN</a>
+            </li>
+            {% endif %}
           <li class="nav-item d-flex justify-content-center">
             <form action="{% url 'logout' %}" method="post" style="display: inline;">
               {% csrf_token %}
