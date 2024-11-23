@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hogaritec - Tienda de Electrodomésticos</title>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <img src="logo.png" alt="Hogaritec Logo" class="logo">
+            <form class="search-form">
+                <input type="search" placeholder="¿Qué estás buscando?">
+                <button type="submit">Buscar</button>
+            </form>
+            <div class="user-actions">
+                <a href="#">Iniciar sesión</a> | <a href="#">Registrarse</a>
+                <a href="#" class="cart-icon">Carrito</a>
+            </div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">INICIO</a></li>
+                <li><a href="#">ACERCA DE</a></li>
+                <li><a href="#">CONTACTOS</a></li>
+                <li><a href="#">COCINA</a></li>
+                <li><a href="#">REFRIGERACIÓN</a></li>
+                <li><a href="#">CELULARES</a></li>
+                <li><a href="#">OFERTAS</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero-banner">
+            <img src="banner.jpg" alt="banner">
+            <div class="banner-content">
+                <h2>Esto es un banner</h2>
+            </div>
+        </section>
+
+        <section class="special-offers">
+            <h2>OFERTAS ESPECIALES</h2>
+            <div class="product-grid">
+                <!-- Repeat this structure for each product -->
+                <div class="product-card">
+                    <img src="refrigerator.jpg" alt="Refrigerador">
+                    <h3>PRODUCTO X</h3>
+                    <p>(ej. 2da línea de texto)</p>
+                    <p class="original-price">$12.345,67</p>
+                    <p class="discount">25% OFF</p>
+                    <p class="final-price">$6.172,84</p>
+                    <button>¡Aprovecha ahora!</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="featured-products">
+            <h2>PRODUCTOS DESTACADOS</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="oven.jpg" alt="Horno">
+                    <h3>PRODUCTO X</h3>
+                    <p>(ej. 2da línea de texto)</p>
+                    <p class="price">$12.345,67</p>
+                    <button class="add-to-cart">Agregar al carrito</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="newsletter-signup">
+            <h2>¡MANTENTE AL DÍA!</h2>
+            <p>Únete a nuestro boletín y sé el primero en enterarte de ofertas exclusivas, descuentos y las últimas tendencias en electrodomésticos.</p>
+            <form>
+                <input type="email" placeholder="Ingresa tu correo">
+                <button type="submit">Suscribirse</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="logo.png" alt="Hogaritec Logo">
+                <p>Tienda online de electrodomésticos</p>
+            </div>
+            <div class="footer-categories">
+                <h3>Categorías</h3>
+                <ul>
+                    <li><a href="#">Cocina</a></li>
+                    <li><a href="#">Refrigeración</a></li>
+                    <li><a href="#">Celulares</a></li>
+                    <li><a href="#">Portátiles</a></li>
+                    <li><a href="#">Consolas</a></li>
+                    <li><a href="#">Limpieza</a></li>
+                    <li><a href="#">Ofertas</a></li>
+                </ul>
+            </div>
+            <div class="footer-legal">
+                <h3>Información legal</h3>
+                <ul>
+                    <li><a href="#">Términos y condiciones</a></li>
+                    <li><a href="#">Política de privacidad</a></li>
+                    <li><a href="#">Política de cookies</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h3>Contacto</h3>
+                <p>+54 9 388 0000-0000</p>
+                <p>info@hogaritec.com.ar</p>
+                <p>Av. LOL Jujuy, Argentina</p>
+                <h3>Redes sociales</h3>
+                <div class="social-icons">
+                </div>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>No te pierdas descuentos, promociones exclusivas y el ingreso de nuevos productos.</p>
+                <form>
+                    <input type="email" placeholder="Ingresa tu correo">
+                    <button type="submit">Suscribirse</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>Hogaritec © 2024. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+</body>
+</html>
