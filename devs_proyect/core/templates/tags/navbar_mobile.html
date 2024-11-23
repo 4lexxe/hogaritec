@@ -66,28 +66,32 @@
             <a class="nav-link mobile-nav-link" href="{% url 'contacto' %}">CONTACTOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">COCINA</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=cocina">COCINA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">REFRIGERACION</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=refrigeracion">REFRIGERACION</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">CELULARES</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=celulares">CELULARES</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">PORTÁTILES</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=portatiles">PORTÁTILES</a>
           </li>
           <li class="nav-item mobile-nav-link">
-            <a class="nav-link" href="{% url 'categories' %}">CONSOLAS</a>
+            <a class="nav-link" href="{% url 'categories' %}?category=consolas">CONSOLAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">LIMPIEZA</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=limpieza">LIMPIEZA</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}">OFERTAS</a>
+            <a class="nav-link mobile-nav-link" href="{% url 'categories' %}?category=ofertas">OFERTAS</a>
           </li>
-          <!-- Cerrar sesión solo visible si el usuario está autenticado -->
           {% if user.is_authenticated %}
+            {% if user.is_superuser %}
+            <li class="nav-item">
+              <a class="nav-link mobile-nav-link" href="{% url 'dashboard' %}">PANEL DE ADMINISTRACIÓN</a>
+            </li>
+            {% endif %}
           <li class="nav-item d-flex justify-content-center">
             <form action="{% url 'logout' %}" method="post" style="display: inline;">
               {% csrf_token %}

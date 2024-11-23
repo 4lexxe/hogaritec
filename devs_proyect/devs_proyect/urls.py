@@ -47,8 +47,10 @@ urlpatterns = [
     path('sale/', include('sale.urls')),
     
     # Pagos
-    path("payment/", include('payment.urls'))
+    path("payment/", include('payment.urls')),
 
+    # Categorias
+    path('categories/', views.categories, name='categories'),
 ]
 
 # Asigna la función personalizada a handler404
