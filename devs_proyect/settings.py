@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'whitenoise.runserver.staticfiles',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
@@ -48,6 +49,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # Asegúrate de poner esto aquí
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -128,6 +130,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,  'staticfiles')
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
