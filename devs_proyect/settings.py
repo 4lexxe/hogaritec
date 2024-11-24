@@ -29,8 +29,17 @@ SECRET_KEY = 'django-insecure-c+moqfc$sh4el9v8jfhm^q&wt*y$cfhh-^a_8jb9aee55qmky!
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = ['*']  # O ajusta según tu entorno
+ALLOWED_HOSTS = [
+    'hogaritec-production.up.railway.app',
+    'localhost',
+    '127.0.0.1',
+    '*'
+]
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://*',
+    'https://hogaritec-production.up.railway.app',
+]
 
 # Application definition
 
@@ -49,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Asegúrate de poner esto aquí
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -160,7 +169,7 @@ LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'index'
 AUTH_USER_MODEL = 'sale.Customer'
 
-CSRF_TRUSTED_ORIGINGS = ['http://*','https://hogaritec-production.up.railway.app']
+
 
 
 # Configuración de correo electrónico usando variables del entorno
