@@ -42,17 +42,8 @@ Esta fase inicial tiene como objetivo diseñar y construir la estructura y el es
 - **Otros**: Posiblemente se agreguen otras tecnologías.
 
 ## 👥 Integrantes del Proyecto
+#
 
-| Foto | Nombre y Apellidos | DNI | Correo Electrónico |
-|------|--------------------|-----|--------------------|
-| ![Foto de Integrante 1](https://i.postimg.cc/QtS5K52D/f1-1.jpg) | Alex Gabriel Calatayud | 44877389 | [alexxe@fi.unju.edu.ar](mailto:alexxe@fi.unju.edu.ar) |
-| ![Foto de Integrante 2](https://i.postimg.cc/PJxDWJHw/Luis-Carlos-Mamani.jpg) | Luis Carlos Manuel Mamaní | 46891956 | [46891956@fi.unju.edu.ar](mailto:46891956@fi.unju.edu.ar) |
-| ![Foto de Integrante 3](https://i.postimg.cc/XNHdVfKc/f1.jpg) | Lucas Ezequiel Romero | 46792397 | [46792397@fi.unju.edu.ar](mailto:46792397@fi.unju.edu.ar) |
-
-## 👩‍🏫 Profesores
-
-| Foto | Nombre y Apellidos | Correo Electrónico |
-|------|--------------------|--------------------|
 | ![Foto de Profesor 1](https://i.postimg.cc/j5h9Wgqj/f1.png) | Ana Carolina Tolaba |atolaba@fi.unju.edu.ar|
 | ![Foto de Profesor 2](https://i.postimg.cc/Hnh65FqT/f1-2.jpg) | José Zapana | jose_zapana@fi.unju.edu.ar|
 
